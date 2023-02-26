@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block title %}View{% endblock %}
+{% block head %}
+    {{ super() }}
+    <meta name="description" content="">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/view.js') }}"></script>
+{% endblock %}
+
+{% macro styleCell(seq, idx) -%}
+    {% set ch = seq.seq[idx] %}
+    {% if ch in ('.', '-') %}
+        style="color: #ccc;"
+    {% else %}
+        style="color: {% if sto.SS_cons[idx] in ('<', '>') %}#00f{% else %}#000{% endif %}; cursor: pointer;"
+        onClick="clickCell('{{seq.name}}', {{idx}})"
+    {% endif %}
+{%- endmacro %}
+
+{% block content %}
+    <h3>{{ upload.filename }}</h3>
+    <table style="font-family: monospace;">
+        <tr id="SS_cons">
+            <td>SS_cons</td>
+            <td>{{ sto.SS_cons }}</td>
+        </tr>
+        {% for sequence in sto.msa.values() %}
+            <tr id="{{sequence.name}}/{{sequence.start}}-{{sequence.end}}">
+                <td>{{ sequence.name }}</td>
+                <td>
+                    {% for ch in sequence.seq %}<span {{ styleCell(sequence, loop.index-1) }}>{{ ch }}</span>{% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

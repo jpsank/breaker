@@ -1,0 +1,205 @@
+# STOCKHOLM 1.0
+#=GF AU Infernal 1.1.3
+
+#=GS NC_002306.3/12410-12484 DE Feline infectious peritonitis virus, complete genome
+#=GS NC_045512.2/13469-13546 DE Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome
+#=GS NC_004718.3/13399-13476 DE SARS coronavirus Tor2, complete genome
+#=GS NC_003436.1/12621-12695 DE Porcine epidemic diarrhea virus, complete genome
+#=GS NC_028806.1/12325-12399 DE Swine enteric coronavirus strain Italy/213306/2009, complete genome
+#=GS NC_038861.1/12339-12413 DE Transmissible gastroenteritis virus complete genome, genomic RNA
+#=GS NC_028833.1/11986-12060 DE BtNv-AlphaCoV/SC2013, complete genome
+#=GS NC_022103.1/12533-12607 DE Bat coronavirus CDPHE15/USA/2006, complete genome
+#=GS NC_035191.1/11208-11285 DE Wencheng Sm shrew coronavirus isolate Xingguo-101 ORF1ab polyprotein, spike glycoprotein, envelope protein, membrane protein, and nucleocapsid protein genes, complete cds
+#=GS NC_048211.1/11192-11269 DE Wencheng Sm shrew coronavirus isolate Xingguo-74 ORF1ab polyprotein, spike glycoprotein, envelope protein, membrane protein, and nucleocapsid protein genes, complete cds
+#=GS NC_014470.1/13298-13375 DE Bat coronavirus BM48-31/BGR/2008, complete genome
+#=GS NC_023760.1/12300-12374 DE Mink coronavirus strain WD1127, complete genome
+#=GS NC_030292.1/12123-12197 DE Ferret coronavirus isolate FRCoV-NL-2010, complete genome
+#=GS NC_010438.1/12936-13010 DE Miniopterus bat coronavirus HKU8, complete genome
+#=GS NC_009657.1/12651-12725 DE Scotophilus bat coronavirus 512, complete genome
+#=GS NC_028824.1/12252-12326 DE BtRf-AlphaCoV/YN2012, complete genome
+#=GS NC_009988.1/12447-12521 DE Rhinolophus bat coronavirus HKU2, complete genome
+#=GS NC_028752.1/12536-12610 DE Camel alphacoronavirus isolate camel/Riyadh/Ry141/2015, complete genome
+#=GS NC_010437.1/13049-13123 DE Bat coronavirus 1A, complete genome
+#=GS NC_030886.1/13084-13164 DE Rousettus bat coronavirus isolate GCCDC1 356, complete genome
+#=GS NC_002645.1/12521-12595 DE Human coronavirus 229E, complete genome
+#=GS NC_032107.1/12473-12547 DE NL63-related bat coronavirus strain BtKYNL63-9a, complete genome
+#=GS NC_018871.1/12618-12692 DE Rousettus bat coronavirus HKU10, complete genome
+#=GS NC_016991.1/11350-11427 DE White-eye coronavirus HKU16, complete genome
+#=GS NC_039207.1/13585-13665 DE Betacoronavirus Erinaceus/VMC/DEU/2012 isolate ErinaceusCoV/2012-174/GER/2012, complete genome
+#=GS NC_010646.1/12389-12466 DE Beluga Whale coronavirus SW1, complete genome
+#=GS NC_025217.1/13932-14009 DE Bat Hp-betacoronavirus/Zhejiang2013, complete genome
+#=GS NC_009020.1/13686-13766 DE Pipistrellus bat coronavirus HKU5, complete genome
+#=GS NC_009019.1/13551-13631 DE Tylonycteris bat coronavirus HKU4, complete genome
+#=GS NC_003045.1/13342-13422 DE Bovine coronavirus isolate BCoV-ENT, complete genome
+#=GS NC_026011.1/13485-13565 DE Betacoronavirus HKU24 strain HKU24-R05005I, complete genome
+#=GS NC_006577.2/13601-13681 DE Human coronavirus HKU1, complete genome
+#=GS AC_000192.1/13619-13699 DE Murine hepatitis virus strain JHM, complete genome
+#=GS NC_012936.1/13557-13637 DE Rat coronavirus Parker, complete genome
+#=GS NC_001846.1/13602-13682 DE Murine hepatitis virus strain MHV-A59 C12 mutant, complete genome
+#=GS NC_017083.1/13520-13600 DE Rabbit coronavirus HKU14, complete genome
+#=GS NC_016995.1/10923-11000 DE Wigeon coronavirus HKU20, complete genome
+#=GS NC_009021.1/12952-13032 DE Rousettus bat coronavirus HKU9, complete genome
+#=GS NC_046964.1/12164-12238 DE Alphacoronavirus Bat-CoV/P.kuhlii/Italy/3398-19/2015, complete genome
+#=GS NC_011550.1/11593-11670 DE Munia coronavirus HKU13-3514, complete genome
+#=GS NC_034440.1/13207-13287 DE Bat coronavirus isolate PREDICT/PDF-2180, complete genome
+#=GS NC_006213.1/13341-13421 DE Human coronavirus OC43 strain ATCC VR-759, complete genome
+#=GS NC_028814.1/12204-12278 DE BtRf-AlphaCoV/HuB2013, complete genome
+#=GS NC_016996.1/11062-11139 DE Common moorhen coronavirus HKU21, complete genome
+#=GS NC_046954.1/13447-13527 DE Rodent coronavirus isolate RtMruf-CoV-2/JL2014, complete genome
+#=GS NC_011547.1/11353-11430 DE Bulbul coronavirus HKU11-934, complete genome
+#=GS NC_005831.2/12440-12514 DE Human Coronavirus NL63, complete genome
+#=GS NC_048212.1/12804-12884 DE Bat coronavirus, complete genome
+#=GS NC_032730.1/12539-12604 DE Lucheng Rn rat coronavirus isolate Lucheng-19, complete genome
+#=GS NC_011549.1/11404-11481 DE Thrush coronavirus HKU12-600, complete genome
+#=GS NC_016992.1/11425-11502 DE Sparrow coronavirus HKU17, complete genome
+#=GS NC_019843.3/13434-13514 DE Middle East respiratory syndrome-related coronavirus isolate HCoV-EMC/2012, complete genome
+#=GS NC_038294.1/13433-13513 DE Betacoronavirus England 1 isolate H123990006, complete genome
+#=GS NC_048216.1/12558-12632 DE NL63-related bat coronavirus strain BtKYNL63-9b, complete genome
+#=GS NC_048217.1/13603-13683 DE Murine hepatitis virus strain A59, complete genome
+#=GS NC_034972.1/12332-12397 DE Coronavirus AcCoV-JC34, complete genome
+#=GS NC_016993.1/11435-11512 DE Magpie-robin coronavirus HKU18, complete genome
+#=GS NC_016994.1/11312-11389 DE Night-heron coronavirus HKU19, complete genome
+#=GS NC_039208.1/11408-11485 DE Porcine coronavirus HKU15 strain HKU15-155, complete genome
+#=GS NC_028811.1/12239-12313 DE BtMr-AlphaCoV/SAX2011, complete genome
+#=GS NC_010800.1/12355-12432 DE Turkey coronavirus, complete genome
+#=GS NC_046955.1/11491-11571 DE Shrew coronavirus isolate Shrew-CoV/Tibet2014 ORF1ab polyprotein, spike glycoprotein, envelope protein, membrane protein, and nucleocapsid protein genes, complete cds
+#=GS NC_001451.1/12355-12432 DE Avian infectious bronchitis virus, complete genome
+#=GS NC_046965.1/12002-12079 DE Canada goose coronavirus strain Cambridge_Bay_2017, complete genome
+#=GS NC_048214.1/12263-12340 DE Duck coronavirus isolate DK/GD/27/2014, complete genome
+#=GS NC_048213.1/12362-12438 DE Infectious bronchitis virus isolate Ind-TN92-03, complete genome
+
+NC_002306.3/12410-12484         GAGUGCGGGGUUCUAGU...GCAGCUCGACUAGAACCCUG---UAAUGGUACUGA.......UCCAGACCAUGUUAGUAGAGCUUUUG
+#=GR NC_002306.3/12410-12484 PP *****************...********************...************.......**************************
+NC_045512.2/13469-13546         GGGUUUGCGGUGUAAGU...GCAGCCCGUCUUACACCGUGCGGCACAGGCACUAG.......UACUGAUGUCGUAUACAGGGCUUUUG
+#=GR NC_045512.2/13469-13546 PP *****************...***********************************.......**************************
+NC_004718.3/13399-13476         GGGUUUGCGGUGUAAGU...GCAGCCCGUCUUACACCGUGCGGCACAGGCACUAG.......UACUGAUGUCGUCUACAGGGCUUUUG
+#=GR NC_004718.3/13399-13476 PP *****************...***********************************.......**************************
+NC_003436.1/12621-12695         GAGUACGGGGCUCUAGU...GCAGCUCGACUAGAGCCCUG---UAAUGGUACUGA.......UACACAACAUGUGUAUCGUGCUUUUG
+#=GR NC_003436.1/12621-12695 PP *****************...********************...************.......**************************
+NC_028806.1/12325-12399         GAGUGCGGGGUUCUAGU...GCAGCUCGACUAGAACCCUG---CAAUGGUACUGA.......UCCAGACCAUGUUAGUAGAGCUUUUG
+#=GR NC_028806.1/12325-12399 PP *****************...********************...************.......**************************
+NC_038861.1/12339-12413         GAGUGCGGGGUUCUAGU...GCAGCUCGACUAGAACCCUG---CAAUGGUACUGA.......UCCAGACCAUGUUAGUAGAGCUUUUG
+#=GR NC_038861.1/12339-12413 PP *****************...********************...************.......**************************
+NC_028833.1/11986-12060         GAGUACGGGGCUCUAGU...GCAGCUCGACUAGAGCCCUG---UAAUGGUUCCGA.......AACGGACCAUGUUGUGCGUGCUUUUG
+#=GR NC_028833.1/11986-12060 PP *****************...********************...************.......**************************
+NC_022103.1/12533-12607         GAGCAAGGGGCUCUAGU...GCAGCUCGACUAGAGCCCUG---UAAUGGCACUGA.......UACUGAUCAUGUGUAUCGUGCUUUUG
+#=GR NC_022103.1/12533-12607 PP *****************...********************...************.......**************************
+NC_035191.1/11208-11285         GGGCAAGGGGUUCUAGU...GGAGCUCGACUAGAACCCUGUGGUAAUGGUACUGA.......ACCUGAUGUAGUUGUAAGAGCUUUUG
+#=GR NC_035191.1/11208-11285 PP *****************...***********************************.......**************************
+NC_048211.1/11192-11269         GGGCAAGGGGUUCUAGU...GGAGCUCGACUAGAACCCUGUGGUAAUGGUACUGA.......ACCUGAUGUAGUUGUAAGAGCUUUUG
+#=GR NC_048211.1/11192-11269 PP *****************...***********************************.......**************************
+NC_014470.1/13298-13375         GGGUUUGCGGUGUAAGU...GCGGCCCGUCUUACACCGUGCGGCACAGGCACAAG.......CACUGAUGUCGUUUACAGGGCUUUUG
+#=GR NC_014470.1/13298-13375 PP *****************...***********************************.......**************************
+NC_023760.1/12300-12374         GAGUACGGGGUUCUAGU...GGAGCUCGACUAGAACCCUG---CAAUGGUACAAG.......CCCUGAUUGUGUUACAAGGGCUUUUG
+#=GR NC_023760.1/12300-12374 PP *****************...********************...************.......**************************
+NC_030292.1/12123-12197         GAGUACGGGGUUCUAGU...GGAGCUCGACUAGAACCCUG---CAAUGGUACAAA.......CCCUGAUUGUGUUACCAGGGCCUUUG
+#=GR NC_030292.1/12123-12197 PP *****************...********************...************.......**************************
+NC_010438.1/12936-13010         GAGUGCGGGGCUCUAGU...GCAGCUCGACUAGAGCCCUG---UAAUGGUACUGA.......ACCAGAACACGUAAUCCGUGCCUUUG
+#=GR NC_010438.1/12936-13010 PP *****************...********************...************.......**************************
+NC_009657.1/12651-12725         GAGUGCGGGGCUCUAGU...GCAGCUCGACUAGAGCCCUU---AAAUGGUUCGGA.......CACACAUCAUGUGUUCCGUGCUUUUG
+#=GR NC_009657.1/12651-12725 PP *****************...********************...************.......**************************
+NC_028824.1/12252-12326         GGGCAAGGGGCUCUAGU...GCAGCUCGACUAGAGCCCUG---UAAUGGUACUGA.......ACCAGAACAUUGUGUUCGUGCUUUUG
+#=GR NC_028824.1/12252-12326 PP *****************...********************...************.......**************************
+NC_009988.1/12447-12521         GGGCAAGGGGCUCUAGU...GCAGCUCGACUAGAGCCCUG---UAAUGGUACUGA.......ACCAGAACAUUGUGUUCGUGCUUUUG
+#=GR NC_009988.1/12447-12521 PP *****************...********************...************.......**************************
+NC_028752.1/12536-12610         GAGUCAGGGGCUCUAGU...GCCGCUCGACUAGAGCCCUG---CAAUGGUACAGA.......CAUAGAUUAUUGUGUCCGUGCAUUUG
+#=GR NC_028752.1/12536-12610 PP *****************...********************...************.......**************************
+NC_010437.1/13049-13123         GAGCAAGGGGCUCUAGU...GCAGCUCGACUAGAGCCCUG---UAAUGGUACUGA.......ACCGGAGCAUGUUGUACGCGCCUUUG
+#=GR NC_010437.1/13049-13123 PP *****************...********************...************.......**************************
+NC_030886.1/13084-13164         GAGUCCGGGGUGCUAGUggaGUAGCCCGCCUAGUACCCCAAGGCAUAGGUGUUCA.......GCCUGAUGUCGUUUUAAGGGCUUUUG
+#=GR NC_030886.1/13084-13164 PP *******************************************************.......**************************
+NC_002645.1/12521-12595         GAGUCCGGGGCUCUAGU...GCCGCUCGACUAGAGCCCUG---UAAUGGUACAGA.......CAUAGAUUACUGUGUCCGUGCAUUUG
+#=GR NC_002645.1/12521-12595 PP *****************...********************...************.......**************************
+NC_032107.1/12473-12547         GAGCAAGGGGCUCUAGU...GCAGCUCGACUAGAGCCCUG---UAAUGGCACGGA.......CAUAGAUAAGUGUGUUCGUGCUUUUG
+#=GR NC_032107.1/12473-12547 PP *****************...********************...************.......**************************
+NC_018871.1/12618-12692         GAGCAAGGGGCUCUAGU...GCAGCUCAACUAGAGCCCUG---CAAUGGCACUGA.......CACUGAUCAUUGUGUCAGAGCAUUUG
+#=GR NC_018871.1/12618-12692 PP *****************...********************...************.......**************************
+NC_016991.1/11350-11427         GAGUAAUGGGUUCUAGU...GGUGCCCUGCUAGAACCCUUACAGCCUGGAUCUCA.......ACCAGAUGCUGUUAAACGGGCAUUUC
+#=GR NC_016991.1/11350-11427 PP *****************...***********************************.......**************************
+NC_039207.1/13585-13665         GAGUCAGGGGUUCUAUUguaGAUGCCCGAAUAGAACCCUGUGCAAGUGGUCUUGC.......CACUGAUGUCGUUUAUAGGGCAUUUG
+#=GR NC_039207.1/13585-13665 PP *******************************************************.......**************************
+NC_010646.1/12389-12466         GGGUACGGGGUCUCAGU...GAAGCUCGACUGAGGCCCUGUGCGUCGGGAUUGUU.......ACCUGAUGUUGUUAAAAGAGCUUUUG
+#=GR NC_010646.1/12389-12466 PP *****************...***********************************.......**************************
+NC_025217.1/13932-14009         GGGUGCGCGGUGUAAGU...GCAGCCCGUCUUACACCGUGUGGCAGUGGUCUUUC.......CACUGACGUCGUCGUAAGGGCUUUCG
+#=GR NC_025217.1/13932-14009 PP *****************...***********************************.......**************************
+NC_009020.1/13686-13766         GAGUCCGGGGUUCUAUUguaAAUGCCCGAAUAGAACCCUGUGCCAGUGGUCUUAC.......CACUGAUGUUGUCUUUAGGGCAUUUG
+#=GR NC_009020.1/13686-13766 PP *****************99999*********************************.......**************************
+NC_009019.1/13551-13631         GAGUCCGGGGUUCUAGUguaAAUGCCCGACUAGAACCCUGUUCAAGUGGUCUAAC.......CACUGAUGUCGUUUAUAGGGCAUUCG
+#=GR NC_009019.1/13551-13631 PP ******************9999*********************************.......**************************
+NC_003045.1/13342-13422         GGGUUCGGGGUACGAGUguaGAUGCCCGUCUCGUACCCUGUGCCAGUGGUUUAUC.......UACUGAUGUACAAUUAAGGGCAUUUG
+#=GR NC_003045.1/13342-13422 PP *******************************************************.......**************************
+NC_026011.1/13485-13565         GGGUUCGGGGUGCGAGUguaGAUGCCCGUCUCGUACCCUGUGCCAGUGGUUUAUC.......UACUGAUGUUCAAAAAAGGGCAUUUG
+#=GR NC_026011.1/13485-13565 PP *******************************************************.......**************************
+NC_006577.2/13601-13681         GGGUUCGGGGUACUAGUgugAAUGCCCGGCUAGUACCCUGUGCUAGUGGUUUAUC.......UACUGAUGUUCAAUUAAGGGCAUUUG
+#=GR NC_006577.2/13601-13681 PP *******************************************************.......**************************
+AC_000192.1/13619-13699         GGGUUCGGGGUACAAGUguaAAUGCCCGUCUUGUACCCUGUGCCAGUGGCUUGGA.......CACUGAUGUUCAAUUAAGGGCAUUUG
+#=GR AC_000192.1/13619-13699 PP *******************************************************.......**************************
+NC_012936.1/13557-13637         GGGUUCGGGGUACAAGUguaAAUGCCCGUCUUGUACCCUGUGCCAGUGGCUUGGA.......CACUGAUGUUCAAUUAAGGGCAUUUG
+#=GR NC_012936.1/13557-13637 PP *******************************************************.......**************************
+NC_001846.1/13602-13682         GGGUUCGGGGUACAAGUguaAAUGCCCGUCUUGUACCCUGUGCCAGUGGCUUGGA.......CACUGAUGUUCAAUUAAGGGCAUUUG
+#=GR NC_001846.1/13602-13682 PP *******************************************************.......**************************
+NC_017083.1/13520-13600         GGGUUCGGGGUGCGAGUguaGAUGCCCGUCUCGUACCCUGUGCCACCGGUCUUUC.......UACCGAUGUUCAAUUAAGGGCAUUUG
+#=GR NC_017083.1/13520-13600 PP *******************************************************.......**************************
+NC_016995.1/10923-11000         GAGUGAAGGGUUCAAGU...GGUGCCCGCCUUGAACCCAUGCGGCCUGGUGCUCA.......ACCUGACCCGCUCGUAAGGGCAUUUC
+#=GR NC_016995.1/10923-11000 PP *****************...***********************************.......**************************
+NC_009021.1/12952-13032         GAGUCAGGGGUACUAGUggaGUAGCCCGUCUAGUACCCCUAGGUUCUGGUGUCCA.......ACCAGAUAUAGUAUUAAGGGCUUUUG
+#=GR NC_009021.1/12952-13032 PP *******************************************************.......**************************
+NC_046964.1/12164-12238         GAGCACGGGGCUCUAGU...GGUGCUCGACUAGAGCCCUG---UAAUGGGUCUGA.......CACGGACCAUGUUGUCCGUGCUUUUG
+#=GR NC_046964.1/12164-12238 PP *****************...********************...************.......**************************
+NC_011550.1/11593-11670         GAGUAGUGGGUUCCAGU...GAAGCCCGACUGGAACCCCAACAGCCAGGUACAAU.......CCCUGAUGCUGUUAAACGGGCUUUUC
+#=GR NC_011550.1/11593-11670 PP *****************...***********************************.......**************************
+NC_034440.1/13207-13287         GAGUCCGGGGUUCUAUUguaAAUGCCCGAAUAGAACCCUGUGCAAGUGGUUUGUC.......CACUGAUGUCGUUUUUAGGGCAUUUG
+#=GR NC_034440.1/13207-13287 PP *****************99999*********************************.......**************************
+NC_006213.1/13341-13421         GGGUUCGGGGUACGAGUguaGAUGCCCGUCUCGUACCCUGCGCCAGUGGUUUAUC.......UACUGAUGUACAAUUAAGGGCAUUUG
+#=GR NC_006213.1/13341-13421 PP *******************************************************.......**************************
+NC_028814.1/12204-12278         GAGCAAGGGGCUCUAGU...GCAGCUCAACUAGAGCCCUG---UAAUGGUACUGA.......CACUGAUCACUGUGUCCGAGCCUUCG
+#=GR NC_028814.1/12204-12278 PP *****************...********************...************.......**************************
+NC_016996.1/11062-11139         GAGUAAAGGGUUCUAGU...GAUGCCCGUCUAGAACCCCAACAGUCUGGCACUCA.......GCCGGAUAUUGUAAAAAGGGCGUUUC
+#=GR NC_016996.1/11062-11139 PP *****************...***********************************.......**************************
+NC_046954.1/13447-13527         GGGUUCGGGGUACGAGUguaGAUGCCCGACUCGUACCCUGUAGCUCAGGUUUAAC.......UACCGAUGUUCAAUUACGGGCAUUUG
+#=GR NC_046954.1/13447-13527 PP *******************************************************.......**************************
+NC_011547.1/11353-11430         GAGUAACGGGUUCUAGU...GGUGCCCGACUAGAACCCCAACAGCCAGGCGUUAC.......ACCUGAUGCUGUUAAACGGGCAUUUC
+#=GR NC_011547.1/11353-11430 PP *****************...***********************************.......**************************
+NC_005831.2/12440-12514         GAGCAAGGGGUUCUAGU...GCAGCUCGACUAGAACCCUG---CAAUGGCACGGA.......CAUCGAUAAGUGUGUUCGUGCUUUUG
+#=GR NC_005831.2/12440-12514 PP *****************...********************...************.......**************************
+NC_048212.1/12804-12884         GAGUCAGGGGUACUAGUggaGUAGCCCGGCUAGUACCCCUUGGUAAUGGUGUUGA.......GCCAGAUGUAGUGUUACGGGCUUUUG
+#=GR NC_048212.1/12804-12884 PP *******************************************************.......**************************
+NC_032730.1/12539-12604         GGGUGCGGGGCUCUAGU...GAUGCUCAACUAGAGCCCUG---UAGUGA------.......---ACAUCAUGUUGUAAGAGCUUUUG
+#=GR NC_032730.1/12539-12604 PP *****************...********************...****97................***********************
+NC_011549.1/11404-11481         GAGUAACGGGGUCUAGU...GGUGCCCGCCUAGAACCCCUACAACAUGGUGUUAC.......ACCAGAUGUUGUACAAAGGGCUUUUC
+#=GR NC_011549.1/11404-11481 PP *****************...***********************************.......**************************
+NC_016992.1/11425-11502         GAGUAACGGGUUCUAGU...GAUGCCCGGCUAGAACCCCUGCAGCCUGGUACUCA.......GCCAGAUGCUGUAAAAAGGGCCUUCC
+#=GR NC_016992.1/11425-11502 PP *****************...***********************************.......**************************
+NC_019843.3/13434-13514         GAGUCCGGGGUUCUAUUguaAAUGCCCGAAUAGAACCCUGUUCAAGUGGUUUGUC.......CACUGAUGUCGUCUUUAGGGCAUUUG
+#=GR NC_019843.3/13434-13514 PP *****************99999*********************************.......**************************
+NC_038294.1/13433-13513         GAGUCCGGGGUUCUAUUguaAAUGCCCGAAUAGAACCCUGUUCAAGUGGUUUGUC.......CACUGAUGUCGUCUUUAGGGCAUUUG
+#=GR NC_038294.1/13433-13513 PP *****************99999*********************************.......**************************
+NC_048216.1/12558-12632         GGGCAAGGGGCUCUAGU...GCGGCUCGACUAGAGCCCUG---UAAUGGUACGGA.......CGUUGAUGUUUGCGUCCGUGCUUUCG
+#=GR NC_048216.1/12558-12632 PP *****************...********************...************.......**************************
+NC_048217.1/13603-13683         GGAUUCGGGGUACAAGUguaAAUGCCCGUCUUGUACCCUGUGCCAGUGGCUUGGA.......CACUGAUGUUCAAUUAAGGGCAUUUG
+#=GR NC_048217.1/13603-13683 PP *******************************************************.......**************************
+NC_034972.1/12332-12397         GGGUGCGGGGCUCUAGU...GAUGCUCAACUAGAGCCCUG---UAGUGA------.......---GCAUCAUGUGAUAAGGGCUUUUG
+#=GR NC_034972.1/12332-12397 PP *****************...********************...**9997................99*********************
+NC_016993.1/11435-11512         GAGUAACGGGGUCCAGU...GGCGCCCGCCUGGAACCCCAGCAGCCAGGUACAAC.......CCCUGAUGCUGUAAAAAGGGCAUUUC
+#=GR NC_016993.1/11435-11512 PP *****************...***********************************.......**************************
+NC_016994.1/11312-11389         GAGUAAAGGGUUCUAGU...GAUGCCCGCCUAGAACCCUGCACUAGCGACAACCG.......ACCCGAUGUCGUCGUUAGGGCGUUUA
+#=GR NC_016994.1/11312-11389 PP *****************...********************999999888877777.......7889**********************
+NC_039208.1/11408-11485         GAGUAACGGGUUCUAGU...GACGCCCGGCUAGAACCCCUGCAGCCUGGAACUCA.......ACCAGAUGCUGUAAAAAGGGCCUUCC
+#=GR NC_039208.1/11408-11485 PP *****************...***********************************.......**************************
+NC_028811.1/12239-12313         GAGUGCGGGGCUCUAGU...GAUGCUCGACUAGAGCCCCU---AAAUGGCACUGA.......CAUCGAUAGAUGUGUUCGUGCUUUUG
+#=GR NC_028811.1/12239-12313 PP *****************...********************...************.......**************************
+NC_010800.1/12355-12432         GGGUACGGGGUAGCAGU...GAGGCUCGGCUGAUACCCCUUGCUAGUGGGUGUGA.......CCCUGAUGUUGUAAAGCGAGCCUUUG
+#=GR NC_010800.1/12355-12432 PP *****************...***********************************.......**************************
+NC_046955.1/11491-11571         GAGUUACAGGGUCUAGU...GGCGCUCGACUAGACCCUUGUAAUGGUGAGU----cuuuuaaUACACACCAUGUACAAAGAGCGUUUG
+#=GR NC_046955.1/11491-11571 PP *****************...********************99999998443....345566546699*********************
+NC_001451.1/12355-12432         GGGUACGGGGUAGCAGU...GAGGCUCGGCUGAUACCCCUUGCUAGUGGAUGUGA.......UCCUGAUGUUGUAAAGCGAGCCUUUG
+#=GR NC_001451.1/12355-12432 PP *****************...***********************************.......**************************
+NC_046965.1/12002-12079         GGGUACGGGGUAGCAGU...GAGGCUCGGCUGAUACCCCUAACAGAUGGUGUUCA.......ACCCGAUGUUGUAAAGAGAGCCUUUG
+#=GR NC_046965.1/12002-12079 PP *****************...***********************************.......**************************
+NC_048214.1/12263-12340         GGGUACGGGGUAGCAGU...GAGGCUCGGCUGAUACCCCUGUCUGACGGAAAUCA.......ACCUCAUAUUGUAAAACGAGCCUUUG
+#=GR NC_048214.1/12263-12340 PP *****************...***********************************.......**************************
+NC_048213.1/12362-12438         GGGUACGGGGUGGCAGU...GCGGCUCGGCUGUUACCCCUAGCUCAUGG-AUGUG.......GCCCGAUGUUGUAUGGCGAGCCUUUG
+#=GR NC_048213.1/12362-12438 PP *****************...*******************9666555555.55555.......78899*********************
+#=GC SS_cons                    :::::::<<<<<<<<--...<<_____>>->>>>>>>>--<<-<<<<-<<<____~~~~~~~>>>>>->>->>:::::::::::::::
+#=GC RF                         GAGUaaGGGGuuCuAGU...gcaGCcCgcCUaGaaCCCUGcgacacuGGuucuaa~~~~~~~aaCagAugucgUuuuaAGgGCuUUUG
+//

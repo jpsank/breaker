@@ -1,0 +1,90 @@
+#target name         accession query name           accession mdl mdl from   mdl to seq from   seq to strand trunc pass   gc  bias  score   E-value inc description of target
+#------------------- --------- -------------------- --------- --- -------- -------- -------- -------- ------ ----- ---- ---- ----- ------ --------- --- ---------------------
+NC_002306.3          -         Corona_FSE           RF00507    cm        1       78    12410    12484      +    no    1 0.49   0.0   78.3   6.1e-16 !   Feline infectious peritonitis virus, complete genome
+NC_045512.2          -         Corona_FSE           RF00507    cm        1       78    13469    13546      +    no    1 0.55   0.0   77.6   9.8e-16 !   Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome
+NC_004718.3          -         Corona_FSE           RF00507    cm        1       78    13399    13476      +    no    1 0.56   0.0   77.0   1.4e-15 !   SARS coronavirus Tor2, complete genome
+NC_003436.1          -         Corona_FSE           RF00507    cm        1       78    12621    12695      +    no    1 0.49   0.0   76.8   1.6e-15 !   Porcine epidemic diarrhea virus, complete genome
+NC_028806.1          -         Corona_FSE           RF00507    cm        1       78    12325    12399      +    no    1 0.51   0.0   76.8   1.6e-15 !   Swine enteric coronavirus strain Italy/213306/2009, complete genome
+NC_038861.1          -         Corona_FSE           RF00507    cm        1       78    12339    12413      +    no    1 0.51   0.0   76.8   1.6e-15 !   Transmissible gastroenteritis virus complete genome, genomic RNA
+NC_028833.1          -         Corona_FSE           RF00507    cm        1       78    11986    12060      +    no    1 0.55   0.0   76.2   2.4e-15 !   BtNv-AlphaCoV/SC2013, complete genome
+NC_022103.1          -         Corona_FSE           RF00507    cm        1       78    12533    12607      +    no    1 0.51   0.0   76.2   2.4e-15 !   Bat coronavirus CDPHE15/USA/2006, complete genome
+NC_035191.1          -         Corona_FSE           RF00507    cm        1       78    11208    11285      +    no    1 0.49   0.0   75.5   3.8e-15 !   Wencheng Sm shrew coronavirus isolate Xingguo-101 ORF1ab polyprotein, spike glycoprotein, envelope protein, membrane protein, and nucleocapsid protein genes, complete cds
+NC_048211.1          -         Corona_FSE           RF00507    cm        1       78    11192    11269      +    no    1 0.49   0.0   75.5   3.8e-15 !   Wencheng Sm shrew coronavirus isolate Xingguo-74 ORF1ab polyprotein, spike glycoprotein, envelope protein, membrane protein, and nucleocapsid protein genes, complete cds
+NC_014470.1          -         Corona_FSE           RF00507    cm        1       78    13298    13375      +    no    1 0.58   0.0   74.6   6.7e-15 !   Bat coronavirus BM48-31/BGR/2008, complete genome
+NC_023760.1          -         Corona_FSE           RF00507    cm        1       78    12300    12374      +    no    1 0.51   0.0   74.5   7.1e-15 !   Mink coronavirus strain WD1127, complete genome
+NC_030292.1          -         Corona_FSE           RF00507    cm        1       78    12123    12197      +    no    1 0.52   0.0   73.7   1.2e-14 !   Ferret coronavirus isolate FRCoV-NL-2010, complete genome
+NC_010438.1          -         Corona_FSE           RF00507    cm        1       78    12936    13010      +    no    1 0.55   0.0   72.9   2.1e-14 !   Miniopterus bat coronavirus HKU8, complete genome
+NC_009657.1          -         Corona_FSE           RF00507    cm        1       78    12651    12725      +    no    1 0.53   0.0   71.8   4.1e-14 !   Scotophilus bat coronavirus 512, complete genome
+NC_028824.1          -         Corona_FSE           RF00507    cm        1       78    12252    12326      +    no    1 0.52   0.0   71.5     5e-14 !   BtRf-AlphaCoV/YN2012, complete genome
+NC_009988.1          -         Corona_FSE           RF00507    cm        1       78    12447    12521      +    no    1 0.52   0.0   71.5     5e-14 !   Rhinolophus bat coronavirus HKU2, complete genome
+NC_028752.1          -         Corona_FSE           RF00507    cm        1       78    12536    12610      +    no    1 0.52   0.0   71.4   5.2e-14 !   Camel alphacoronavirus isolate camel/Riyadh/Ry141/2015, complete genome
+NC_010437.1          -         Corona_FSE           RF00507    cm        1       78    13049    13123      +    no    1 0.56   0.0   70.8   7.9e-14 !   Bat coronavirus 1A, complete genome
+NC_030886.1          -         Corona_FSE           RF00507    cm        1       78    13084    13164      +    no    1 0.56   0.0   70.8   7.9e-14 !   Rousettus bat coronavirus isolate GCCDC1 356, complete genome
+NC_002645.1          -         Corona_FSE           RF00507    cm        1       78    12521    12595      +    no    1 0.53   0.0   70.5   9.9e-14 !   Human coronavirus 229E, complete genome
+NC_032107.1          -         Corona_FSE           RF00507    cm        1       78    12473    12547      +    no    1 0.52   0.0   70.4     1e-13 !   NL63-related bat coronavirus strain BtKYNL63-9a, complete genome
+NC_018871.1          -         Corona_FSE           RF00507    cm        1       78    12618    12692      +    no    1 0.52   0.0   70.0   1.3e-13 !   Rousettus bat coronavirus HKU10, complete genome
+NC_016991.1          -         Corona_FSE           RF00507    cm        1       78    11350    11427      +    no    1 0.50   0.0   69.6   1.7e-13 !   White-eye coronavirus HKU16, complete genome
+NC_039207.1          -         Corona_FSE           RF00507    cm        1       78    13585    13665      +    no    1 0.48   0.0   69.5   1.8e-13 !   Betacoronavirus Erinaceus/VMC/DEU/2012 isolate ErinaceusCoV/2012-174/GER/2012, complete genome
+NC_010646.1          -         Corona_FSE           RF00507    cm        1       78    12389    12466      +    no    1 0.53   0.0   69.0   2.5e-13 !   Beluga Whale coronavirus SW1, complete genome
+NC_025217.1          -         Corona_FSE           RF00507    cm        1       78    13932    14009      +    no    1 0.60   0.0   68.8     3e-13 !   Bat Hp-betacoronavirus/Zhejiang2013, complete genome
+NC_009020.1          -         Corona_FSE           RF00507    cm        1       78    13686    13766      +    no    1 0.48   0.0   68.6   3.3e-13 !   Pipistrellus bat coronavirus HKU5, complete genome
+NC_009019.1          -         Corona_FSE           RF00507    cm        1       78    13551    13631      +    no    1 0.49   0.0   68.5   3.5e-13 !   Tylonycteris bat coronavirus HKU4, complete genome
+NC_003045.1          -         Corona_FSE           RF00507    cm        1       78    13342    13422      +    no    1 0.51   0.0   68.5   3.5e-13 !   Bovine coronavirus isolate BCoV-ENT, complete genome
+NC_026011.1          -         Corona_FSE           RF00507    cm        1       78    13485    13565      +    no    1 0.52   0.0   68.3     4e-13 !   Betacoronavirus HKU24 strain HKU24-R05005I, complete genome
+NC_006577.2          -         Corona_FSE           RF00507    cm        1       78    13601    13681      +    no    1 0.48   0.0   67.8   5.5e-13 !   Human coronavirus HKU1, complete genome
+AC_000192.1          -         Corona_FSE           RF00507    cm        1       78    13619    13699      +    no    1 0.51   0.0   67.8   5.6e-13 !   Murine hepatitis virus strain JHM, complete genome
+NC_012936.1          -         Corona_FSE           RF00507    cm        1       78    13557    13637      +    no    1 0.51   0.0   67.8   5.6e-13 !   Rat coronavirus Parker, complete genome
+NC_001846.1          -         Corona_FSE           RF00507    cm        1       78    13602    13682      +    no    1 0.51   0.0   67.8   5.6e-13 !   Murine hepatitis virus strain MHV-A59 C12 mutant, complete genome
+NC_017083.1          -         Corona_FSE           RF00507    cm        1       78    13520    13600      +    no    1 0.56   0.0   67.7   5.9e-13 !   Rabbit coronavirus HKU14, complete genome
+NC_016995.1          -         Corona_FSE           RF00507    cm        1       78    10923    11000      +    no    1 0.60   0.0   67.6   6.2e-13 !   Wigeon coronavirus HKU20, complete genome
+NC_009021.1          -         Corona_FSE           RF00507    cm        1       78    12952    13032      +    no    1 0.49   0.0   67.5   6.8e-13 !   Rousettus bat coronavirus HKU9, complete genome
+NC_046964.1          -         Corona_FSE           RF00507    cm        1       78    12164    12238      +    no    1 0.57   0.0   67.4   7.1e-13 !   Alphacoronavirus Bat-CoV/P.kuhlii/Italy/3398-19/2015, complete genome
+NC_011550.1          -         Corona_FSE           RF00507    cm        1       78    11593    11670      +    no    1 0.54   0.0   67.4   7.2e-13 !   Munia coronavirus HKU13-3514, complete genome
+NC_034440.1          -         Corona_FSE           RF00507    cm        1       78    13207    13287      +    no    1 0.47   0.0   67.4   7.4e-13 !   Bat coronavirus isolate PREDICT/PDF-2180, complete genome
+NC_006213.1          -         Corona_FSE           RF00507    cm        1       78    13341    13421      +    no    1 0.52   0.0   67.3   7.8e-13 !   Human coronavirus OC43 strain ATCC VR-759, complete genome
+NC_028814.1          -         Corona_FSE           RF00507    cm        1       78    12204    12278      +    no    1 0.55   0.0   67.1   8.5e-13 !   BtRf-AlphaCoV/HuB2013, complete genome
+NC_016996.1          -         Corona_FSE           RF00507    cm        1       78    11062    11139      +    no    1 0.50   0.0   66.3   1.4e-12 !   Common moorhen coronavirus HKU21, complete genome
+NC_046954.1          -         Corona_FSE           RF00507    cm        1       78    13447    13527      +    no    1 0.52   0.0   66.2   1.6e-12 !   Rodent coronavirus isolate RtMruf-CoV-2/JL2014, complete genome
+NC_011547.1          -         Corona_FSE           RF00507    cm        1       78    11353    11430      +    no    1 0.54   0.0   66.0   1.7e-12 !   Bulbul coronavirus HKU11-934, complete genome
+NC_005831.2          -         Corona_FSE           RF00507    cm        1       78    12440    12514      +    no    1 0.52   0.0   64.9   3.8e-12 !   Human Coronavirus NL63, complete genome
+NC_048212.1          -         Corona_FSE           RF00507    cm        1       78    12804    12884      +    no    1 0.53   0.0   64.7   4.1e-12 !   Bat coronavirus, complete genome
+NC_032730.1          -         Corona_FSE           RF00507    cm        1       78    12539    12604      +    no    1 0.50   0.0   64.0   6.6e-12 !   Lucheng Rn rat coronavirus isolate Lucheng-19, complete genome
+NC_011549.1          -         Corona_FSE           RF00507    cm        1       78    11404    11481      +    no    1 0.51   0.0   63.8   7.3e-12 !   Thrush coronavirus HKU12-600, complete genome
+NC_016992.1          -         Corona_FSE           RF00507    cm        1       78    11425    11502      +    no    1 0.56   0.0   63.8   7.7e-12 !   Sparrow coronavirus HKU17, complete genome
+NC_019843.3          -         Corona_FSE           RF00507    cm        1       78    13434    13514      +    no    1 0.47   0.0   63.7   8.2e-12 !   Middle East respiratory syndrome-related coronavirus isolate HCoV-EMC/2012, complete genome
+NC_038294.1          -         Corona_FSE           RF00507    cm        1       78    13433    13513      +    no    1 0.47   0.0   63.7   8.2e-12 !   Betacoronavirus England 1 isolate H123990006, complete genome
+NC_048216.1          -         Corona_FSE           RF00507    cm        1       78    12558    12632      +    no    1 0.59   0.0   63.1   1.2e-11 !   NL63-related bat coronavirus strain BtKYNL63-9b, complete genome
+NC_048217.1          -         Corona_FSE           RF00507    cm        1       78    13603    13683      +    no    1 0.49   0.0   62.7   1.5e-11 !   Murine hepatitis virus strain A59, complete genome
+NC_034972.1          -         Corona_FSE           RF00507    cm        1       78    12332    12397      +    no    1 0.53   0.0   62.6   1.6e-11 !   Coronavirus AcCoV-JC34, complete genome
+NC_016993.1          -         Corona_FSE           RF00507    cm        1       78    11435    11512      +    no    1 0.60   0.0   62.5   1.8e-11 !   Magpie-robin coronavirus HKU18, complete genome
+NC_016994.1          -         Corona_FSE           RF00507    cm        1       78    11312    11389      +    no    1 0.55   0.0   62.1   2.3e-11 !   Night-heron coronavirus HKU19, complete genome
+NC_039208.1          -         Corona_FSE           RF00507    cm        1       78    11408    11485      +    no    1 0.56   0.0   62.0   2.4e-11 !   Porcine coronavirus HKU15 strain HKU15-155, complete genome
+NC_028811.1          -         Corona_FSE           RF00507    cm        1       78    12239    12313      +    no    1 0.52   0.0   61.9   2.7e-11 !   BtMr-AlphaCoV/SAX2011, complete genome
+NC_010800.1          -         Corona_FSE           RF00507    cm        1       78    12355    12432      +    no    1 0.58   0.0   54.2   3.8e-09 !   Turkey coronavirus, complete genome
+NC_046955.1          -         Corona_FSE           RF00507    cm        1       78    11491    11571      +    no    1 0.46   0.0   54.0   4.3e-09 !   Shrew coronavirus isolate Shrew-CoV/Tibet2014 ORF1ab polyprotein, spike glycoprotein, envelope protein, membrane protein, and nucleocapsid protein genes, complete cds
+NC_001451.1          -         Corona_FSE           RF00507    cm        1       78    12355    12432      +    no    1 0.55   0.0   53.0   8.4e-09 !   Avian infectious bronchitis virus, complete genome
+NC_046965.1          -         Corona_FSE           RF00507    cm        1       78    12002    12079      +    no    1 0.54   0.0   52.3   1.3e-08 !   Canada goose coronavirus strain Cambridge_Bay_2017, complete genome
+NC_048214.1          -         Corona_FSE           RF00507    cm        1       78    12263    12340      +    no    1 0.53   0.0   46.4   6.3e-07 !   Duck coronavirus isolate DK/GD/27/2014, complete genome
+NC_048213.1          -         Corona_FSE           RF00507    cm        1       78    12362    12438      +    no    1 0.62   0.0   44.3   2.4e-06 !   Infectious bronchitis virus isolate Ind-TN92-03, complete genome
+NC_023760.1          -         Corona_FSE           RF00507    cm        8       35    12334    12307      -    no    1 0.57   0.0   26.8      0.21 ?   Mink coronavirus strain WD1127, complete genome
+NC_035191.1          -         Corona_FSE           RF00507    cm        8       35    11242    11215      -    no    1 0.57   0.0   26.8      0.21 ?   Wencheng Sm shrew coronavirus isolate Xingguo-101 ORF1ab polyprotein, spike glycoprotein, envelope protein, membrane protein, and nucleocapsid protein genes, complete cds
+NC_030292.1          -         Corona_FSE           RF00507    cm        8       35    12157    12130      -    no    1 0.57   0.0   26.8      0.21 ?   Ferret coronavirus isolate FRCoV-NL-2010, complete genome
+NC_048211.1          -         Corona_FSE           RF00507    cm        8       35    11226    11199      -    no    1 0.57   0.0   26.8      0.21 ?   Wencheng Sm shrew coronavirus isolate Xingguo-74 ORF1ab polyprotein, spike glycoprotein, envelope protein, membrane protein, and nucleocapsid protein genes, complete cds
+NC_003436.1          -         Corona_FSE           RF00507    cm        1       78    12662    12593      -    no    1 0.49   0.0   25.4      0.51 ?   Porcine epidemic diarrhea virus, complete genome
+NC_046964.1          -         Corona_FSE           RF00507    cm        8       35    12198    12171      -    no    1 0.64   0.0   24.3       1.1 ?   Alphacoronavirus Bat-CoV/P.kuhlii/Italy/3398-19/2015, complete genome
+NC_028814.1          -         Corona_FSE           RF00507    cm        8       35    12238    12211      -    no    1 0.61   0.0   23.3       2.1 ?   BtRf-AlphaCoV/HuB2013, complete genome
+NC_018871.1          -         Corona_FSE           RF00507    cm        8       35    12652    12625      -    no    1 0.61   0.0   23.3       2.1 ?   Rousettus bat coronavirus HKU10, complete genome
+NC_011547.1          -         Corona_FSE           RF00507    cm        8       35    11387    11360      -    no    1 0.61   0.0   23.0       2.5 ?   Bulbul coronavirus HKU11-934, complete genome
+NC_034972.1          -         Corona_FSE           RF00507    cm        8       35    12366    12339      -    no    1 0.57   0.0   22.8       2.9 ?   Coronavirus AcCoV-JC34, complete genome
+NC_032730.1          -         Corona_FSE           RF00507    cm        8       35    12573    12546      -    no    1 0.57   0.0   22.8       2.9 ?   Lucheng Rn rat coronavirus isolate Lucheng-19, complete genome
+NC_022103.1          -         Corona_FSE           RF00507    cm        1       78    12574    12505      -    no    1 0.49   0.0   21.9       5.2 ?   Bat coronavirus CDPHE15/USA/2006, complete genome
+#
+# Program:         cmsearch
+# Version:         1.1.3 (Nov 2019)
+# Pipeline mode:   SEARCH
+# Query file:      sto/RF00507.sto.cm
+# Target file:     db/viral.1.1.genomic.fna
+# Option settings: cmsearch -o searches/2.out -A searches/2.out.sto --tblout searches/2.out.tbl sto/RF00507.sto.cm db/viral.1.1.genomic.fna 
+# Current dir:     /Users/julian/Desktop/The Breaker Lab
+# Date:            Thu Jan 26 23:30:22 2023
+# [ok]

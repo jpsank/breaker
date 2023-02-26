@@ -1,0 +1,177 @@
+# cmsearch :: search CM(s) against a sequence database
+# INFERNAL 1.1.3 (Nov 2019)
+# Copyright (C) 2019 Howard Hughes Medical Institute.
+# Freely distributed under the BSD open source license.
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# query CM file:                         sto/RF01051.sto.cm
+# target sequence database:              db/viral.1.1.genomic.fna
+# output directed to file:               searches/1.out
+# MSA of significant hits saved to file: searches/1.out.sto
+# tabular output of hits:                searches/1.out.tbl
+# number of worker threads:              8
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+Query:       c-di-GMP-I  [CLEN=87]
+Accession:   RF01051
+Description: Cyclic di-GMP-I riboswitch
+Hit scores:
+ rank     E-value  score  bias  sequence     start    end   mdl trunc   gc  description
+ ----   --------- ------ -----  ----------- ------ ------   --- ----- ----  -----------
+  (1) !   1.4e-12   74.7   0.0  NC_028764.1  31283  31186 -  cm    no 0.34  Clostridium phage phiCD505, complete genome
+  (2) !   3.2e-12   73.2   0.1  NC_007917.1  29246  29151 -  cm    no 0.32  Clostridium phage phi CD119, complete genome
+  (3) !   2.9e-11   69.3   0.1  NC_024144.1  29633  29538 -  cm    no 0.33  Clostridium phage CDMH1 complete genome
+  (4) !   3.2e-11   69.1   0.2  NC_011398.1  33053  32958 -  cm    no 0.32  Clostridioides phage phiCD27, complete genome
+ ------ inclusion threshold ------
+  (5) ?       6.5   22.8   0.0  NC_055783.1 148340 148281 -  cm    no 0.43  Escherichia phage vB_EcoM_005, complete genome
+  (6) ?       6.6   22.8   0.0  NC_012741.1 161970 162029 +  cm    no 0.43  Enterobacteria phage JS10, complete genome
+  (7) ?       8.1   22.4   0.0  NC_047743.1   8051   8102 +  cm    no 0.54  Burkholderia phage Bp-AMP1 complete genome
+  (8) ?       9.1   22.2   0.0  NC_055740.1  11406  11347 -  cm    no 0.43  Enterobacteria phage vB_EcoM_IME281, complete genome
+
+
+Hit alignments:
+>> NC_028764.1  Clostridium phage phiCD505, complete genome
+ rank     E-value  score  bias mdl mdl from   mdl to       seq from      seq to       acc trunc   gc
+ ----   --------- ------ ----- --- -------- --------    ----------- -----------      ---- ----- ----
+  (1) !   1.4e-12   74.7   0.0  cm        1       87 []       31283       31186 - .. 0.95    no 0.34
+
+                                                                v                                           v      NC
+                    :::::::::::<<---<<<<<<____>>>>>>--->>--<<<<-<.<<<<<----<<<<.____..........>>>>--->>>-->>>>>>>: CS
+   c-di-GMP-I     1 uaaugaaAAaGGCAAAcccgucGAAAgacgggGACGCAAAgCcAc.gGguCUAAggccc.uaaa..........gggcuAuGacAGCcggGcUg 82   
+                    +AA+ AAA  GGCAAA:C:: :GAAA: ::G:GACGCAAA:C:A+ GGG:CUAAG:C:: UA+A          ::G:UAUG:CAGCC :G:UG
+  NC_028764.1 31283 AAACUAAAUCGGCAAAACUAGAGAAAUUUAGUGACGCAAAGCUAUaGGGACUAAGACUUaUAUAaauaucuuauGAGUUAUGUCAGCC-AGUUG 31191
+                    ***********************************************************7444457888888889*************.***** PP
+
+                          NC
+                    ::::: CS
+   c-di-GMP-I    83 CCgaa 87   
+                    CC+AA
+  NC_028764.1 31190 CCAAA 31186
+                    ***** PP
+
+>> NC_007917.1  Clostridium phage phi CD119, complete genome
+ rank     E-value  score  bias mdl mdl from   mdl to       seq from      seq to       acc trunc   gc
+ ----   --------- ------ ----- --- -------- --------    ----------- -----------      ---- ----- ----
+  (2) !   3.2e-12   73.2   0.1  cm        1       87 []       29246       29151 - .. 0.97    no 0.32
+
+                                                                v    v                              v     v        NC
+                    :::::::::::<<---<<<<<<____>>>>>>--->>--<<<<-<.<<<<<----<<<<.____........>>>>--->>>-->>>>>>>::: CS
+   c-di-GMP-I     1 uaaugaaAAaGGCAAAcccgucGAAAgacgggGACGCAAAgCcAc.gGguCUAAggccc.uaaa........gggcuAuGacAGCcggGcUgCC 84   
+                    +AA+ AAA  GGCAAA:C:: :GAAA: ::G:GACGCAAA:C:A+ GGG CUAAG:::: UAAA        ::::UAUG CAGCC :G:UGCC
+  NC_007917.1 29246 AAACUAAAUCGGCAAAACUAGAGAAAUUUAGUGACGCAAAGCUAUaGGGACUAAGAUUUaUAAAauucuuauAAAUUAUGCCAGCC-AGUUGCC 29154
+                    ***********************************************************8555579999999**************.******* PP
+
+                        NC
+                    ::: CS
+   c-di-GMP-I    85 gaa 87   
+                    +AA
+  NC_007917.1 29153 AAA 29151
+                    *** PP
+
+>> NC_024144.1  Clostridium phage CDMH1 complete genome
+ rank     E-value  score  bias mdl mdl from   mdl to       seq from      seq to       acc trunc   gc
+ ----   --------- ------ ----- --- -------- --------    ----------- -----------      ---- ----- ----
+  (3) !   2.9e-11   69.3   0.1  cm        1       87 []       29633       29538 - .. 0.96    no 0.33
+
+                                                                v    v      v                 v     v     v        NC
+                    :::::::::::<<---<<<<<<____>>>>>>--->>--<<<<-<.<<<<<----<<<<.____........>>>>--->>>-->>>>>>>::: CS
+   c-di-GMP-I     1 uaaugaaAAaGGCAAAcccgucGAAAgacgggGACGCAAAgCcAc.gGguCUAAggccc.uaaa........gggcuAuGacAGCcggGcUgCC 84   
+                    +AA+ AAA  GGCAAA:C:: :GAAA: ::G:GACGCAAA:C:A+ GGG CUAAG: :: UAAA        :: :UAUG CAGCC :G:UGCC
+  NC_024144.1 29633 AAACUAAAUCGGCAAAACUAGAGAAAUUUAGUGACGCAAAGCUAUaGGGACUAAGACUUaUAAAauucuuauAAAUUAUGCCAGCC-AGUUGCC 29541
+                    ***********************************************************755557999999999************.******* PP
+
+                        NC
+                    ::: CS
+   c-di-GMP-I    85 gaa 87   
+                    +AA
+  NC_024144.1 29540 AAA 29538
+                    *** PP
+
+>> NC_011398.1  Clostridioides phage phiCD27, complete genome
+ rank     E-value  score  bias mdl mdl from   mdl to       seq from      seq to       acc trunc   gc
+ ----   --------- ------ ----- --- -------- --------    ----------- -----------      ---- ----- ----
+  (4) !   3.2e-11   69.1   0.2  cm        1       87 []       33053       32958 - .. 0.97    no 0.32
+
+                                         v    v                 v    v                              v     v        NC
+                    :::::::::::<<---<<<<<<____>>>>>>--->>--<<<<-<.<<<<<----<<<<.____........>>>>--->>>-->>>>>>>::: CS
+   c-di-GMP-I     1 uaaugaaAAaGGCAAAcccgucGAAAgacgggGACGCAAAgCcAc.gGguCUAAggccc.uaaa........gggcuAuGacAGCcggGcUgCC 84   
+                    +AA+ AAA  GGCAAA:C::  GAAA  ::G:GACGCAAA:C:A+ GGG CUAAG:::: UAAA        ::::UAUG CAGCC :G:UGCC
+  NC_011398.1 33053 AAACUAAAUCGGCAAAACUAGAGAAAAUUAGUGACGCAAAGCUAUaGGGACUAAGAUUUaUAAAauucuuauAAAUUAUGCCAGCC-AGUUGCC 32961
+                    ***********************************************************8555579999999**************.******* PP
+
+                        NC
+                    ::: CS
+   c-di-GMP-I    85 gaa 87   
+                    +AA
+  NC_011398.1 32960 AAA 32958
+                    *** PP
+
+>> NC_055783.1  Escherichia phage vB_EcoM_005, complete genome
+ rank     E-value  score  bias mdl mdl from   mdl to       seq from      seq to       acc trunc   gc
+ ----   --------- ------ ----- --- -------- --------    ----------- -----------      ---- ----- ----
+  (5) ?       6.5   22.8   0.0  cm        1       87 []      148340      148281 - .. 0.97    no 0.43
+
+                                     v              v                        NC
+                     :::::::::::<<---<<<<<<____>>>>>>--->>--<<~~~~~~>>:::::: CS
+   c-di-GMP-I      1 uaaugaaAAaGGCAAAcccgucGAAAgacgggGACGCAAAg*[38]*cUgCCgaa 87    
+                     UA++ A  A+GG AAA+:::::GAAA::::: GAC CAAA:      :U CC+A 
+  NC_055783.1 148340 UAUCUACGAGGGUAAAUUACCGGAAACGGUA-GACGCAAAA*[12]*UUUCCAAU 148281
+                     ******************************8.8*******8...9..7******* PP
+
+>> NC_012741.1  Enterobacteria phage JS10, complete genome
+ rank     E-value  score  bias mdl mdl from   mdl to       seq from      seq to       acc trunc   gc
+ ----   --------- ------ ----- --- -------- --------    ----------- -----------      ---- ----- ----
+  (6) ?       6.6   22.8   0.0  cm        1       87 []      161970      162029 + .. 0.97    no 0.43
+
+                                     v              v                        NC
+                     :::::::::::<<---<<<<<<____>>>>>>--->>--<<~~~~~~>>:::::: CS
+   c-di-GMP-I      1 uaaugaaAAaGGCAAAcccgucGAAAgacgggGACGCAAAg*[38]*cUgCCgaa 87    
+                     U  U A+ A+GG AAA+:::::GAAA::::: GAC CAAA:      :U CCGA 
+  NC_012741.1 161970 UGCUUAUGAGGGUAAAUUACCGGAAACGGUA-GACGCAAAA*[12]*UUUCCGAU 162029
+                     ******************************8.8*******8...9..79****** PP
+
+>> NC_047743.1  Burkholderia phage Bp-AMP1 complete genome
+ rank     E-value  score  bias mdl mdl from   mdl to       seq from      seq to       acc trunc   gc
+ ----   --------- ------ ----- --- -------- --------    ----------- -----------      ---- ----- ----
+  (7) ?       8.1   22.4   0.0  cm        1       87 []        8051        8102 + .. 0.97    no 0.54
+
+                                       v      v                        NC
+                   :::::::::::<<---<<<<<<____>>>>>>--->>--~~~~~~:::::: CS
+   c-di-GMP-I    1 uaaugaaAAaGGCAAAcccgucGAAAgacgggGACGCAA*[42]*gCCgaa 87  
+                   U  UG A AAGGCAAA:::: CG AAG ::::  CGCAA      GCCGAA
+  NC_047743.1 8051 UGCUGGAGAAGGCAAAGAUUCCGCAAGAGAUCAUCGCAA*[ 7]*GCCGAA 8102
+                   **************************************9...8..****** PP
+
+>> NC_055740.1  Enterobacteria phage vB_EcoM_IME281, complete genome
+ rank     E-value  score  bias mdl mdl from   mdl to       seq from      seq to       acc trunc   gc
+ ----   --------- ------ ----- --- -------- --------    ----------- -----------      ---- ----- ----
+  (8) ?       9.1   22.2   0.0  cm        1       87 []       11406       11347 - .. 0.97    no 0.43
+
+                                    v              v                        NC
+                    :::::::::::<<---<<<<<<____>>>>>>--->>--<<~~~~~~>>:::::: CS
+   c-di-GMP-I     1 uaaugaaAAaGGCAAAcccgucGAAAgacgggGACGCAAAg*[38]*cUgCCgaa 87   
+                    U  U A+ A+GG AAA+:::::GAAA::::: GAC CAAA:      :U CC+A 
+  NC_055740.1 11406 UGCUUAUGAGGGUAAAUUACCGGAAACGGUA-GACGCAAAA*[12]*UUUCCAAU 11347
+                    ******************************8.8*******8...9..7******* PP
+
+
+
+Internal CM pipeline statistics summary:
+----------------------------------------
+Query model(s):                                                  1  (87 consensus positions)
+Target sequences:                                            14820  (941743304 residues searched)
+Target sequences re-searched for truncated hits:             14820  (8121628 residues re-searched)
+Windows   passing  local HMM SSV           filter:          907052  (0.1569); expected (0.15)
+Windows   passing  local HMM Viterbi       filter:          712056  (0.1253); expected (0.15)
+Windows   passing  local HMM Viterbi  bias filter:          635107  (0.1119); expected (0.15)
+Windows   passing  local HMM Forward       filter:            5264  (0.001026); expected (0.0008)
+Windows   passing  local HMM Forward  bias filter:            3820  (0.0007352); expected (0.0008)
+Windows   passing glocal HMM Forward       filter:            2676  (0.0005376); expected (0.0008)
+Windows   passing glocal HMM Forward  bias filter:            2556  (0.0005123); expected (0.0008)
+Envelopes passing glocal HMM envelope defn filter:            2551  (0.0002722); expected (0.0008)
+Envelopes passing  local CM  CYK           filter:             544  (5.183e-05); expected (0.0001)
+Total CM hits reported:                                          8  (6.506e-07); includes 0 truncated hit(s)
+
+# CPU time: 78.99u 0.95s 00:01:19.94 Elapsed: 00:00:11.74
+# Alignment of 4 hits satisfying inclusion thresholds saved to: searches/1.out.sto
+//
+[ok]

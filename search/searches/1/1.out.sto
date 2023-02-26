@@ -1,0 +1,19 @@
+# STOCKHOLM 1.0
+#=GF AU Infernal 1.1.3
+
+#=GS NC_028764.1/31283-31186 DE Clostridium phage phiCD505, complete genome
+#=GS NC_007917.1/29246-29151 DE Clostridium phage phi CD119, complete genome
+#=GS NC_024144.1/29633-29538 DE Clostridium phage CDMH1 complete genome
+#=GS NC_011398.1/33053-32958 DE Clostridioides phage phiCD27, complete genome
+
+NC_028764.1/31283-31186         AAACUAAAUCGGCAAAACUAGAGAAAUUUAGUGACGCAAAGCUAUaGGGACUAAGACUUaUAUAaauaucuuauGAGUUAUGUCAGCC-AGUUGCCAAA
+#=GR NC_028764.1/31283-31186 PP ***********************************************************7444457888888889*************.**********
+NC_007917.1/29246-29151         AAACUAAAUCGGCAAAACUAGAGAAAUUUAGUGACGCAAAGCUAUaGGGACUAAGAUUUaUAAAauuc..uuauAAAUUAUGCCAGCC-AGUUGCCAAA
+#=GR NC_007917.1/29246-29151 PP ***********************************************************855557999..9999**************.**********
+NC_024144.1/29633-29538         AAACUAAAUCGGCAAAACUAGAGAAAUUUAGUGACGCAAAGCUAUaGGGACUAAGACUUaUAAAauuc..uuauAAAUUAUGCCAGCC-AGUUGCCAAA
+#=GR NC_024144.1/29633-29538 PP ***********************************************************755557999..999999************.**********
+NC_011398.1/33053-32958         AAACUAAAUCGGCAAAACUAGAGAAAAUUAGUGACGCAAAGCUAUaGGGACUAAGAUUUaUAAAauuc..uuauAAAUUAUGCCAGCC-AGUUGCCAAA
+#=GR NC_011398.1/33053-32958 PP ***********************************************************855557999..9999**************.**********
+#=GC SS_cons                    :::::::::::<<---<<<<<<____>>>>>>--->>--<<<<-<.<<<<<----<<<<.____..........>>>>--->>>-->>>>>>>::::::
+#=GC RF                         uaaugaaAAaGGCAAAcccgucGAAAgacgggGACGCAAAgCcAc.gGguCUAAggccc.uaaa..........gggcuAuGacAGCcggGcUgCCgaa
+//

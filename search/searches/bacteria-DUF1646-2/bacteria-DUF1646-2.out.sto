@@ -1,0 +1,19 @@
+# STOCKHOLM 1.0
+#=GF AU Infernal 1.1.3
+
+#=GS NZ_JAJNSX010000016.1/41334-41286  DE Lactobacillus delbrueckii subsp. bulgaricus strain FAM 22166 FAM22166-i1-1_scf16, whole genome shotgun sequence
+#=GS NZ_AEHP01000015.1/12664-12712     DE Lactobacillus iners LactinV 03V1-b contig00014, whole genome shotgun sequence
+#=GS NZ_PHLE01000001.1/1457585-1457632 DE Enterococcus faecalis strain 16-196 16-196_scaffold_1_, whole genome shotgun sequence
+#=GS NZ_PHLE01000001.1/308551-308601   DE Enterococcus faecalis strain 16-196 16-196_scaffold_1_, whole genome shotgun sequence
+
+NZ_JAJNSX010000016.1/41334-41286          GGUUGGAGUU--UCAA..-.-AACUU-UCAAGAAAAA-..GCUUCUU.UGGGUCAAGAAGC
+#=GR NZ_JAJNSX010000016.1/41334-41286  PP *********9..7776.....9****.**********...*******.*************
+NZ_AEHP01000015.1/12664-12712             GGUUGGAGCA---UUUaaA.--GCUU-UCAAGAUAU--..GCUUAUU.UGGGUCAAUAAGC
+#=GR NZ_AEHP01000015.1/12664-12712     PP ******9984...333444...7999.*********....*******.*************
+NZ_PHLE01000001.1/1457585-1457632         GGUUGGGC----GAAA..-.---GCU-UCAAGGAUUCA.gUUCUUCAaGGGGUGAGAAGAA
+#=GR NZ_PHLE01000001.1/1457585-1457632 PP ********....***9.......***.***********.**********************
+NZ_PHLE01000001.1/308551-308601           GGUUGGGCAA------..-g-UUGCUUUCAAGGUUUUGagUUUCUCAuAGGGCGAGAGGAA
+#=GR NZ_PHLE01000001.1/308551-308601   PP ********76.........4.67**************************************
+#=GC SS_cons                              ::<<<<<<<<<_____.._~>>>>>>-->>>-------..<<<<<<<.______>>>>>>>
+#=GC RF                                   GGUUGGGCggaUuuaa..A~uccGCUUUCAAGAuuUuu..ggCUuCu.gGGGUGgGaAGcc
+//

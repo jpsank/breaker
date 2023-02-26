@@ -1,0 +1,20 @@
+#target name         accession query name           accession mdl mdl from   mdl to seq from   seq to strand trunc pass   gc  bias  score   E-value inc description of target
+#------------------- --------- -------------------- --------- --- -------- -------- -------- -------- ------ ----- ---- ---- ----- ------ --------- --- ---------------------
+NC_028764.1          -         c-di-GMP-I           RF01051    cm        1       87    31283    31186      -    no    1 0.34   0.0   74.7   1.4e-12 !   Clostridium phage phiCD505, complete genome
+NC_007917.1          -         c-di-GMP-I           RF01051    cm        1       87    29246    29151      -    no    1 0.32   0.1   73.2   3.2e-12 !   Clostridium phage phi CD119, complete genome
+NC_024144.1          -         c-di-GMP-I           RF01051    cm        1       87    29633    29538      -    no    1 0.33   0.1   69.3   2.9e-11 !   Clostridium phage CDMH1 complete genome
+NC_011398.1          -         c-di-GMP-I           RF01051    cm        1       87    33053    32958      -    no    1 0.32   0.2   69.1   3.2e-11 !   Clostridioides phage phiCD27, complete genome
+NC_055783.1          -         c-di-GMP-I           RF01051    cm        1       87   148340   148281      -    no    1 0.43   0.0   22.8       6.5 ?   Escherichia phage vB_EcoM_005, complete genome
+NC_012741.1          -         c-di-GMP-I           RF01051    cm        1       87   161970   162029      +    no    1 0.43   0.0   22.8       6.6 ?   Enterobacteria phage JS10, complete genome
+NC_047743.1          -         c-di-GMP-I           RF01051    cm        1       87     8051     8102      +    no    1 0.54   0.0   22.4       8.1 ?   Burkholderia phage Bp-AMP1 complete genome
+NC_055740.1          -         c-di-GMP-I           RF01051    cm        1       87    11406    11347      -    no    1 0.43   0.0   22.2       9.1 ?   Enterobacteria phage vB_EcoM_IME281, complete genome
+#
+# Program:         cmsearch
+# Version:         1.1.3 (Nov 2019)
+# Pipeline mode:   SEARCH
+# Query file:      sto/RF01051.sto.cm
+# Target file:     db/viral.1.1.genomic.fna
+# Option settings: cmsearch -o searches/1.out -A searches/1.out.sto --tblout searches/1.out.tbl sto/RF01051.sto.cm db/viral.1.1.genomic.fna 
+# Current dir:     /Users/julian/Desktop/The Breaker Lab
+# Date:            Thu Jan 26 23:24:51 2023
+# [ok]

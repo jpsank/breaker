@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block head %}
+    {{ super() }}
+    <meta name="description" content="">
+{% endblock %}
+{% block content %}
+    <div>
+        <h2>Uploads</h2>
+        {% if uploads %}
+            <div class="uploads">
+                <ul>
+                    {% for upload in uploads %}
+                        <li class="upload">
+                            <a href="{{ url_for('main.view', id_=upload.id) }}">
+                                <p>{{ format_title(upload.filename) }}</p>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <ul class="pager">
+                <li class="previous{% if not prev_url %} disabled{% endif %}">
+                    <a href="{{ prev_url or '#' }}">&larr;</a>
+                </li>
+                <li class="{% if not next_url %}disabled{% endif %}">{{ request.args.get('page') or 1 }} of {{ pages }}</li>
+                <li class="next{% if not next_url %} disabled{% endif %}">
+                    <a href="{{ next_url or '#' }}">&rarr;</a>
+                </li>
+            </ul>
+        {% else %}
+            <p>No uploads.</p>
+        {% endif %}
+    </div>
+{% endblock %}

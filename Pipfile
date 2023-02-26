@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pandas = "*"
+flask = "*"
+flask-sqlalchemy = "*"
+sentry-sdk = "*"
+flask-wtf = "*"
+flask-bootstrap = "*"
+flask-session = "*"
+flask-login = "*"
+requests = "*"
+click = "*"
+flask-migrate = "*"
+pyfaidx = "*"
+matplotlib = "*"
+scipy = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"
