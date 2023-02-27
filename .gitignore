@@ -6,4 +6,4 @@ web/app/static/uploads/*
 web/instance/*
 web/migrations
 
-interval.py
+cgkdb/
