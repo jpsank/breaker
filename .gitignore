@@ -6,4 +6,6 @@ web/app/static/uploads/*
 web/instance/*
 web/migrations
 
+old/
+
 cgkdb/

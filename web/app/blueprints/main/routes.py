@@ -38,7 +38,7 @@ def index():
                            next_url=next_url, prev_url=prev_url)
 
 
-from parse import Stockholm
+from models import Stockholm
 
 # class Sto:
 #     def __init__(self, data):
