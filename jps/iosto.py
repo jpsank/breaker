@@ -106,8 +106,8 @@ class Stockholm:
     def parse(path: str):
         """ Parse a Stockholm file. """
 
-        glob_features = defaultdict(lambda: defaultdict(list))
-        seq_features = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
+        glob_features = defaultdict(lambda: defaultdict(str))
+        seq_features = defaultdict(lambda: defaultdict(lambda: defaultdict(str)))
         msa: dict[str, StoSequence] = {}
 
         with open(path) as f:
@@ -126,10 +126,16 @@ class Stockholm:
                 elif isinstance(line, StoFeature):
                     if line.fmt == 'GF' or line.fmt == 'GC':
                         # Global feature
-                        glob_features[line.fmt][line.field].append(line)
+                        if line.field in glob_features[line.fmt]:
+                            glob_features[line.fmt][line.field].text += line.text
+                        else:
+                            glob_features[line.fmt][line.field] = line
                     else:
                         # Sequence feature
-                        seq_features[line.fmt][line.seqname][line.field].append(line)
+                        if line.field in seq_features[line.fmt][line.seqname]:
+                            seq_features[line.fmt][line.seqname][line.field].text += line.text
+                        else:
+                            seq_features[line.fmt][line.seqname][line.field] = line
                 else:
                     # Sequence
                     if line.seqname not in msa:
@@ -139,6 +145,43 @@ class Stockholm:
         
         return Stockholm(msa, glob_features, seq_features, path)
 
+    def remove_sequence(self, seqname: str):
+        """ Remove a sequence from the alignment. """
+        del self.msa[seqname]
+        if seqname in self.seq_features['GS']:
+            del self.seq_features['GS'][seqname]
+        if seqname in self.seq_features['GR']:
+            del self.seq_features['GR'][seqname]
+
+    def remove_duplicates(self):
+        """ Remove duplicate sequences from the alignment. """
+        seen = set()
+        for seq in list(self.msa.values()):
+            if seq.text in seen:
+                self.remove_sequence(seq.seqname)
+            else:
+                seen.add(seq.text)
+
+    def write(self, path: str):
+        """ Write a Stockholm file. """
+
+        with open(path, 'w') as f:
+            f.write('# STOCKHOLM 1.0\n')
+
+            for fmt, fields in self.glob_features.items():
+                for field, line in fields.items():
+                    f.write(f'#={fmt} {field} {line.text}\n')
+            
+            for seq in self.msa.values():
+                f.write(f'{seq.seqname}          {seq.text}\n')
+
+            for fmt, seqs in self.seq_features.items():
+                for seqname, fields in seqs.items():
+                    for field, line in fields.items():
+                        f.write(f'#={fmt} {seqname}          {field} {line.text}\n')
+            f.write('//\n')
+
+        self.path = path
 
 if __name__ == '__main__':
     import sys

@@ -10,35 +10,18 @@ import numpy as np
 from jps.inferno import *
 
 
-def get_unique(hits: list[SearchResultHit]):
-    """Remove duplicate hits from a search result."""
-    sequence_texts = []
-    unique_hits = []
-    for hit in hits:
-        if hit.text not in sequence_texts:
-            unique_hits.append(hit)
-            sequence_texts.append(hit.text)
-    return unique_hits
-
-def get_included(hits: list[SearchResultHit], threshold=0.01):
-    """Get hits that are included in the final alignment."""
-    return [hit for hit in hits if hit.E_value < threshold]
-
-
 def analyze(sr: SearchResult, name, color, outdir='search/analyze', threshold=0.01):
     # Table of counts/statistics
-    unique_all = get_unique(sr.hits.values())
-    included = get_included(sr.hits.values(), threshold)
-    unique_included = get_unique(included)
     print(f"Total number of {name} hits: {len(sr.hits)}")
-    print(f"Number of unique {name} hits: {len(unique_all)}")
-    print(f"Number of {name} hits with E-value < {threshold}: {len(included)}")
-    print(f"Number of unique {name} hits with E-value < {threshold}: {len(unique_included)}")
 
-    # TODO: Save included and unique hits to .keepE001 and .keepE001.uniq files using tblio.py
+    # Number of unique hits
+    sr.remove_duplicates()
+    print(f"Number of unique {name} hits: {len(sr.hits)}")
+    sr.sto.write(uniq_path := f"{outdir}/{name}.uniq.sto")
 
-    # Plot score distribution as histogram
-    df = pandas.DataFrame([hit.__dict__ for hit in unique_all])
+    # Plot score distribution of unique hits
+    print(f"Plotting {name} score distribution of unique hits...")
+    df = pandas.DataFrame([hit.__dict__ for hit in sr.hits.values()])
     score = np.log(df["E_value"])
     ax = score.hist(bins=50, color=color, label=name, log=True)
 
@@ -51,12 +34,19 @@ def analyze(sr: SearchResult, name, color, outdir='search/analyze', threshold=0.
     ax.set_ylabel('Count')
     ax.figure.savefig(f"{outdir}/{name}_score_distribution.png")
     plt.clf()
+    print(f"Saved {outdir}/{name}_score_distribution.png")
+
+    # Number of unique hits with E-value < threshold
+    sr.apply_threshold(threshold)
+    print(f"Number of unique {name} hits with E-value < {threshold}: {len(sr.hits)}")
+    sr.sto.write(uniq_keep_path := f"{outdir}/{name}.uniq.keepE{str(threshold).replace('.', '')}.sto")
 
     # R2R diagrams
-    # TODO: Make R2R diagrams of .keep.uniq file
     print("R2R commands:")
-    print(f'r2r-mkcons {sr.sto.path}')
-    print(f'r2r-mkpdf-cons {sr.sto.path.removesuffix(".sto")}.cons.sto')
+    print(f'r2r-mkcons {uniq_path}')
+    print(f'r2r-mkpdf-cons {uniq_path.removesuffix(".sto")}.cons.sto')
+    print(f'r2r-mkcons {uniq_keep_path}')
+    print(f'r2r-mkpdf-cons {uniq_keep_path.removesuffix(".sto")}.cons.sto')
 
 
 if __name__ == '__main__':
