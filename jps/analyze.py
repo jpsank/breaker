@@ -17,18 +17,14 @@ def analyze(sr: SearchResult, name, color, outdir='search/analyze', threshold=0.
     # Number of unique hits
     sr.remove_duplicates()
     print(f"Number of unique {name} hits: {len(sr.hits)}")
-    sr.sto.write(uniq_path := f"{outdir}/{name}.uniq.sto")
+    sr.write(uniq_path := f"{outdir}/{name}.uniq")
 
     # Plot score distribution of unique hits
     print(f"Plotting {name} score distribution of unique hits...")
-    df = pandas.DataFrame([hit.__dict__ for hit in sr.hits.values()])
+    df = pandas.DataFrame([hit.asdict() for hit in sr.hits.values()])
     score = np.log(df["E_value"])
     ax = score.hist(bins=50, color=color, label=name, log=True)
-
-    # Plot inclusion threshold (0.01)
     ax.axvline(x=np.log(threshold), color=color, linestyle='dashed')
-
-    # Plot and save
     ax.set_title(f"{name} score distribution")
     ax.set_xlabel('log(E-value)')
     ax.set_ylabel('Count')
@@ -39,14 +35,14 @@ def analyze(sr: SearchResult, name, color, outdir='search/analyze', threshold=0.
     # Number of unique hits with E-value < threshold
     sr.apply_threshold(threshold)
     print(f"Number of unique {name} hits with E-value < {threshold}: {len(sr.hits)}")
-    sr.sto.write(uniq_keep_path := f"{outdir}/{name}.uniq.keepE{str(threshold).replace('.', '')}.sto")
+    sr.write(uniq_keep_path := f"{outdir}/{name}.uniq.keepE{str(threshold).replace('.', '')}")
 
     # R2R diagrams
     print("R2R commands:")
-    print(f'r2r-mkcons {uniq_path}')
-    print(f'r2r-mkpdf-cons {uniq_path.removesuffix(".sto")}.cons.sto')
-    print(f'r2r-mkcons {uniq_keep_path}')
-    print(f'r2r-mkpdf-cons {uniq_keep_path.removesuffix(".sto")}.cons.sto')
+    print(f'r2r-mkcons {uniq_path}.sto')
+    print(f'r2r-mkpdf-cons {uniq_path}.cons.sto')
+    print(f'r2r-mkcons {uniq_keep_path}.sto')
+    print(f'r2r-mkpdf-cons {uniq_keep_path}.cons.sto')
 
 
 if __name__ == '__main__':

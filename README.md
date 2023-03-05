@@ -9,13 +9,14 @@ A riboswitch is a regulatory segment of messenger RNA designed to bind a ligand,
 2. Run searches for RNA motifs against the latest bacterial and archaeal databases using Infernal cmsearch.
 3. Perform analysis on the search results (number of hits, bit score distribution, and predicted secondary structure R2R visualization) to get a better picture of the genetic distance between the two riboswitches.
 4. Implement ViennaRNA/CMfinder to fold the sequences in the search results.
+5. 
 
 **Part 2**: Genetic algorithm to refine RNA folding.
 1. Refine/optimize the folding results from ViennaRNA using a genetic algorithm, as most riboswitch RNAs can adopt modular folds.
 
-**Part 3**: Web interface for visualizing and editing the results of the pipeline.
+**Part 3**: Web server which allows visualization, editing, and refinement of the folded output of parts 1-2.
 1. Visualize folding for individual multiple sequence alignment in an RNA alignment editor (i.e. re-implement RALEE with new functionality)
-2. Render the genome context for any individual sequence from the search results of part 1.
+2. Implement SODA (or another genome context viewer) to render the genome context for any individual sequence from the search results of part 1.
 3. Visualize the complete search result from part 1, which is a major component of the BLISS/DIMPL pipeline.
 
 ## Deliverables

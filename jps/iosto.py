@@ -90,25 +90,56 @@ class StoFeature(StoLine):
 
 
 @dataclass
+class FeatureSet:
+    # Global features
+    gf: 'dict[str, StoFeature]' = field(default_factory=defaultdict)
+    gc: 'dict[str, StoFeature]' = field(default_factory=defaultdict)
+    
+    # Sequence features
+    gs: 'dict[str, dict[str, StoFeature]]' = field(default_factory=lambda: defaultdict(lambda: defaultdict(str)))
+    gr: 'dict[str, dict[str, StoFeature]]' = field(default_factory=lambda: defaultdict(lambda: defaultdict(str)))
+
+    def add(self, feat: StoFeature):
+        if feat.fmt == 'GF' or feat.fmt == 'GC':
+            features = self.gf if feat.fmt == 'GF' else self.gc
+            if feat.field in features:
+                features[feat.field].text += feat.text
+            else:
+                features[feat.field] = feat
+        elif feat.fmt == 'GS' or feat.fmt == 'GR':
+            features = self.gs if feat.fmt == 'GS' else self.gr
+            if feat.field in features[feat.seqname]:
+                features[feat.seqname][feat.field].text += feat.text
+            else:
+                features[feat.seqname][feat.field] = feat
+        else:
+            raise StockholmError(f"Invalid feature format '{feat.fmt}'")
+
+    def remove_seq(self, seqname: str):
+        """ Remove a sequence from the feature set. """
+        if seqname in self.gs:
+            del self.gs[seqname]
+        if seqname in self.gr:
+            del self.gr[seqname]
+
+@dataclass
 class Stockholm:
-    """ Represents a Stockholm file. """
+    """ Represents a Stockholm file, including its alignment and features. """
     
     msa: 'dict[str, StoSequence]'
-    glob_features: 'dict[str, dict[str, list[StoFeature]]]'
-    seq_features: 'dict[str, dict[str, dict[str, list[StoFeature]]]]'
+    features: FeatureSet
     path: str = None
     
     @property
     def SS_cons(self):
-        return self.glob_features['GC']['SS_cons'][0].text
+        return self.features.gc['SS_cons'][0].text
 
     @staticmethod
     def parse(path: str):
         """ Parse a Stockholm file. """
 
-        glob_features = defaultdict(lambda: defaultdict(str))
-        seq_features = defaultdict(lambda: defaultdict(lambda: defaultdict(str)))
         msa: dict[str, StoSequence] = {}
+        features = FeatureSet()
 
         with open(path) as f:
             if (header := f.readline()) != '# STOCKHOLM 1.0\n':
@@ -118,24 +149,14 @@ class Stockholm:
                 line = StoLine.parse(line.strip(), i)
 
                 if line is None or isinstance(line, StoComment) or (end := isinstance(line, StoEnd)):
-                    # An empty line indicates the end of a block (ignored)
+                    # An empty line indicates the end of a block
 
                     # An end line indicates the end of the file
                     if end:
                         break
                 elif isinstance(line, StoFeature):
-                    if line.fmt == 'GF' or line.fmt == 'GC':
-                        # Global feature
-                        if line.field in glob_features[line.fmt]:
-                            glob_features[line.fmt][line.field].text += line.text
-                        else:
-                            glob_features[line.fmt][line.field] = line
-                    else:
-                        # Sequence feature
-                        if line.field in seq_features[line.fmt][line.seqname]:
-                            seq_features[line.fmt][line.seqname][line.field].text += line.text
-                        else:
-                            seq_features[line.fmt][line.seqname][line.field] = line
+                    # Feature
+                    features.add(line)
                 else:
                     # Sequence
                     if line.seqname not in msa:
@@ -143,45 +164,42 @@ class Stockholm:
                     else:
                         msa[line.seqname].text += line.text
         
-        return Stockholm(msa, glob_features, seq_features, path)
+        return Stockholm(msa, features, path)
 
-    def remove_sequence(self, seqname: str):
+    def remove_seq(self, seqname: str):
         """ Remove a sequence from the alignment. """
-        del self.msa[seqname]
-        if seqname in self.seq_features['GS']:
-            del self.seq_features['GS'][seqname]
-        if seqname in self.seq_features['GR']:
-            del self.seq_features['GR'][seqname]
-
-    def remove_duplicates(self):
-        """ Remove duplicate sequences from the alignment. """
-        seen = set()
-        for seq in list(self.msa.values()):
-            if seq.text in seen:
-                self.remove_sequence(seq.seqname)
-            else:
-                seen.add(seq.text)
+        if seqname in self.msa:
+            del self.msa[seqname]
+        self.features.remove_seq(seqname)
 
     def write(self, path: str):
         """ Write a Stockholm file. """
+        width = max(len(seq.seqname) for seq in self.msa.values())
 
         with open(path, 'w') as f:
             f.write('# STOCKHOLM 1.0\n')
 
-            for fmt, fields in self.glob_features.items():
-                for field, line in fields.items():
-                    f.write(f'#={fmt} {field} {line.text}\n')
-            
-            for seq in self.msa.values():
-                f.write(f'{seq.seqname}          {seq.text}\n')
+            # Write global features at the top
+            for field, line in self.features.gf.items():
+                f.write(f'#=GF {field} {line.text}\n')
 
-            for fmt, seqs in self.seq_features.items():
-                for seqname, fields in seqs.items():
-                    for field, line in fields.items():
-                        f.write(f'#={fmt} {seqname}          {field} {line.text}\n')
+            # Write sequence features above alignment
+            for seqname in self.features.gs:
+                for field, line in self.features.gs[seqname].items():
+                    f.write(f'#=GS {seqname: <{width + 3}} {field} {line.text}\n')
+
+            # Write aligned sequences and sequence comments
+            for seqname, seq in self.msa.items():
+                f.write(f'{seqname: <{width + 8}} {seq.text}\n')
+                if seqname in self.features.gr:
+                    for field, line in self.features.gr[seqname].items():
+                        f.write(f'#=GR {seqname: <{width}} {field} {line.text}\n')
+
+            # Write global comments at the bottom
+            for field, line in self.features.gc.items():
+                f.write(f'#=GC {field: <{width + 3}} {line.text}\n')
+
             f.write('//\n')
-
-        self.path = path
 
 if __name__ == '__main__':
     import sys

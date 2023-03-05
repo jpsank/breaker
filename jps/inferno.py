@@ -9,16 +9,12 @@ from collections import defaultdict
 import pandas
 from pyfaidx import Fasta
 
+from jps.tblio import SearchResultRow, SearchResultTable
 from jps.iosto import Stockholm, StoSequence
 
 
 class InfernoError(Exception):
     """ Errors related to processing Infernal output. """
-
-
-TBLHEADERS = ['target_name', 'target_accession', 'query_name', 'query_accession', 
-              'mdl', 'mdl_from', 'mdl_to', 'seq_from', 'seq_to', 'strand', 'trunc', 
-              'pass', 'gc', 'bias', 'score', 'E_value', 'inc', 'description_of_target']
 
 
 @dataclass
@@ -28,95 +24,70 @@ class SearchResultHit:
     cmsearch result table and the corresponding sequence in the Stockholm file.
     """
 
-    id: int
-    acn: str
-    start: int
-    end: int
-    strand: str
+    row: SearchResultRow
+    seq: StoSequence
 
-    # Sequence from Stockholm file
-    text: str
-
-    # Scores from cmsearch result table
-    score: float
-    E_value: float
-    inc: str
-
-    @staticmethod
-    def parse(row: dict, sto: Stockholm, id_: int):
-        acn = row['target_name'].strip()
-        seq = sto.msa.get(acn)
-        return SearchResultHit(
-            id_,
-            acn=acn,
-            start=int(row['seq_from']),
-            end=int(row['seq_to']),
-            strand=row['strand'],
-            text=seq.text if seq else None,
-            score=float(row['score']),
-            E_value=float(row['E_value']),
-            inc=row['inc'].strip()
-        )
-
-    @property
-    def seqname(self):
-        return f"{self.acn}/{self.start}-{self.end}"
-
-    def coords(self):
-        return (self.start, self.end)
-
-    def eslcoords(self):
-        return (self.start, self.end) if self.strand == '+' else (self.end, self.start)
-
-    def __str__(self):
-        return f"{self.seqname} ({self.strand})"
+    def asdict(self):
+        return {
+            'seqname': self.row.seqname(),
+            **self.row.__dict__,
+            'seq': self.seq.text if self.seq else None,
+        }
 
 
 @dataclass
 class SearchResult:
-    """ Represents the results of a cmsearch. """
+    """ Represents the results of a cmsearch, consisting of a sto file and tbl. """
 
     sto: Stockholm
+    tbl: SearchResultTable
     hits: 'dict[str, SearchResultHit]'
-    tbl_path: str = None
     dbfna_path: str = None
-
-    fasta: Fasta = field(init=False)
-    def __post_init__(self):
-        if self.dbfna_path:
-            self.fasta = Fasta(self.dbfna_path)
+    fasta: Fasta = None
 
     @staticmethod
     def parse(path: str, dbfna_path: str = None):
+        """ Parse a cmsearch result from a path. """
+
         # Parse Stockholm file
         sto = Stockholm.parse(f"{path}.sto")
 
         # Parse tbl file
-        hits = {}
-        with open(tbl_path := f"{path}.tbl") as f:
-            for i, line in enumerate(f):
-                if line.startswith('#'):
-                    # Skip comments
-                    continue
+        tbl = SearchResultTable.parse(f"{path}.tbl")
 
-                values = line.split(maxsplit=len(TBLHEADERS)-1)
-                if len(values) != len(TBLHEADERS):
-                    raise InfernoError(f"Expected {len(TBLHEADERS)} columns, got {len(values)} at line {i}")
-
-                hit = SearchResultHit.parse(dict(zip(TBLHEADERS, values)), sto, i)
-                hits[hit.seqname] = hit
+        # Create hits relation
+        hits = {seqname: SearchResultHit(row, sto.msa.get(seqname)) for seqname, row in tbl.rows.items()}
         
-        return SearchResult(sto, hits, tbl_path, dbfna_path)
+        # Create FASTA index
+        fasta = Fasta(dbfna_path) if dbfna_path else None
+        
+        return SearchResult(sto, tbl, hits, dbfna_path, fasta)
+
+    def remove_hit(self, seqname: str):
+        """ Remove a hit from the search result. """
+        self.tbl.remove_row(seqname)
+        self.sto.remove_seq(seqname)
+        del self.hits[seqname]
 
     def apply_threshold(self, threshold: float):
-        for seqname, hit in self.hits.items():
-            if hit.E_value >= threshold:
-                self.sto.remove_sequence(seqname)
-        self.hits = {seqname: hit for seqname, hit in self.hits.items() if hit.E_value < threshold}
+        for seqname, hit in list(self.hits.items()):
+            if hit.row.E_value >= threshold:
+                self.remove_hit(seqname)
 
     def remove_duplicates(self):
-        self.sto.remove_duplicates()
-        self.hits = {seqname: hit for seqname, hit in self.hits.items() if seqname in self.sto.msa}
+        seen = set()
+        for seqname, hit in list(self.hits.items()):
+            if hit.seq is None:
+                print(f"WARNING: No sequence found for {seqname}")
+                continue
+            if hit.seq.text in seen:
+                self.remove_hit(seqname)
+            else:
+                seen.add(hit.seq.text)
+
+    def write(self, path: str):
+        self.sto.write(f"{path}.sto")
+        self.tbl.write(f"{path}.tbl")
 
     # def get_flank(self, seq: StoSequence, flank: int):
     #     if not self.fasta:
@@ -126,9 +97,6 @@ class SearchResult:
     #     if seq.strand == -1:
     #         s = s.complement
     #     return StoSequence(seq.name, seq.start-flank, seq.end+flank, str(s), seq.strand)
-
-    def to_dataframe(self):
-        return pandas.DataFrame([h.__dict__ for h in self.hits.values()])
     
 
 if __name__ == '__main__':
