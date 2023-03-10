@@ -115,6 +115,10 @@ class FeatureSet:
         else:
             raise StockholmError(f"Invalid feature format '{feat.fmt}'")
 
+    def copy(self):
+        """ Return a copy of the feature set. """
+        return FeatureSet(self.gf.copy(), self.gc.copy(), self.gs.copy(), self.gr.copy())
+
     def remove_seq(self, seqname: str):
         """ Remove a sequence from the feature set. """
         if seqname in self.gs:
@@ -165,6 +169,10 @@ class Stockholm:
                         msa[line.seqname].text += line.text
         
         return Stockholm(msa, features, path)
+
+    def copy(self):
+        """ Return a copy of the Stockholm object. """
+        return Stockholm(self.msa.copy(), self.features.copy(), self.path)
 
     def remove_seq(self, seqname: str):
         """ Remove a sequence from the alignment. """

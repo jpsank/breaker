@@ -1,0 +1,5 @@
+Counts for DUF1646:
+Total hits: 1649
+Unique hits: 1478
+Total hits with E-value<1: 497
+Unique hits with E-value<1: 421

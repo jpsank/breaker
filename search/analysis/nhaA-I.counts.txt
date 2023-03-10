@@ -1,0 +1,5 @@
+Counts for nhaA-I:
+Total hits: 4365
+Unique hits: 4091
+Total hits with E-value<1: 1796
+Unique hits with E-value<1: 1663

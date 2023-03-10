@@ -86,6 +86,9 @@ class SearchResultTable:
         
         return SearchResultTable(rows, path)
 
+    def copy(self):
+        return SearchResultTable({k: v for k, v in self.rows.items()}, self.path)
+
     def remove_row(self, seqname: str):
         del self.rows[seqname]
     

@@ -7,5 +7,6 @@ web/instance/*
 web/migrations
 
 old/
+extra/
 
 cgkdb/

@@ -63,6 +63,9 @@ class SearchResult:
         
         return SearchResult(sto, tbl, hits, dbfna_path, fasta)
 
+    def copy(self):
+        return SearchResult(self.sto.copy(), self.tbl.copy(), self.hits.copy())
+
     def remove_hit(self, seqname: str):
         """ Remove a hit from the search result. """
         self.tbl.remove_row(seqname)
@@ -102,4 +105,3 @@ class SearchResult:
 if __name__ == '__main__':
     import sys
     sr = SearchResult.parse(sys.argv[1])
-    print(sr.to_dataframe())

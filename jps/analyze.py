@@ -36,17 +36,13 @@ def compare(sr1: SearchResult, sr2: SearchResult, distance_threshold=1000):
 
 
 def analyze(sr: SearchResult, name, color, outdir='search/analyze', threshold=0.01):
-    # Table of counts/statistics
-    print(f"Total number of {name} hits: {len(sr.hits)}")
-
     # Number of unique hits
-    sr.remove_duplicates()
-    print(f"Number of unique {name} hits: {len(sr.hits)}")
-    sr.write(uniq_path := f"{outdir}/{name}.uniq")
+    sr_unique = sr.copy()
+    sr_unique.remove_duplicates()
 
     # Plot score distribution of unique hits
     print(f"Plotting {name} score distribution of unique hits...")
-    df = pandas.DataFrame([hit.asdict() for hit in sr.hits.values()])
+    df = pandas.DataFrame([hit.asdict() for hit in sr_unique.hits.values()])
     score = np.log(df["E_value"])
     ax = score.hist(bins=50, color=color, label=name, log=True)
     ax.axvline(x=np.log(threshold), color=color, linestyle='dashed')
@@ -58,9 +54,30 @@ def analyze(sr: SearchResult, name, color, outdir='search/analyze', threshold=0.
     print(f"Saved {outdir}/{name}_score_distribution.png")
 
     # Number of unique hits with E-value < threshold
-    sr.apply_threshold(threshold)
-    print(f"Number of unique {name} hits with E-value < {threshold}: {len(sr.hits)}")
-    sr.write(uniq_keep_path := f"{outdir}/{name}.uniq.keepE{str(threshold).replace('.', '')}")
+    sr_keep = sr.copy()
+    sr_keep.apply_threshold(threshold)
+    sr_unique_keep = sr_keep.copy()
+    sr_unique_keep.remove_duplicates()
+
+    # Save data files
+    data_dir = f"{outdir}/data"
+    if not os.path.exists(data_dir): os.makedirs(data_dir)
+    sr_unique.write(uniq_path := f"{data_dir}/{name}.uniq")
+    sr_keep.write(keep_path := f"{data_dir}/{name}.keepE{str(threshold).replace('.', '')}")
+    sr_unique_keep.write(uniq_keep_path := f"{data_dir}/{name}.uniq.keepE{str(threshold).replace('.', '')}")
+
+    # Write table of counts
+    n_total = len(sr.hits)
+    n_unique = len(sr_unique.hits)
+    n_keep = len(sr_keep.hits)
+    n_unique_keep = len(sr_unique_keep.hits)
+    with open(f"{outdir}/{name}.counts.txt", 'w') as f:
+        f.write(f"Counts for {name}:\n")
+        f.write(f"Total hits: {n_total}\n")
+        f.write(f"Unique hits: {n_unique}\n")
+        f.write(f"Total hits with E-value<{threshold}: {n_keep}\n")
+        f.write(f"Unique hits with E-value<{threshold}: {n_unique_keep}\n")
+    print(f"Saved {outdir}/{name}.counts.txt")
 
     # R2R diagrams
     print("R2R commands:")
