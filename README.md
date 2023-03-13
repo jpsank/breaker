@@ -1,15 +1,39 @@
 # Computational Biology Project for *CPSC 290: Directed Research*
 
-## Background
+## How to Use
+
+### 1. Genome Search
+The Stockholm files for the nhaA-I and DUF1646 motifs have already been downloaded from Rfam and are located in `search/sto`. Next, you'll want to run an Infernal search for these motifs on a genome database, i.e. GTDB or RefSeq. To run a search job, SSH into Farnam and run `sbatch` on the `search/job.sh` script.
+
+### 2. Search Result Analysis
+The search results are stored in the `search/searches` subdirectory. To analyze the search results, run `python3 -m jps.analyze` from the root directory. For each genome search, the analysis will generate the following files in the `search/analysis` subdirectory:
+1. `<name>.counts.txt` file containing the number of hits, unique hits, hits included under the E-value threshold, and unique hits included under the E-value threshold for that search.
+2. `<name>_score_distribution.png` file containing a histogram of the E-value scores for the hits in that search, with a vertical line indicating the E-value threshold.
+3. `data` subdirectory containing .tbl and .sto files of partial results from the search, filtered from the original search results to exclude duplicates and/or hits not under the E-value threshold. The .tbl files contain the raw Infernal search results, and the .sto files contain the Stockholm-formatted sequence alignments for the hits in the .tbl files.
+4. Printed instructions for running R2R on the .sto files in the `data` subdirectory to generate .png files containing the predicted secondary structure of the sequence alignments in the .sto files. After running these commands, the output .png files will be stored in the `data` subdirectory.
+
+### 3. Refolding
+The `search/refold.sh` script will run CMfinder on the raw Stockholm-formatted sequence alignments in the `search/analysis/data` subdirectory. The output will be stored in the `search/refold` subdirectory. This step is not yet implemented.
+
+### 4. Refinement
+The `search/refine.sh` script might either: run the genetic algorithm on the CMfinder output in the `search/refold` subdirectory, or rerun the search and analysis steps for a different genome database. The output might be stored in the `search/refine` subdirectory. This step is not yet implemented.
+
+### 5. Web Server
+The `web` directory contains the source code for the Flask web server. To run the web server, run `python3 -m web.run` from the root directory. The web server will be accessible at `http://localhost:5000`. The web server will allow users to visualize Stockholm files and perform sequence alignment editing, as well as visualize the genome context of individual sequences in the search results. This step is not yet implemented.
+
+The web server will eventually be expanded to encapsulate the entire pipeline, allowing users to run genome searches, analyze and refold the search results, and perform sequence alignment editing and genome context visualization all from the same web interface. The pipeline will also be expanded to include a genetic algorithm for sequence alignment refinement, as well as more automation tools for RNA research, as needed.
+
+## Project Proposal
+
+### Background
 A riboswitch is a regulatory segment of messenger RNA designed to bind a ligand, invoking a change in the translation of the gene encoded by the mRNA (Breaker 1). Riboswitches are a relatively newly discovered class of gene-control system, and as of 2022, >55 distinct riboswitches have been uncovered, attributing function to previously unexplained noncoding portions of RNA (Kavita & Breaker 1). In their review of recent decades of riboswitch discovery, Kavita and Breaker project that thousands more riboswitch classes remain undiscovered at higher levels of rarity than those that have already been discovered, highlighting the need for improved computational search tools (3). Generally, in the age of increasingly high-throughput technologies, the rapid expansion of gene sequencing and computing capabilities demands new computer analysis, search, and modeling algorithms to bolster our study of the genetic logic that underlies life (Yegnasubramanian & Isaacs 1).
 
-## Methods
+### Methods
 **Part 1**: Update consensus models for DUF1646 and nhaA-I riboswitches and analyze results to determine genetic distance between the two riboswitches.
 1. Retrieve RNA motif Stockholm files (DUF1646 and nhaA-I) from Rfam.
 2. Run searches for RNA motifs against the latest bacterial and archaeal databases using Infernal cmsearch.
 3. Perform analysis on the search results (number of hits, bit score distribution, and predicted secondary structure R2R visualization) to get a better picture of the genetic distance between the two riboswitches.
 4. Implement ViennaRNA/CMfinder to fold the sequences in the search results.
-5. 
 
 **Part 2**: Genetic algorithm to refine RNA folding.
 1. Refine/optimize the folding results from ViennaRNA using a genetic algorithm, as most riboswitch RNAs can adopt modular folds.
@@ -19,7 +43,7 @@ A riboswitch is a regulatory segment of messenger RNA designed to bind a ligand,
 2. Implement SODA (or another genome context viewer) to render the genome context for any individual sequence from the search results of part 1.
 3. Visualize the complete search result from part 1, which is a major component of the BLISS/DIMPL pipeline.
 
-## Deliverables
+### Deliverables
 Each component of my proposal corresponds to a deliverable:
 1. An updated consensus model and genomic distribution (and the subject of research / test data / use case for all following bullets).
 2. A set of Python functions for folding sequences in a Sto file, using the Vienna RNA Python interface.
@@ -29,7 +53,7 @@ Each component of my proposal corresponds to a deliverable:
 6. A web server which collates the output from 5 applied to the search from 1.
 
 
-## References
+### References
 Baker, Jenny L et al. “Widespread genetic switches and toxicity resistance proteins for fluoride.” Science (New York, N.Y.) vol. 335,6065 (2012): 233-235. doi:10.1126/science.1215063
 
 Barrick, Jeffrey E et al. “New RNA motifs suggest an expanded scope for riboswitches in bacterial genetic control.” Proceedings of the National Academy of Sciences of the United States of America vol. 101,17 (2004): 6421-6. doi:10.1073/pnas.0308014101
