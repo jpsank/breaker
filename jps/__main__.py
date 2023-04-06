@@ -36,7 +36,7 @@ def cli():
 @click.argument('sto')  # path to stockholm alignment file
 @click.option('--E', default=1000.0)
 @click.option('--incE', default=1000.0)
-@click.option('--DBFNA', default="gtdb/gtdb-bact-r207-repr.fna.gz")
+@click.option('--DBFNA', default="~/project/gtdb/gtdb-bact-r207-repr.fna.gz")
 def cmsearch(name, sto, E, incE, DBFNA):
     out = next_free_path(name, out_fmt=os.path.join(SEARCHES_DIR, "{}/{}.out"))
     stdout = run_script(f"sbatch {os.path.join(SCRIPTS_DIR, 'cmsearch.sh')} {sto} {out} {E} {incE} {DBFNA}")
