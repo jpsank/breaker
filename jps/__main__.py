@@ -4,26 +4,27 @@ from subprocess import Popen, PIPE
 from config import *
 from jps.analyze import *
 
-def next_free_path(name, out_fmt):
-    if not os.path.exists(name):
-        return name
+def next_free_path(name, fmt):
+    out = fmt.format(name)
     i = 1
-    while os.path.exists(out_fmt.format(f"{name}_{i}")):
+    while os.path.exists(out):
+        out = fmt.format(f"{name}_{i}")
         i += 1
-    return f"{name}_{i}"
+    return out
 
 
-def run_script(script, shell="bash", name="script"):
+def run_script(script, shell="bash"):
     """
     Run a shell script.
 
     script: shell script
     shell: shell to run script in (default: bash)
     """
+    print(f"Running script: {script}")
     p = Popen([shell], stdin=PIPE, stdout=PIPE, stderr=PIPE)
     stdout, stderr = p.communicate(script.encode())
     if p.returncode != 0:
-        raise Exception(f"Script '{name}' failed with return code {p.returncode}: {stderr.decode()}")
+        raise Exception(f"Script failed with return code {p.returncode}: {stderr.decode()}")
     return stdout.decode()
 
 
@@ -34,11 +35,12 @@ def cli():
 @cli.command()
 @click.argument('name') # name of the search
 @click.argument('sto')  # path to stockholm alignment file
-@click.option('--E', default=1000.0)
-@click.option('--incE', default=1000.0)
-@click.option('--DBFNA', default="~/project/gtdb/gtdb-bact-r207-repr.fna.gz")
+@click.option('--E', 'E', default=1000.0)
+@click.option('--incE', 'incE', default=1000.0)
+@click.option('--DBFNA', 'DBFNA', default="~/project/gtdb/gtdb-bact-r207-repr.fna.gz")
 def cmsearch(name, sto, E, incE, DBFNA):
-    out = next_free_path(name, out_fmt=os.path.join(SEARCHES_DIR, "{}/{}.out"))
+    out = next_free_path(name, fmt=os.path.join(SEARCHES_DIR, "{0}/{0}.out"))
+    os.makedirs(os.path.dirname(out), exist_ok=True)
     stdout = run_script(f"sbatch {os.path.join(SCRIPTS_DIR, 'cmsearch.sh')} {sto} {out} {E} {incE} {DBFNA}")
     print(stdout)
     print(f"Search results will be written to {out}.")
@@ -61,6 +63,7 @@ def analysis(cmsearch_out, name, color, threshold=1):
 # analysis("data/searches/gtdb-prok_DUF1646/gtdb-prok_DUF1646.out", "gtdb-prok_DUF1646", "DarkBlue")
 # analysis("data/searches/gtdb-prok_nhaA-I/gtdb-prok_nhaA-I.out", "gtdb-prok_nhaA-I", "DarkGreen")
 
+
 @cli.command()
 @click.argument('sto')
 @click.argument('out')
@@ -71,6 +74,7 @@ def reformat(sto, out):
 # reformat("data/analysis/data/DUF1646.uniq.keepE1.sto", "data/refold/DUF1646.fna")
 # reformat("data/analysis/data/nhaA-I.uniq.keepE1.sto", "data/refold/nhaA-I.fna")
 
+
 @cli.command()
 @click.argument('fna')
 def cmfind(fna):
@@ -80,6 +84,7 @@ def cmfind(fna):
 # Example usage:
 # cmfinder("data/refold/DUF1646.fna")
 # cmfinder("data/refold/nhaA-I.fna")
+
 
 @cli.command()
 @click.argument('name')
