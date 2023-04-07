@@ -1,5 +1,5 @@
 import click
-from subprocess import Popen, PIPE
+import subprocess
 
 from config import *
 from jps.analyze import *
@@ -13,19 +13,28 @@ def next_free_path(name, fmt):
     return out
 
 
-def run_script(script, shell="bash"):
-    """
-    Run a shell script.
+# def run_script(script, shell="bash"):
+#     """
+#     Run a shell script.
 
-    script: shell script
-    shell: shell to run script in (default: bash)
-    """
-    print(f"Running script: {script}")
-    p = Popen([shell], stdin=PIPE, stdout=PIPE, stderr=PIPE)
-    stdout, stderr = p.communicate(script.encode())
-    if p.returncode != 0:
-        raise Exception(f"Script failed with return code {p.returncode}: {stderr.decode()}")
-    return stdout.decode()
+#     script: shell script
+#     shell: shell to run script in (default: bash)
+#     """
+#     print(f"Running script: {script}")
+#     p = Popen([shell], stdin=PIPE, stdout=PIPE, stderr=PIPE)
+#     stdout, stderr = p.communicate(script.encode())
+#     if p.returncode != 0:
+#         raise Exception(f"Script failed with return code {p.returncode}: {stderr.decode()}")
+#     return stdout.decode()
+
+def execute(cmd):
+    popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True)
+    for stdout_line in iter(popen.stdout.readline, ""):
+        yield stdout_line 
+    popen.stdout.close()
+    return_code = popen.wait()
+    if return_code:
+        raise subprocess.CalledProcessError(return_code, cmd)
 
 
 @click.group()
@@ -41,9 +50,8 @@ def cli():
 def cmsearch(name, sto, E, incE, DBFNA):
     out = next_free_path(name, fmt=os.path.join(SEARCHES_DIR, "{0}/{0}.out"))
     os.makedirs(os.path.dirname(out), exist_ok=True)
-    stdout = run_script(f"sbatch {os.path.join(SCRIPTS_DIR, 'cmsearch.sh')} {sto} {out} {E} {incE} {DBFNA}")
-    print(stdout)
-    print(f"Search results will be written to {out}.")
+    for line in execute(f"sbatch {os.path.join(SCRIPTS_DIR, 'cmsearch.sh')} {sto} {out} {E} {incE} {DBFNA}"):
+        print(line, end="")
 
 # Example usage:
 # cmsearch("gtdb-prok_DUF1646", "data/sto/DUF1646/RF03071.sto")
@@ -68,7 +76,8 @@ def analysis(cmsearch_out, name, color, threshold=1):
 @click.argument('sto')
 @click.argument('out')
 def reformat(sto, out):
-    run_script(f"{os.path.join(SCRIPTS_DIR, 'reformat.sh')} {sto} {out}")
+    for line in execute(f"{os.path.join(SCRIPTS_DIR, 'reformat.sh')} {sto} {out}"):
+        print(line, end="")
 
 # Example usage:
 # reformat("data/analysis/data/DUF1646.uniq.keepE1.sto", "data/refold/DUF1646.fna")
@@ -78,8 +87,8 @@ def reformat(sto, out):
 @cli.command()
 @click.argument('fna')
 def cmfind(fna):
-    stdout = run_script(f"sbatch {os.path.join(SCRIPTS_DIR, 'cmfinder.sh')} {fna}")
-    print(stdout)
+    for line in execute(f"sbatch {os.path.join(SCRIPTS_DIR, 'cmfinder.sh')} {fna}"):
+        print(line, end="")
 
 # Example usage:
 # cmfinder("data/refold/DUF1646.fna")
@@ -89,8 +98,8 @@ def cmfind(fna):
 @cli.command()
 @click.argument('name')
 def r2r(name):
-    stdout = run_script(f"{os.path.join(SCRIPTS_DIR, 'r2r.sh')} {name}")
-    print(stdout)
+    for line in execute(f"{os.path.join(SCRIPTS_DIR, 'r2r.sh')} {name}"):
+        print(line, end="")
 
 # Example usage:
 # r2r("data/refold/DUF1646.fna.motif.h2_1")

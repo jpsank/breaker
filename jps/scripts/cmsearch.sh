@@ -14,11 +14,16 @@ E="$3"
 incE="$4"
 DBFNA="$5"
 
+me=$(basename "$0"); function log () { echo "$me: $*" >&2; }
+
 # Build a covariance model from a Stockholm alignment file.
 if [ ! -f "$sto.cm" ]; then
+    log "Building covariance model at $sto.cm."
     cmbuild "$sto.cm" "$sto"
     cmcalibrate "$sto.cm"
 fi
 
 # Search covariance model against sequence database.
+log "Running cmsearch for $sto.cm with (E=$E, incE=$incE, DBFNA=$DBFNA)."
+log "Output will be written to $out."
 cmsearch -o "$out" -A "$out.sto" --tblout "$out.tbl" -E "$E" --incE "$incE" "$sto.cm" "$DBFNA"
