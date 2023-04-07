@@ -51,11 +51,11 @@ def cmsearch(sto, name, e, dbfna):
 
     # Auto-generate name if not provided
     if name is None:
-        name = "_".join(
+        name = "_".join([
             os.path.splitext(os.path.basename(sto))[0],
             str(e),
             os.path.basename(dbfna).split('.')[0]
-        )
+            ])
     
     # Compute output path and create directories
     out = os.path.join(SEARCHES_DIR, f"{name}", f"{name}.out")
