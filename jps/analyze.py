@@ -95,6 +95,6 @@ if __name__ == '__main__':
     # Analyze search results
     threshold = 1
     outdir = 'search/analysis'
-    analyze(sr1, 'DUF1646', 'DarkBlue', outdir=outdir, threshold=threshold)
+    analyze(sr1, 'DUF1646', 'DarkBlue', outdir=os.path.join(outdir, 'gtdb-prok_DUF1646_1'), threshold=threshold)
     print()
-    analyze(sr2, 'nhaA-I', 'DarkGreen', outdir=outdir, threshold=threshold)
+    analyze(sr2, 'nhaA-I', 'DarkGreen', outdir=os.path.join(outdir, 'gtdb-prok_nhaA-I_2'), threshold=threshold)
