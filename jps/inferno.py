@@ -42,7 +42,6 @@ class SearchResult:
     sto: Stockholm
     tbl: SearchResultTable
     hits: 'dict[str, SearchResultHit]'
-    dbfna_path: str = None
     fasta: Fasta = None
 
     @staticmethod
@@ -61,7 +60,7 @@ class SearchResult:
         # Create FASTA index
         fasta = Fasta(dbfna_path) if dbfna_path else None
         
-        return SearchResult(sto, tbl, hits, dbfna_path, fasta)
+        return SearchResult(sto, tbl, hits, fasta)
 
     def copy(self):
         return SearchResult(self.sto.copy(), self.tbl.copy(), self.hits.copy())
@@ -100,7 +99,7 @@ class SearchResult:
     #     if seq.strand == -1:
     #         s = s.complement
     #     return StoSequence(seq.name, seq.start-flank, seq.end+flank, str(s), seq.strand)
-    
+
 
 if __name__ == '__main__':
     import sys

@@ -4,28 +4,6 @@ import subprocess
 from config import *
 from jps.analyze import *
 
-def next_free_path(name, fmt):
-    out = fmt.format(name)
-    i = 1
-    while os.path.exists(out):
-        out = fmt.format(f"{name}_{i}")
-        i += 1
-    return out
-
-
-# def run_script(script, shell="bash"):
-#     """
-#     Run a shell script.
-
-#     script: shell script
-#     shell: shell to run script in (default: bash)
-#     """
-#     print(f"Running script: {script}")
-#     p = Popen([shell], stdin=PIPE, stdout=PIPE, stderr=PIPE)
-#     stdout, stderr = p.communicate(script.encode())
-#     if p.returncode != 0:
-#         raise Exception(f"Script failed with return code {p.returncode}: {stderr.decode()}")
-#     return stdout.decode()
 
 def execute(cmd):
     popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True)
@@ -43,22 +21,21 @@ def cli():
 
 @cli.command()
 @click.argument('sto')  # path to stockholm alignment file
-@click.option('--name', 'name', default=None)  # name of the search
 @click.option('--e', 'e', default=1000.0)  # E-value threshold and cutoff
-@click.option('--dbfna', 'dbfna', default="~/project/gtdb/gtdb-bact-r207-repr.fna.gz")  # path to database FASTA file
-def cmsearch(sto, name, e, dbfna):
+@click.option('--dbfna', 'dbfna', default="/home/jps228/project/gtdb/gtdb-bact-r207-repr.fna.gz")  # path to database FASTA file
+def cmsearch(sto, e, dbfna):
     """ Run a cmsearch on a stockholm alignment file. """
 
-    # Auto-generate name if not provided
-    if name is None:
-        name = "_".join([
-            os.path.splitext(os.path.basename(sto))[0],
-            str(e),
-            os.path.basename(dbfna).split('.')[0]
-            ])
-    
-    # Compute output path and create directories
-    out = os.path.join(SEARCHES_DIR, f"{name}", f"{name}.out")
+    # Auto-generate output path
+    names = [
+        os.path.splitext(os.path.basename(sto))[0],
+        os.path.basename(dbfna).split('.')[0],
+        f"E{e}",
+    ]
+    fullname = "_".join(names)
+    out = os.path.join(SEARCHES_DIR, f"{fullname}", f"{fullname}.out")
+    if os.path.exists(out):
+        raise Exception(f"Output path already exists: {out}")
     os.makedirs(os.path.dirname(out), exist_ok=True)
     
     # Run cmsearch
@@ -95,8 +72,8 @@ def reformat(sto, out):
         print(line, end="")
 
 # Example usage:
-# reformat data/analysis/data/DUF1646.uniq.keepE1.sto data/refold/DUF1646.fna
-# reformat data/analysis/data/nhaA-I.uniq.keepE1.sto data/refold/nhaA-I.fna
+# reformat data/analysis/data/DUF1646.uniq.keepE1.sto
+# reformat data/analysis/data/nhaA-I.uniq.keepE1.sto
 
 
 @cli.command()

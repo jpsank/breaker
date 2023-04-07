@@ -18,6 +18,7 @@ flask-migrate = "*"
 pyfaidx = "*"
 matplotlib = "*"
 scipy = "*"
+tabulate = "*"
 
 [dev-packages]
 
