@@ -50,7 +50,7 @@ def cli():
 def cmsearch(name, sto, E, incE, DBFNA):
     out = next_free_path(name, fmt=os.path.join(SEARCHES_DIR, "{0}/{0}.out"))
     os.makedirs(os.path.dirname(out), exist_ok=True)
-    for line in execute(f"sbatch {os.path.join(SCRIPTS_DIR, 'cmsearch.sh')} {sto} {out} {E} {incE} {DBFNA}"):
+    for line in execute(["sbatch", os.path.join(SCRIPTS_DIR, 'cmsearch.sh'), sto, out, str(E), str(incE), DBFNA]):
         print(line, end="")
 
 # Example usage:
@@ -76,7 +76,7 @@ def analysis(cmsearch_out, name, color, threshold=1):
 @click.argument('sto')
 @click.argument('out')
 def reformat(sto, out):
-    for line in execute(f"{os.path.join(SCRIPTS_DIR, 'reformat.sh')} {sto} {out}"):
+    for line in execute([os.path.join(SCRIPTS_DIR, 'reformat.sh'), sto, out]):
         print(line, end="")
 
 # Example usage:
@@ -87,7 +87,7 @@ def reformat(sto, out):
 @cli.command()
 @click.argument('fna')
 def cmfind(fna):
-    for line in execute(f"sbatch {os.path.join(SCRIPTS_DIR, 'cmfinder.sh')} {fna}"):
+    for line in execute(["sbatch", os.path.join(SCRIPTS_DIR, 'cmfinder.sh'), fna]):
         print(line, end="")
 
 # Example usage:
@@ -98,7 +98,7 @@ def cmfind(fna):
 @cli.command()
 @click.argument('name')
 def r2r(name):
-    for line in execute(f"{os.path.join(SCRIPTS_DIR, 'r2r.sh')} {name}"):
+    for line in execute([os.path.join(SCRIPTS_DIR, 'r2r.sh'), name]):
         print(line, end="")
 
 # Example usage:
