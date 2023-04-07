@@ -50,7 +50,7 @@ def plot_score_distribution(sr: SearchResult, name, color, out=None, threshold=0
     plt.clf()
 
 
-def analyze(sr: SearchResult, name, color, outdir, threshold=0.01):
+def run_analysis(sr: SearchResult, name, color, outdir, threshold=0.01):
     # Get unique hits
     (sr_unique := sr.copy()).remove_duplicates()
 
