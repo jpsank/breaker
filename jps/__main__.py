@@ -51,15 +51,17 @@ def cmsearch(sto, e, dbfna):
 @click.argument('cmsearch_out')
 @click.argument('color')
 @click.option('--threshold', default=1)
-def analysis(cmsearch_out, color, threshold=1):
+def analyze(cmsearch_out, color, threshold=1):
     sr = SearchResult.parse(cmsearch_out)
     name = os.path.splitext(os.path.basename(cmsearch_out))[0]
     outdir = os.path.join(ANALYSIS_DIR, name)
-    run_analysis(sr, outdir, color, threshold)
+    os.makedirs(outdir, exist_ok=True)
+    run_analysis(sr, name, color, outdir, threshold)
 
 # Example usage:
-# analysis data/searches/gtdb-prok_DUF1646/gtdb-prok_DUF1646.out gtdb-prok_DUF1646 DarkBlue
-# analysis data/searches/gtdb-prok_nhaA-I/gtdb-prok_nhaA-I.out gtdb-prok_nhaA-I DarkGreen
+# analyze data/searches/gtdb-prok_DUF1646/gtdb-prok_DUF1646.out gtdb-prok_DUF1646 DarkBlue
+# analyze data/searches/gtdb-prok_nhaA-I/gtdb-prok_nhaA-I.out gtdb-prok_nhaA-I DarkGreen
+# analyze data/searches/lina-combo-v1_gtdb-bact-r207-repr_E1000.0/lina-combo-v1_gtdb-bact-r207-repr_E1000.0.out DarkRed
 
 
 @cli.command()

@@ -67,7 +67,7 @@ def run_analysis(sr: SearchResult, name, color, outdir, threshold=0.01):
     # Write table of counts
     with open(f"{outdir}/{name}.counts.txt", 'w') as f:
         table = [
-            ["Name", "# Total", "# Unique", f"# E<{threshold}", f"# Unique E<{threshold}"]
+            ["Name", "# Total", "# Unique", f"# E<{threshold}", f"# Unique E<{threshold}"],
             [name, len(sr.hits), len(sr_unique.hits), len(sr_keep.hits), len(sr_unique_keep.hits)]
         ]
         f.write(tabulate(table, headers="firstrow", tablefmt="plain"))
@@ -75,7 +75,7 @@ def run_analysis(sr: SearchResult, name, color, outdir, threshold=0.01):
 
     # Save data files for R2R
     data_dir = os.path.join(outdir, "data")
-    os.makedirs(data_dir, exist_ok=True)
+    os.mkdir(data_dir)
     sr_unique.write(uniq_path := f"{data_dir}/{name}.uniq")
     sr_keep.write(keep_path := f"{data_dir}/{name}.keepE{str(threshold).replace('.', '')}")
     sr_unique_keep.write(uniq_keep_path := f"{data_dir}/{name}.uniq.keepE{str(threshold).replace('.', '')}")

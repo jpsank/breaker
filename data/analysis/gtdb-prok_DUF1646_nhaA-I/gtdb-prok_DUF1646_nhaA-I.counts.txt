@@ -1,0 +1,2 @@
+Name                        # Total    # Unique    # E<1    # Unique E<1
+gtdb-prok_DUF1646_nhaA-I      14536       13398     1818            1665
