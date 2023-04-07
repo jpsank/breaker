@@ -10,6 +10,7 @@ from tabulate import tabulate
 
 from config import *
 from jps.inferno import *
+from jps.util import *
 
 
 # def compare(sr1: SearchResult, sr2: SearchResult, distance_threshold=1000):
@@ -74,18 +75,15 @@ def run_analysis(sr: SearchResult, name, color, outdir, threshold=0.01):
     print(f"Saved {outdir}/{name}.counts.txt")
 
     # Save data files for R2R
-    data_dir = os.path.join(outdir, "data")
-    os.mkdir(data_dir)
-    sr_unique.write(uniq_path := f"{data_dir}/{name}.uniq")
-    sr_keep.write(keep_path := f"{data_dir}/{name}.keepE{str(threshold).replace('.', '')}")
-    sr_unique_keep.write(uniq_keep_path := f"{data_dir}/{name}.uniq.keepE{str(threshold).replace('.', '')}")
+    os.mkdir(data_dir := os.path.join(outdir, "data"))
+    sr_unique.write(uniq_path := os.path.join(data_dir, f"{name}.uniq"))
+    sr_keep.write(keep_path := os.path.join(data_dir, f"{name}.keepE{float_to_str(threshold)}"))
+    sr_unique_keep.write(uniq_keep_path := os.path.join(data_dir, f"{name}.uniq.keepE{float_to_str(threshold)}"))
 
     # R2R commands
-    print("R2R commands:")
-    print(f'r2r-mkcons {uniq_path}.sto')
-    print(f'r2r-mkpdf-cons {uniq_path}.cons.sto')
-    print(f'r2r-mkcons {uniq_keep_path}.sto')
-    print(f'r2r-mkpdf-cons {uniq_keep_path}.cons.sto')
+    print("Run R2R:")
+    print(f'r2r {uniq_path}.sto')
+    print(f'r2r {uniq_keep_path}.sto')
 
 
 if __name__ == '__main__':
@@ -95,6 +93,6 @@ if __name__ == '__main__':
 
     # Analyze search results
     threshold = 1
-    analyze(sr1, 'DUF1646', 'DarkBlue', outdir=os.path.join(ANALYSIS_DIR, 'gtdb-prok_DUF1646_1'), threshold=threshold)
+    run_analysis(sr1, 'DUF1646', 'DarkBlue', outdir=os.path.join(ANALYSIS_DIR, 'gtdb-prok_DUF1646_1'), threshold=threshold)
     print()
-    analyze(sr2, 'nhaA-I', 'DarkGreen', outdir=os.path.join(ANALYSIS_DIR, 'gtdb-prok_nhaA-I_2'), threshold=threshold)
+    run_analysis(sr2, 'nhaA-I', 'DarkGreen', outdir=os.path.join(ANALYSIS_DIR, 'gtdb-prok_nhaA-I_2'), threshold=threshold)

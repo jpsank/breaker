@@ -28,9 +28,9 @@ def cmsearch(sto, e, dbfna):
 
     # Auto-generate output path
     names = [
-        os.path.splitext(os.path.basename(sto))[0],
+        sto_filename(sto),
         os.path.basename(dbfna).split('.')[0],
-        f"E{e}",
+        f"E{float_to_str(e)}",
     ]
     fullname = "_".join(names)
     out = os.path.join(SEARCHES_DIR, f"{fullname}", f"{fullname}.out")
@@ -62,6 +62,22 @@ def analyze(cmsearch_out, color, threshold=1):
 # analyze data/searches/gtdb-prok_DUF1646/gtdb-prok_DUF1646.out gtdb-prok_DUF1646 DarkBlue
 # analyze data/searches/gtdb-prok_nhaA-I/gtdb-prok_nhaA-I.out gtdb-prok_nhaA-I DarkGreen
 # analyze data/searches/lina-combo-v1_gtdb-bact-r207-repr_E1000.0/lina-combo-v1_gtdb-bact-r207-repr_E1000.0.out DarkRed
+
+
+@cli.command()
+@click.argument('sto')
+def refold(sto):
+    name = sto_filename(sto)
+    fna = os.path.join(REFOLD_DIR, name, f"{name}.fna")
+    os.makedirs(os.path.dirname(fna), exist_ok=True)
+
+    # Reformat to FASTA
+    for line in execute([os.path.join(SCRIPTS_DIR, 'reformat.sh'), sto, fna]):
+        print(line, end="")
+
+    # Run CMfinder
+    for line in execute(["sbatch", os.path.join(SCRIPTS_DIR, 'cmfinder.sh'), fna]):
+        print(line, end="")
 
 
 @cli.command()
