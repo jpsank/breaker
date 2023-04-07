@@ -42,20 +42,32 @@ def cli():
     pass
 
 @cli.command()
-@click.argument('name') # name of the search
 @click.argument('sto')  # path to stockholm alignment file
-@click.option('--E', 'E', default=1000.0)
-@click.option('--incE', 'incE', default=1000.0)
-@click.option('--DBFNA', 'DBFNA', default="~/project/gtdb/gtdb-bact-r207-repr.fna.gz")
-def cmsearch(name, sto, E, incE, DBFNA):
-    out = next_free_path(name, fmt=os.path.join(SEARCHES_DIR, "{0}/{0}.out"))
+@click.option('--name', 'name', default=None)  # name of the search
+@click.option('--e', 'e', default=1000.0)  # E-value threshold and cutoff
+@click.option('--dbfna', 'dbfna', default="~/project/gtdb/gtdb-bact-r207-repr.fna.gz")  # path to database FASTA file
+def cmsearch(sto, name, e, dbfna):
+    """ Run a cmsearch on a stockholm alignment file. """
+
+    # Auto-generate name if not provided
+    if name is None:
+        name = "_".join(
+            os.path.splitext(os.path.basename(sto))[0],
+            str(e),
+            os.path.basename(dbfna).split('.')[0]
+        )
+    
+    # Compute output path and create directories
+    out = os.path.join(SEARCHES_DIR, f"{name}", f"{name}.out")
     os.makedirs(os.path.dirname(out), exist_ok=True)
-    for line in execute(["sbatch", os.path.join(SCRIPTS_DIR, 'cmsearch.sh'), sto, out, str(E), str(incE), DBFNA]):
+    
+    # Run cmsearch
+    for line in execute(["sbatch", os.path.join(SCRIPTS_DIR, 'cmsearch.sh'), sto, out, str(e), str(e), dbfna]):
         print(line, end="")
 
 # Example usage:
-# cmsearch("gtdb-prok_DUF1646", "data/sto/DUF1646/RF03071.sto")
-# cmsearch("gtdb-prok_nhaA-I", "data/sto/nhaA-I/RF03057.sto")
+# cmsearch data/sto/DUF1646/RF03071.sto
+# cmsearch data/sto/nhaA-I/RF03057.sto
 
 
 @cli.command()
@@ -68,20 +80,23 @@ def analysis(cmsearch_out, name, color, threshold=1):
     analyze(sr, name, color, threshold=threshold)
 
 # Example usage:
-# analysis("data/searches/gtdb-prok_DUF1646/gtdb-prok_DUF1646.out", "gtdb-prok_DUF1646", "DarkBlue")
-# analysis("data/searches/gtdb-prok_nhaA-I/gtdb-prok_nhaA-I.out", "gtdb-prok_nhaA-I", "DarkGreen")
+# analysis data/searches/gtdb-prok_DUF1646/gtdb-prok_DUF1646.out gtdb-prok_DUF1646 DarkBlue
+# analysis data/searches/gtdb-prok_nhaA-I/gtdb-prok_nhaA-I.out gtdb-prok_nhaA-I DarkGreen
 
 
 @cli.command()
 @click.argument('sto')
-@click.argument('out')
+@click.argument('out', default=None)
 def reformat(sto, out):
+    if out is None:
+        out = f"{sto}.fna"
+
     for line in execute([os.path.join(SCRIPTS_DIR, 'reformat.sh'), sto, out]):
         print(line, end="")
 
 # Example usage:
-# reformat("data/analysis/data/DUF1646.uniq.keepE1.sto", "data/refold/DUF1646.fna")
-# reformat("data/analysis/data/nhaA-I.uniq.keepE1.sto", "data/refold/nhaA-I.fna")
+# reformat data/analysis/data/DUF1646.uniq.keepE1.sto data/refold/DUF1646.fna
+# reformat data/analysis/data/nhaA-I.uniq.keepE1.sto data/refold/nhaA-I.fna
 
 
 @cli.command()
@@ -91,8 +106,8 @@ def cmfind(fna):
         print(line, end="")
 
 # Example usage:
-# cmfinder("data/refold/DUF1646.fna")
-# cmfinder("data/refold/nhaA-I.fna")
+# cmfinder data/refold/DUF1646.fna
+# cmfinder data/refold/nhaA-I.fna
 
 
 @cli.command()
@@ -102,8 +117,8 @@ def r2r(name):
         print(line, end="")
 
 # Example usage:
-# r2r("data/refold/DUF1646.fna.motif.h2_1")
-# r2r("data/refold/nhaA-I.fna.motif.h2_1")
+# r2r data/refold/DUF1646.fna.motif.h2_1
+# r2r data/refold/nhaA-I.fna.motif.h2_1
 
 
 if __name__ == '__main__':
