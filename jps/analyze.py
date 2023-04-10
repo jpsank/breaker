@@ -40,9 +40,9 @@ from jps.util import *
 
 def plot_score_distribution(sr: SearchResult, name, color, out=None, threshold=0.01):
     df = pandas.DataFrame([hit.asdict() for hit in sr.hits.values()])
-    score = np.log(df["E_value"])
+    score = np.log10(df["E_value"])
     ax = score.hist(bins=50, color=color, label=name, log=True)
-    ax.axvline(x=np.log(threshold), color=color, linestyle='dashed')
+    ax.axvline(x=np.log10(threshold), color=color, linestyle='dashed')
     ax.set_title(f"{name} score distribution")
     ax.set_xlabel('log(E-value)')
     ax.set_ylabel('Count')
@@ -75,15 +75,12 @@ def run_analysis(sr: SearchResult, name, color, outdir, threshold=0.01):
     print(f"Saved {outdir}/{name}.counts.txt")
 
     # Save data files for R2R
-    os.mkdir(data_dir := os.path.join(outdir, "data"))
-    sr_unique.write(uniq_path := os.path.join(data_dir, f"{name}.uniq"))
-    sr_keep.write(keep_path := os.path.join(data_dir, f"{name}.keepE{float_to_str(threshold)}"))
-    sr_unique_keep.write(uniq_keep_path := os.path.join(data_dir, f"{name}.uniq.keepE{float_to_str(threshold)}"))
+    os.makedirs(data_dir := os.path.join(outdir, "data"), exist_ok=True)
+    sr_unique.write(os.path.join(data_dir, f"{name}.uniq"))
+    sr_keep.write(os.path.join(data_dir, f"{name}.keepE{slugify_float(threshold)}"))
+    sr_unique_keep.write(uniq_keep_path := os.path.join(data_dir, f"{name}.uniq.keepE{slugify_float(threshold)}"))
 
-    # R2R commands
-    print("Run R2R:")
-    print(f'r2r {uniq_path}.sto')
-    print(f'r2r {uniq_keep_path}.sto')
+    return uniq_keep_path
 
 
 if __name__ == '__main__':

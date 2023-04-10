@@ -1,8 +1,8 @@
 
 from config import *
 
-def float_to_str(f: float):
-    if f.is_integer():
+def slugify_float(f: float):
+    if int(f) == f:
         return str(int(f))
     # Just convert to European format
     return str(f).replace('.', ',')

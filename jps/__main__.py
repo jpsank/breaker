@@ -30,7 +30,7 @@ def cmsearch(sto, e, dbfna):
     names = [
         sto_filename(sto),
         os.path.basename(dbfna).split('.')[0],
-        f"E{float_to_str(e)}",
+        f"E{slugify_float(e)}",
     ]
     fullname = "_".join(names)
     out = os.path.join(SEARCHES_DIR, f"{fullname}", f"{fullname}.out")
@@ -56,11 +56,16 @@ def analyze(cmsearch_out, color, threshold=1):
     name = os.path.splitext(os.path.basename(cmsearch_out))[0]
     outdir = os.path.join(ANALYSIS_DIR, name)
     os.makedirs(outdir, exist_ok=True)
-    run_analysis(sr, name, color, outdir, threshold)
+    uniq_keep_path = run_analysis(sr, name, color, outdir, threshold)
+
+    # Run R2R
+    for line in execute([os.path.join(SCRIPTS_DIR, 'r2r.sh'), f"{uniq_keep_path}.sto"]):
+        print(line, end="")
 
 # Example usage:
-# analyze data/searches/gtdb-prok_DUF1646/gtdb-prok_DUF1646.out gtdb-prok_DUF1646 DarkBlue
-# analyze data/searches/gtdb-prok_nhaA-I/gtdb-prok_nhaA-I.out gtdb-prok_nhaA-I DarkGreen
+# analyze data/searches/gtdb-prok_DUF1646_1/gtdb-prok_DUF1646_1.out DarkBlue
+# analyze data/searches/gtdb-prok_nhaA-I_2/gtdb-prok_nhaA-I_2.out DarkGreen
+# analyze data/searches/DUF1646_nhaA-I.fna.motif.h2_1_gtdb-bact-r207-repr_E1000.0/DUF1646_nhaA-I.fna.motif.h2_1_gtdb-bact-r207-repr_E1000.0.out Purple
 # analyze data/searches/lina-combo-v1_gtdb-bact-r207-repr_E1000.0/lina-combo-v1_gtdb-bact-r207-repr_E1000.0.out DarkRed
 
 
@@ -107,9 +112,9 @@ def cmfind(fna):
 
 
 @cli.command()
-@click.argument('name')
-def r2r(name):
-    for line in execute([os.path.join(SCRIPTS_DIR, 'r2r.sh'), name]):
+@click.argument('path')
+def r2r(path):
+    for line in execute([os.path.join(SCRIPTS_DIR, 'r2r.sh'), path]):
         print(line, end="")
 
 # Example usage:

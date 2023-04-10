@@ -18,6 +18,6 @@ function r2r-mkpdf-meta {
 }
 
 # Run r2r on the stockholm file
-name=$1
-r2r-mkcons "$name"
-r2r-mkpdf-cons "${name%sto}cons.sto"
+path=$1
+r2r-mkcons "$path"
+r2r-mkpdf-cons "${path%sto}cons.sto"
