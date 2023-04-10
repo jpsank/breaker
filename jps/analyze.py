@@ -13,29 +13,34 @@ from jps.inferno import *
 from jps.util import *
 
 
-# def compare(sr1: SearchResult, sr2: SearchResult, distance_threshold=1000):
-#     # Get target names that are in both sr1 and sr2
-#     hits1 = defaultdict(list)
-#     for h in sr1.hits.values():
-#         hits1[h.row.target_name].append(h)
-#     hits2 = defaultdict(list)
-#     for h in sr2.hits.values():
-#         hits2[h.row.target_name].append(h)
-#     targets = set(hits1.keys()).intersection(set(hits2.keys()))
+def compare(sr1: SearchResult, sr2: SearchResult):
+    # Get target names that are in both sr1 and sr2
+    hits1 = defaultdict(list)
+    for h in sr1.hits.values():
+        hits1[h.row.target_name].append(h)
+    hits2 = defaultdict(list)
+    for h in sr2.hits.values():
+        hits2[h.row.target_name].append(h)
+    targets = set(hits1.keys()).intersection(set(hits2.keys()))
     
-#     # Check for intersecting hits
-#     for target_name in targets:
-#         if target_name in hits1 and target_name in hits2:
-#             for h1 in hits1[target_name]:
-#                 for h2 in hits2[target_name]:
-#                     from1, to1 = h1.row.seq_from, h1.row.seq_to
-#                     from2, to2 = h2.row.seq_from, h2.row.seq_to
-#                     if from1 > to1: from1, to1 = to1, from1
-#                     if from2 > to2: from2, to2 = to2, from2
-#                     if abs(from1-from2) < distance_threshold or abs(to1-to2) < distance_threshold:
-#                         print(f"compare: Potential intersect at {target_name}, 1:{from1}-{to1} 2:{from2}-{to2}")
-#     else:
-#         print("compare: No intersecting hits found")
+    # Check for intersecting hits
+    intersects = {}
+    for target_name in targets:
+        if target_name in hits1 and target_name in hits2:
+            for h1 in hits1[target_name]:
+                for h2 in hits2[target_name]:
+                    seq1 = h1.seq.text
+                    seq2 = h2.seq.text
+                    max_len = max(len(seq1), len(seq2))
+
+                    from1, to1 = h1.row.seq_from, h1.row.seq_to
+                    from2, to2 = h2.row.seq_from, h2.row.seq_to
+                    if from1 > to1: from1, to1 = to1, from1
+                    if from2 > to2: from2, to2 = to2, from2
+                    if abs(from1-from2) < max_len or abs(to1-to2) < max_len:
+                        intersects.setdefault(target_name, []).append((h1, h2))
+    
+    return intersects
 
 
 def plot_score_distribution(sr: SearchResult, name, color, out=None, threshold=0.01):
@@ -84,12 +89,62 @@ def run_analysis(sr: SearchResult, name, color, outdir, threshold=0.01):
 
 
 if __name__ == '__main__':
-    # Load search results
-    sr1 = SearchResult.parse(os.path.join(SEARCHES_DIR, 'gtdb-prok_DUF1646_1/gtdb-prok_DUF1646_1.out'))
-    sr2 = SearchResult.parse(os.path.join(SEARCHES_DIR, 'gtdb-prok_nhaA-I_2/gtdb-prok_nhaA-I_2.out'))
+    # # Load search results and analyze
+    # sr1 = SearchResult.parse(os.path.join(SEARCHES_DIR, 'gtdb-prok_DUF1646_1/gtdb-prok_DUF1646_1.out'))
+    # sr2 = SearchResult.parse(os.path.join(SEARCHES_DIR, 'gtdb-prok_nhaA-I_2/gtdb-prok_nhaA-I_2.out'))
+    # threshold = 1
+    # run_analysis(sr1, 'DUF1646', 'DarkBlue', outdir=os.path.join(ANALYSIS_DIR, 'gtdb-prok_DUF1646_1'), threshold=threshold)
+    # print()
+    # run_analysis(sr2, 'nhaA-I', 'DarkGreen', outdir=os.path.join(ANALYSIS_DIR, 'gtdb-prok_nhaA-I_2'), threshold=threshold)
 
-    # Analyze search results
-    threshold = 1
-    run_analysis(sr1, 'DUF1646', 'DarkBlue', outdir=os.path.join(ANALYSIS_DIR, 'gtdb-prok_DUF1646_1'), threshold=threshold)
-    print()
-    run_analysis(sr2, 'nhaA-I', 'DarkGreen', outdir=os.path.join(ANALYSIS_DIR, 'gtdb-prok_nhaA-I_2'), threshold=threshold)
+    # Compare search results
+    sr_duf = SearchResult.parse(os.path.join(SEARCHES_DIR, 'gtdb-prok_DUF1646_1/gtdb-prok_DUF1646_1.out'))
+    sr_nha = SearchResult.parse(os.path.join(SEARCHES_DIR, 'gtdb-prok_nhaA-I_2/gtdb-prok_nhaA-I_2.out'))
+    sr_lina = SearchResult.parse(os.path.join(SEARCHES_DIR, 'lina-combo-v1_gtdb-bact-r207-repr_E1000.0/lina-combo-v1_gtdb-bact-r207-repr_E1000.0.out'))
+    sr_dufnha = SearchResult.parse(os.path.join(SEARCHES_DIR, 'DUF1646_nhaA-I.fna.motif.h2_1_gtdb-bact-r207-repr_E1000.0/DUF1646_nhaA-I.fna.motif.h2_1_gtdb-bact-r207-repr_E1000.0.out'))
+
+    dufnha_intersects = defaultdict(list)
+    for tname, hits in compare(sr_duf, sr_dufnha).items():
+        dufnha_intersects[tname] += hits
+    for tname, hits in compare(sr_nha, sr_dufnha).items():
+        dufnha_intersects[tname] += hits
+    
+    print("DUF1646_nhaA-I vs. DUF1646 and nhaA-I")
+    print(f"Total # hits: {len(sr_dufnha.hits)}")
+    print(f"Total # intersects: {sum(len(dufnha_intersects[k]) for k in dufnha_intersects)}")
+
+    print("Ex:")
+    i = 0
+    for target_name, hits in dufnha_intersects.items():
+        if (i := i + 1) > 10:
+            print("...")
+            break
+        for h1, h2 in hits:
+            if (h1.row.seq_from, h1.row.seq_to) == (h2.row.seq_from, h2.row.seq_to):
+                print(f"{h1.row.seqname()}")
+            else:
+                print(f"{h1.row.target_name}/{h1.row.seq_from}-{h1.row.seq_to} {h2.row.seq_from}-{h2.row.seq_to}")
+    
+    lina_intersects = defaultdict(list)
+    for tname, hits in compare(sr_duf, sr_lina).items():
+        lina_intersects[tname] += hits
+    for tname, hits in compare(sr_nha, sr_lina).items():
+        lina_intersects[tname] += hits
+    
+    print("lina-combo-v1")
+    print(f"Total # hits: {len(sr_lina.hits)}")
+    print(f"Total # intersects: {sum(len(lina_intersects[k]) for k in lina_intersects)}")
+
+    print("Ex:")
+    i = 0
+    for target_name, hits in lina_intersects.items():
+        if (i := i + 1) > 10:
+            print("...")
+            break
+        for h1, h2 in hits:
+            if (h1.row.seq_from, h1.row.seq_to) == (h2.row.seq_from, h2.row.seq_to):
+                print(f"{h1.row.seqname()}")
+            else:
+                print(f"{h1.row.target_name}/{h1.row.seq_from}-{h1.row.seq_to} {h2.row.seq_from}-{h2.row.seq_to}")
+    
+    
