@@ -50,9 +50,12 @@ def analyze(cmsearch_out, name=None, color="DarkBlue", threshold=1.0):
     sr = SearchResult.parse(cmsearch_out)
     uniq_keep_path = run_analysis(sr, name, color, outdir, threshold)
 
-    # Run R2R
-    for line in execute([os.path.join(SCRIPTS_DIR, 'r2r.sh'), f"{uniq_keep_path}.sto"]):
-        print(line, end="")
+    # Run R2R, which fails on the cluster
+    try:
+        for line in execute([os.path.join(SCRIPTS_DIR, 'r2r.sh'), f"{uniq_keep_path}.sto"]):
+            print(line, end="")
+    except subprocess.CalledProcessError:
+        print("R2R failed to run, skipping...", file=sys.stderr)
     
     return uniq_keep_path
 
@@ -115,7 +118,11 @@ def pipeline(sto):
     uniq_keep_sto = analyze(cmsearch_out)
     uniq_keep_fna = reformat(uniq_keep_sto)
     uniq_keep_motif_sto = cmfind(uniq_keep_fna)
-    r2r(uniq_keep_motif_sto)
+    try:
+        r2r(uniq_keep_motif_sto)
+    except subprocess.CalledProcessError:
+        print("R2R failed to run, skipping...", file=sys.stderr)
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:

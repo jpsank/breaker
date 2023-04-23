@@ -21,24 +21,20 @@ def compare(sr1: SearchResult, sr2: SearchResult):
     hits2 = defaultdict(list)
     for h in sr2.hits.values():
         hits2[h.row.target_name].append(h)
-    targets = set(hits1.keys()).intersection(set(hits2.keys()))
     
     # Check for intersecting hits
     intersects = []
-    for target_name in targets:
-        if target_name in hits1 and target_name in hits2:
-            for h1 in hits1[target_name]:
-                for h2 in hits2[target_name]:
-                    seq1 = h1.seq.text
-                    seq2 = h2.seq.text
-                    max_len = max(len(seq1), len(seq2))
+    for target_name in set(hits1.keys()).intersection(set(hits2.keys())):
+        for h1 in hits1[target_name]:
+            for h2 in hits2[target_name]:
+                max_len = max(len(h1.seq.text), len(h2.seq.text))
 
-                    from1, to1 = h1.row.seq_from, h1.row.seq_to
-                    from2, to2 = h2.row.seq_from, h2.row.seq_to
-                    if from1 > to1: from1, to1 = to1, from1
-                    if from2 > to2: from2, to2 = to2, from2
-                    if abs(from1-from2) < max_len or abs(to1-to2) < max_len:
-                        intersects.append((h1, h2))
+                from1, to1 = h1.row.seq_from, h1.row.seq_to
+                from2, to2 = h2.row.seq_from, h2.row.seq_to
+                if from1 > to1: from1, to1 = to1, from1
+                if from2 > to2: from2, to2 = to2, from2
+                if abs(from1-from2) <= max_len or abs(to1-to2) <= max_len:
+                    intersects.append((h1, h2))
     
     return intersects
 
@@ -113,7 +109,7 @@ if __name__ == '__main__':
         sr.apply_threshold(threshold)
         nunique_keep = len(sr.hits)
         table.append([name, ntotal, nunique, nunique_keep])
-    print(tabulate(table, headers="firstrow", tablefmt="plain"))
+    print(tabulate(table, headers="firstrow", tablefmt="github"))
     print()
 
     # Then, do DUF and NHA intersect?
@@ -168,14 +164,14 @@ if __name__ == '__main__':
             sr_nha.apply_threshold(threshold)
             sr_combo.apply_threshold(threshold)
 
-            duf_intersects_dufnha = compare(sr_duf, sr_combo)
-            nha_intersects_dufnha = compare(sr_nha, sr_combo)
+            duf_intersects_combo = compare(sr_duf, sr_combo)
+            nha_intersects_combo = compare(sr_nha, sr_combo)
 
-            I.append(len(sr_duf.hits) - len(duf_intersects_dufnha))
-            II.append(len(duf_intersects_dufnha))
-            III.append(len(sr_combo.hits) - len(duf_intersects_dufnha) - len(nha_intersects_dufnha))
-            IV.append(len(nha_intersects_dufnha))
-            V.append(len(sr_nha.hits) - len(nha_intersects_dufnha))
+            I.append(len(sr_duf.hits) - len(duf_intersects_combo))
+            II.append(len(duf_intersects_combo))
+            III.append(len(sr_combo.hits) - len(duf_intersects_combo) - len(nha_intersects_combo))
+            IV.append(len(nha_intersects_combo))
+            V.append(len(sr_nha.hits) - len(nha_intersects_combo))
 
             table.append([threshold, I[-1], II[-1], III[-1], IV[-1], V[-1]])
 

@@ -16,35 +16,41 @@ def cli():
 @click.option('--e', 'e', default=1000.0)  # E-value threshold and cutoff
 @click.option('--dbfna', 'dbfna', default=GTDB_PROK_DB)  # path to database FASTA file
 def cmsearch(sto, e, dbfna):
-    pipe.cmsearch(sto, e=e, dbfna=dbfna)
+    cmsearch_out = pipe.cmsearch(sto, e=e, dbfna=dbfna)
+    print(f"Next, run analyze on {cmsearch_out}")
 
 
 @cli.command()
 @click.argument('cmsearch_out')
-@click.argument('color')
-@click.option('--threshold', default=1)
-def analyze(cmsearch_out, color, threshold=1):
-    pipe.analyze(cmsearch_out, color=color, threshold=threshold)
+@click.argument('color', default="DarkBlue")
+@click.option('--threshold', default=1.0)
+def analyze(cmsearch_out, color, threshold):
+    uniq_keep_sto = pipe.analyze(cmsearch_out, color=color, threshold=threshold)
+    print(f"Next, run refold on {uniq_keep_sto}")
 
 
 @cli.command()
 @click.argument('sto')
 def refold(sto):
     fna = pipe.reformat(sto)
-    pipe.cmfind(fna)
+    motif_sto = pipe.cmfind(fna)
+    print(f"Next, run r2r on {motif_sto}")
+
 
 
 @cli.command()
 @click.argument('sto')
 @click.argument('out', default=None)
 def reformat(sto, out):
-    pipe.reformat(sto, out=out)
+    fna = pipe.reformat(sto, out=out)
+    print(f"Next, run cmfind on {fna}")
 
 
 @cli.command()
 @click.argument('fna')
 def cmfind(fna):
-    pipe.cmfind(fna)
+    motif_sto = pipe.cmfind(fna)
+    print(f"Next, run r2r on {motif_sto}")
 
 
 @cli.command()
