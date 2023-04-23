@@ -102,11 +102,39 @@ if __name__ == '__main__':
     DUFNHA = "DUF1646_nhaA-I.fna.motif.h2_1_gtdb-bact-r207-repr_E1000.0"
     LINA = "lina-combo-v1_gtdb-bact-r207-repr_E1000.0"
 
+    # First, get numbers for all models
+    threshold = 1000
+    table = [["Name", "# Total", "# Unique", f"# Unique E<{threshold}"]]
+    for name in [DUF, NHA, DUFNHA, LINA]:
+        sr = SearchResult.parse(os.path.join(SEARCHES_DIR, name, f"{name}.out"))
+        ntotal = len(sr.hits)
+        sr.remove_duplicates()
+        nunique = len(sr.hits)
+        sr.apply_threshold(threshold)
+        nunique_keep = len(sr.hits)
+        table.append([name, ntotal, nunique, nunique_keep])
+    print(tabulate(table, headers="firstrow", tablefmt="plain"))
+    print()
+
+    # Then, do DUF and NHA intersect?
+    sr_duf = SearchResult.parse(os.path.join(SEARCHES_DIR, DUF, f"{DUF}.out"))
+    sr_nha = SearchResult.parse(os.path.join(SEARCHES_DIR, NHA, f"{NHA}.out"))
+
+    # Only need unique hits
+    sr_duf.remove_duplicates()
+    sr_nha.remove_duplicates()
+
+    # Get intersecting hits
+    intersects = compare(sr_duf, sr_nha)
+    print(f"Found {len(intersects)} intersecting hits between DUF1646 and nhaA-I")
+    print()
+
+    # Next, do DUF and nhaA-I intersect with combined model?
     for combo in [DUFNHA, LINA]:
         # Load search results of models in question
         sr_duf = SearchResult.parse(os.path.join(SEARCHES_DIR, DUF, f"{DUF}.out"))
         sr_nha = SearchResult.parse(os.path.join(SEARCHES_DIR, NHA, f"{NHA}.out"))
-        sr_combo = SearchResult.parse(os.path.join(SEARCHES_DIR, DUFNHA, f"{DUFNHA}.out"))
+        sr_combo = SearchResult.parse(os.path.join(SEARCHES_DIR, combo, f"{combo}.out"))
 
         # Only need unique hits
         sr_duf.remove_duplicates()
@@ -151,6 +179,7 @@ if __name__ == '__main__':
 
             table.append([threshold, I[-1], II[-1], III[-1], IV[-1], V[-1]])
 
+        print(f"Comparison of {combo} to {DUF} and {NHA}:")
         print(tabulate(table, headers="firstrow", tablefmt="github"))
         print()
         
