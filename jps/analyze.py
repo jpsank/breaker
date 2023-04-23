@@ -80,7 +80,7 @@ def run_analysis(sr: SearchResult, name, color, outdir, threshold=0.01):
     sr_keep.write(os.path.join(data_dir, f"{name}.keepE{slugify_float(threshold)}"))
     sr_unique_keep.write(uniq_keep_path := os.path.join(data_dir, f"{name}.uniq.keepE{slugify_float(threshold)}"))
 
-    return uniq_keep_path
+    return f"{uniq_keep_path}.sto"
 
 
 if __name__ == '__main__':
