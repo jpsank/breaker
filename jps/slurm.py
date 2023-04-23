@@ -35,7 +35,10 @@ class SlurmJob:
         raise SlurmError("Could not submit job")
 
     def check(self):
-        """ Check the status of a job. """
+        """ Check the status of a job. 
+        Returns:
+            bool: True if job is still running, False otherwise
+        """
         for line in execute(["squeue", "-j", str(self.id)]):
             print(line, end="")
             if line.startswith(str(self.id)):

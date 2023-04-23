@@ -21,9 +21,9 @@ def cmsearch(sto, out=None, e=1000.0, dbfna=GTDB_PROK_DB):
 
     # Auto-generate output path
     if out is None:
-        name = f"{sto_filename(sto)}_{datetime.now().strftime('%m-%d-%Y_%H:%M:%S')}"
-        out = os.path.join(name, f"{name}.out")
-        os.makedirs(out, exist_ok=True)
+        name = f"{sto_filename(sto)}_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
+        out = os.path.join(SEARCHES_DIR, name, f"{name}.out")
+        os.makedirs(os.path.dirname(out), exist_ok=True)
     
     # Run cmsearch
     job = SlurmJob.submit(os.path.join(SCRIPTS_DIR, 'cmsearch.sh'), sto, out, str(e), str(e), dbfna)
@@ -88,7 +88,7 @@ def cmfind(fna):
     # Run CMfinder
     job = SlurmJob.submit(os.path.join(SCRIPTS_DIR, 'cmfinder.sh'), fna)
     job.wait()
-        
+
     # Return expected path to CMfinder output (could be wrong)
     return f"{fna}.motif.h2_1"
 
@@ -104,6 +104,19 @@ def r2r(sto):
         print(line, end="")
 
 
+def pipeline(sto):
+    """
+    Run the entire pipeline on a stockholm alignment file.
+
+    Args:
+        sto (str): path to stockholm alignment file
+    """
+    cmsearch_out = cmsearch(sto)
+    uniq_keep_sto = analyze(cmsearch_out)
+    uniq_keep_fna = reformat(uniq_keep_sto)
+    uniq_keep_motif_sto = cmfind(uniq_keep_fna)
+    r2r(uniq_keep_motif_sto)
+
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: python pipe.py <sto file>")
@@ -114,8 +127,4 @@ if __name__ == "__main__":
         sys.exit(1)
     
     # Run pipeline
-    cmsearch_out = cmsearch(sto)
-    uniq_keep_sto = analyze(cmsearch_out)
-    uniq_keep_fna = reformat(uniq_keep_sto)
-    uniq_keep_motif_sto = cmfind(uniq_keep_fna)
-    r2r(uniq_keep_motif_sto)
+    pipeline(sto)
