@@ -43,7 +43,7 @@ def compare(sr1: SearchResult, sr2: SearchResult):
     return intersects
 
 
-def plot_score_distribution(sr: SearchResult, name, color, out=None, threshold=0.01):
+def plot_score_distribution(sr: SearchResult, name, color, out, threshold=0.01):
     df = pandas.DataFrame([hit.asdict() for hit in sr.hits.values()])
     score = np.log10(df["E_value"])
     ax = score.hist(bins=50, color=color, label=name, log=True)
@@ -51,8 +51,7 @@ def plot_score_distribution(sr: SearchResult, name, color, out=None, threshold=0
     ax.set_title(f"{name} score distribution")
     ax.set_xlabel('log(E-value)')
     ax.set_ylabel('Count')
-    if out:
-        ax.figure.savefig(out)
+    ax.figure.savefig(out)
     plt.clf()
 
 
@@ -103,12 +102,9 @@ if __name__ == '__main__':
     sr_lina = SearchResult.parse(os.path.join(SEARCHES_DIR, 'lina-combo-v1_gtdb-bact-r207-repr_E1000.0/lina-combo-v1_gtdb-bact-r207-repr_E1000.0.out'))
     sr_dufnha = SearchResult.parse(os.path.join(SEARCHES_DIR, 'DUF1646_nhaA-I.fna.motif.h2_1_gtdb-bact-r207-repr_E1000.0/DUF1646_nhaA-I.fna.motif.h2_1_gtdb-bact-r207-repr_E1000.0.out'))
 
-    dufnha_intersects = defaultdict(list)
-    for tname, hits in compare(sr_duf, sr_dufnha).items():
-        dufnha_intersects[tname] += hits
-    for tname, hits in compare(sr_nha, sr_dufnha).items():
-        dufnha_intersects[tname] += hits
-    
+    dufnha_intersects_duf = compare(sr_duf, sr_dufnha)
+    dufnha_intersects_nha = compare(sr_nha, sr_dufnha)
+
     print("DUF1646_nhaA-I vs. DUF1646 and nhaA-I")
     print(f"Total # hits: {len(sr_dufnha.hits)}")
     print(f"Total # intersects: {sum(len(dufnha_intersects[k]) for k in dufnha_intersects)}")

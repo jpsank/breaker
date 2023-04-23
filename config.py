@@ -15,3 +15,6 @@ SCRIPTS_DIR = os.path.join(basedir, "jps/scripts")
 os.makedirs(SEARCHES_DIR, exist_ok=True)
 os.makedirs(ANALYSIS_DIR, exist_ok=True)
 os.makedirs(REFOLD_DIR, exist_ok=True)
+
+# Database paths
+GTDB_PROK_DB = "/home/jps228/project/gtdb/gtdb-bact-r207-repr.fna.gz"

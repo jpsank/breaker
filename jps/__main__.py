@@ -3,16 +3,8 @@ import subprocess
 
 from config import *
 from jps.analyze import *
-
-
-def execute(cmd):
-    popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True)
-    for stdout_line in iter(popen.stdout.readline, ""):
-        yield stdout_line 
-    popen.stdout.close()
-    return_code = popen.wait()
-    if return_code:
-        raise subprocess.CalledProcessError(return_code, cmd)
+from jps.util import *
+import jps.pipe as pipe
 
 
 @click.group()
@@ -22,25 +14,9 @@ def cli():
 @cli.command()
 @click.argument('sto')  # path to stockholm alignment file
 @click.option('--e', 'e', default=1000.0)  # E-value threshold and cutoff
-@click.option('--dbfna', 'dbfna', default="/home/jps228/project/gtdb/gtdb-bact-r207-repr.fna.gz")  # path to database FASTA file
+@click.option('--dbfna', 'dbfna', default=GTDB_PROK_DB)  # path to database FASTA file
 def cmsearch(sto, e, dbfna):
-    """ Run a cmsearch on a stockholm alignment file. """
-
-    # Auto-generate output path
-    names = [
-        sto_filename(sto),
-        os.path.basename(dbfna).split('.')[0],
-        f"E{slugify_float(e)}",
-    ]
-    fullname = "_".join(names)
-    out = os.path.join(SEARCHES_DIR, f"{fullname}", f"{fullname}.out")
-    if os.path.exists(out):
-        raise Exception(f"Output path already exists: {out}")
-    os.makedirs(os.path.dirname(out), exist_ok=True)
-    
-    # Run cmsearch
-    for line in execute(["sbatch", os.path.join(SCRIPTS_DIR, 'cmsearch.sh'), sto, out, str(e), str(e), dbfna]):
-        print(line, end="")
+    pipe.cmsearch(sto, e=e, dbfna=dbfna)
 
 # Example usage:
 # cmsearch data/sto/DUF1646/RF03071.sto
@@ -52,15 +28,7 @@ def cmsearch(sto, e, dbfna):
 @click.argument('color')
 @click.option('--threshold', default=1)
 def analyze(cmsearch_out, color, threshold=1):
-    sr = SearchResult.parse(cmsearch_out)
-    name = os.path.splitext(os.path.basename(cmsearch_out))[0]
-    outdir = os.path.join(ANALYSIS_DIR, name)
-    os.makedirs(outdir, exist_ok=True)
-    uniq_keep_path = run_analysis(sr, name, color, outdir, threshold)
-
-    # Run R2R
-    for line in execute([os.path.join(SCRIPTS_DIR, 'r2r.sh'), f"{uniq_keep_path}.sto"]):
-        print(line, end="")
+    pipe.analyze(cmsearch_out, color=color, threshold=threshold)
 
 # Example usage:
 # analyze data/searches/gtdb-prok_DUF1646_1/gtdb-prok_DUF1646_1.out DarkBlue
