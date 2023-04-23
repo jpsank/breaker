@@ -24,7 +24,7 @@ def compare(sr1: SearchResult, sr2: SearchResult):
     targets = set(hits1.keys()).intersection(set(hits2.keys()))
     
     # Check for intersecting hits
-    intersects = {}
+    intersects = []
     for target_name in targets:
         if target_name in hits1 and target_name in hits2:
             for h1 in hits1[target_name]:
@@ -38,7 +38,7 @@ def compare(sr1: SearchResult, sr2: SearchResult):
                     if from1 > to1: from1, to1 = to1, from1
                     if from2 > to2: from2, to2 = to2, from2
                     if abs(from1-from2) < max_len or abs(to1-to2) < max_len:
-                        intersects.setdefault(target_name, []).append((h1, h2))
+                        intersects.append((h1, h2))
     
     return intersects
 
@@ -96,51 +96,61 @@ if __name__ == '__main__':
     # print()
     # run_analysis(sr2, 'nhaA-I', 'DarkGreen', outdir=os.path.join(ANALYSIS_DIR, 'gtdb-prok_nhaA-I_2'), threshold=threshold)
 
-    # Compare search results
-    sr_duf = SearchResult.parse(os.path.join(SEARCHES_DIR, 'gtdb-prok_DUF1646_1/gtdb-prok_DUF1646_1.out'))
-    sr_nha = SearchResult.parse(os.path.join(SEARCHES_DIR, 'gtdb-prok_nhaA-I_2/gtdb-prok_nhaA-I_2.out'))
-    sr_lina = SearchResult.parse(os.path.join(SEARCHES_DIR, 'lina-combo-v1_gtdb-bact-r207-repr_E1000.0/lina-combo-v1_gtdb-bact-r207-repr_E1000.0.out'))
-    sr_dufnha = SearchResult.parse(os.path.join(SEARCHES_DIR, 'DUF1646_nhaA-I.fna.motif.h2_1_gtdb-bact-r207-repr_E1000.0/DUF1646_nhaA-I.fna.motif.h2_1_gtdb-bact-r207-repr_E1000.0.out'))
+    # Search result path names
+    DUF = "gtdb-prok_DUF1646_1"
+    NHA = "gtdb-prok_nhaA-I_2"
+    DUFNHA = "DUF1646_nhaA-I.fna.motif.h2_1_gtdb-bact-r207-repr_E1000.0"
+    LINA = "lina-combo-v1_gtdb-bact-r207-repr_E1000.0"
 
-    dufnha_intersects_duf = compare(sr_duf, sr_dufnha)
-    dufnha_intersects_nha = compare(sr_nha, sr_dufnha)
+    for combo in [DUFNHA, LINA]:
+        # Load search results of models in question
+        sr_duf = SearchResult.parse(os.path.join(SEARCHES_DIR, DUF, f"{DUF}.out"))
+        sr_nha = SearchResult.parse(os.path.join(SEARCHES_DIR, NHA, f"{NHA}.out"))
+        sr_combo = SearchResult.parse(os.path.join(SEARCHES_DIR, DUFNHA, f"{DUFNHA}.out"))
 
-    print("DUF1646_nhaA-I vs. DUF1646 and nhaA-I")
-    print(f"Total # hits: {len(sr_dufnha.hits)}")
-    print(f"Total # intersects: {sum(len(dufnha_intersects[k]) for k in dufnha_intersects)}")
+        # Only need unique hits
+        sr_duf.remove_duplicates()
+        sr_nha.remove_duplicates()
+        sr_combo.remove_duplicates()
 
-    print("Ex:")
-    i = 0
-    for target_name, hits in dufnha_intersects.items():
-        if (i := i + 1) > 10:
-            print("...")
-            break
-        for h1, h2 in hits:
-            if (h1.row.seq_from, h1.row.seq_to) == (h2.row.seq_from, h2.row.seq_to):
-                print(f"{h1.row.seqname()}")
-            else:
-                print(f"{h1.row.target_name}/{h1.row.seq_from}-{h1.row.seq_to} {h2.row.seq_from}-{h2.row.seq_to}")
-    
-    lina_intersects = defaultdict(list)
-    for tname, hits in compare(sr_duf, sr_lina).items():
-        lina_intersects[tname] += hits
-    for tname, hits in compare(sr_nha, sr_lina).items():
-        lina_intersects[tname] += hits
-    
-    print("lina-combo-v1")
-    print(f"Total # hits: {len(sr_lina.hits)}")
-    print(f"Total # intersects: {sum(len(lina_intersects[k]) for k in lina_intersects)}")
+        # Compare search results of combined model vs. DUF1646 and nhaA-I (old models)
+        # What we want to know:
+        # E    I    II   III   IV   V
+        # 1    ?    ?    ?     ?    ?
+        # 10   ?    ?    ?     ?    ?
+        # 100  ?    ?    ?     ?    ?
+        # 1000 ?    ?    ?     ?    ?
+        # Where:
+        # E = E-value threshold
+        # I = # of DUF1646 hits not in combo
+        # II = # of DUF1646 hits in combo
+        # III = # of combo hits not in DUF1646 or nhaA-I
+        # IV = # of nhaA-I hits in combo
+        # V = # of nhaA-I hits not in combo
 
-    print("Ex:")
-    i = 0
-    for target_name, hits in lina_intersects.items():
-        if (i := i + 1) > 10:
-            print("...")
-            break
-        for h1, h2 in hits:
-            if (h1.row.seq_from, h1.row.seq_to) == (h2.row.seq_from, h2.row.seq_to):
-                print(f"{h1.row.seqname()}")
-            else:
-                print(f"{h1.row.target_name}/{h1.row.seq_from}-{h1.row.seq_to} {h2.row.seq_from}-{h2.row.seq_to}")
-    
-    
+        I = []
+        II = []
+        III = []
+        IV = []
+        V = []
+
+        table = [["E", "I", "II", "III", "IV", "V"]]
+        for threshold in [1000, 100, 10, 1]:
+            sr_duf.apply_threshold(threshold)
+            sr_nha.apply_threshold(threshold)
+            sr_combo.apply_threshold(threshold)
+
+            duf_intersects_dufnha = compare(sr_duf, sr_combo)
+            nha_intersects_dufnha = compare(sr_nha, sr_combo)
+
+            I.append(len(sr_duf.hits) - len(duf_intersects_dufnha))
+            II.append(len(duf_intersects_dufnha))
+            III.append(len(sr_combo.hits) - len(duf_intersects_dufnha) - len(nha_intersects_dufnha))
+            IV.append(len(nha_intersects_dufnha))
+            V.append(len(sr_nha.hits) - len(nha_intersects_dufnha))
+
+            table.append([threshold, I[-1], II[-1], III[-1], IV[-1], V[-1]])
+
+        print(tabulate(table, headers="firstrow", tablefmt="github"))
+        print()
+        
