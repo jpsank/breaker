@@ -1,9 +1,8 @@
 import click
-import subprocess
 
 from config import *
 from jps.analyze import *
-from jps.util import *
+from jps.util.helpers import *
 import jps.pipe as pipe
 
 

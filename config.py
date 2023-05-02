@@ -2,11 +2,11 @@ import os
 
 basedir = os.path.dirname(os.path.realpath(__file__))
 
-DATA_DIR = os.path.join(basedir, "data")
-SEARCHES_DIR = os.path.join(DATA_DIR, "searches")
-ANALYSIS_DIR = os.path.join(DATA_DIR, "analysis")
-REFOLD_DIR = os.path.join(DATA_DIR, "refold")
-STO_DIR = os.path.join(DATA_DIR, "sto")
+DATADIR = os.path.join(basedir, "data")
+SEARCHES_DIR = os.path.join(DATADIR, "searches")
+ANALYSIS_DIR = os.path.join(DATADIR, "analysis")
+REFOLD_DIR = os.path.join(DATADIR, "refold")
+STO_DIR = os.path.join(DATADIR, "sto")
 
 SCRIPTS_DIR = os.path.join(basedir, "jps/scripts")
 
@@ -17,4 +17,10 @@ os.makedirs(ANALYSIS_DIR, exist_ok=True)
 os.makedirs(REFOLD_DIR, exist_ok=True)
 
 # Database paths
-GTDB_PROK_DB = "/home/jps228/project/gtdb/gtdb-bact-r207-repr.fna.gz"
+GTDB_PROK_DB = "/gpfs/gibbs/pi/breaker/cgkdb/gtdb/gtdb-bact-r207-repr.fna.gz"
+
+
+# SQLAlchemy settings
+SQLALCHEMY_DATABASE_URI = f'sqlite:///{os.path.join(basedir, "data.sqlite")}'
+
+
