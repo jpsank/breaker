@@ -1,0 +1,2 @@
+Name                   # Total    # Unique    # E<1    # Unique E<1
+gtdb-prok_DUF1646_1       1649        1478      497             421
