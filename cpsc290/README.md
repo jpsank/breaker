@@ -1,10 +1,10 @@
 *CPSC 290: Directed Research in Computer Science, Spring 2023, Yale University*
 
-# RNA Discovery & Analysis at the Breaker Lab
+# Novel Pipeline for RNA Discovery & Analysis Applied to Sodium-Binding Riboswitches
 By Julian Sanker, advised by Dr. Smita Krishnaswamy, under the mentorship of Dr. Ronald Breaker and Christopher King. [Link to GitHub repository](https://github.com/jpsank/breaker).
 
 ## Table of Contents
-- [RNA Discovery \& Analysis at the Breaker Lab](#rna-discovery--analysis-at-the-breaker-lab)
+- [Novel Pipeline for RNA Discovery \& Analysis Applied to Sodium-Binding Riboswitches](#novel-pipeline-for-rna-discovery--analysis-applied-to-sodium-binding-riboswitches)
   - [Table of Contents](#table-of-contents)
   - [Abstract](#abstract)
   - [Introduction](#introduction)
