@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<link rel="stylesheet" href="css/markdown.css" type="text/css" />
+<link rel="stylesheet" href="css/tomorrow-theme.css" type="text/css" />
+<link rel="stylesheet" href="css/md-pdf.css" type="text/css" />
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<p><em>CPSC 290: Directed Research in Computer Science, Spring 2023, Yale University</em></p>
+<h1 id="rna-discovery--analysis-at-the-breaker-lab">RNA Discovery &amp; Analysis at the Breaker Lab</h1>
+<p>By Julian Sanker, advised by Dr. Smita Krishnaswamy, under the mentorship of Dr. Ronald Breaker and Christopher King. <a href="https://github.com/jpsank/breaker">Link to GitHub repository</a>.</p>
+
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="index.html#rna-discovery--analysis-at-the-breaker-lab">RNA Discovery &amp; Analysis at the Breaker Lab</a>
+<ul>
+<li><a href="index.html#table-of-contents">Table of Contents</a></li>
+<li><a href="index.html#abstract">Abstract</a></li>
+<li><a href="index.html#introduction">Introduction</a></li>
+<li><a href="project-components.html#project-components">Project Components</a>
+<ul>
+<li><a href="project-components.html#1-backend-pipeline">1. Backend Pipeline</a></li>
+<li><a href="project-components.html#2-genetic-algorithm">2. Genetic Algorithm</a></li>
+<li><a href="project-components.html#3-frontend-website">3. Frontend Website</a></li>
+</ul>
+</li>
+<li><a href="methodology.html#methodology">Methodology</a>
+<ul>
+<li><a href="methodology.html#code-structure">Code Structure</a></li>
+<li><a href="methodology.html#database-architecture">Database Architecture</a></li>
+</ul>
+</li>
+<li><a href="process.html#experimental-process-for-sodium-binding-riboswitches">Experimental Process for Sodium-Binding Riboswitches</a>
+<ul>
+<li><a href="process.html#1-download-motifs">1. Download motifs</a></li>
+<li><a href="process.html#2-search-against-genome-database">2. Search against genome database</a></li>
+<li><a href="process.html#3-refold-using-cmfinder">3. Refold using CMfinder</a></li>
+<li><a href="process.html#4-search-new-models-against-genome-database">4. Search new models against genome database</a></li>
+<li><a href="process.html#5-evaluate-search-results">5. Evaluate search results</a></li>
+<li><a href="process.html#6-an-aside-reporting-tandem-hits">6. An aside: reporting tandem hits</a></li>
+</ul>
+</li>
+<li><a href="conclusion.html#conclusion">Conclusion</a>
+<ul>
+<li><a href="conclusion.html#discussion">Discussion</a></li>
+<li><a href="conclusion.html#future-research">Future Research</a></li>
+<li><a href="conclusion.html#acknowledgements">Acknowledgements</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<h2 id="abstract">Abstract</h2>
+<p>This project investigates the construction of a Python framework for RNA discovery and analysis, with the goal of improving the computational tools available to RNA researchers. The framework consists of three parts: 1) a pipeline for refinement and analysis of RNA models, 2) a genetic algorithm for RNA folding, and 3) a frontend website that interfaces with 1 and 2. The pipeline incorporates several bioinformatic software packages, including Infernal, HMMER, CMfinder, and R2R, to perform useful operations on RNA sequence data. Functions include: running a genome search, parsing the search results into a SQL database, filtering the data for use in generating new RNA models, and visualizing the results of a search. The genetic algorithm, incomplete, is based on the NeuroEvolution of Augmenting Topologies algorithm, adapted to evolve context-free grammars representing RNA models, and it is meant to replace the CMfinder step of the pipeline to predict RNA secondary structure/folding. The frontend website, also incomplete, presents a unified interface for RNA researchers to run the various operations of the pipeline and view results, as well as a new RALEE-esque RNA alignment editor, to conduct experiments on sequence data without needing technical knowledge of the command-line or the idiosyncrasies of particular software packages. The pipeline will utilize a SQL database to store and manipulate data, and the website will be hosted on a remote server to allow for easy access by researchers. The pipeline was applied to analyze two sodium-binding riboswitch RNAs, nhaA-I and DUF1646, and shows promise for incorporating these models into a single, larger sodium-binding riboswitch model. More research is needed, so the experiment will be continued over the summer. A new framework for various computational RNA tasks will be a valuable tool for RNA researchers and a useful resource for the Breaker Lab in particular.</p>
+<p>The final report can be found in the link to <a href="files/Spring%20'23%20Final%20Report%20CPSC%20290.pdf">Spring 2023 Final Report</a>.</p>
+<h2 id="introduction">Introduction</h2>
+<p><em>Project developed during Spring 2023 for CPSC 290: Directed Research in Computer Science at Yale University, under the mentorship of Dr. Ronald Breaker and Christopher King.</em></p>
+<p>The main goal of the project is to improve computational tools for structured RNA discovery and analysis. The project is divided into three parts: the first is the development of a pipeline that interfaces with numerous bioinformatic software packages, including Infernal, HMMER, CMfinder, and R2R, to perform useful operations on RNA sequence data across these tools. The second is the incorporation of a genetic algorithm into the pipeline, in place of the existing, outdated CMfinder software, to predict RNA secondary structure/folding. The final component is a frontend website that provides an interface for RNA researchers to utilize the pipeline and its various operations independently, as well as a new RALEE-esque RNA alignment editor, to conduct experiments on sequence data without needing technical knowledge of the particular software packages.</p>
+<p>The project is incomplete, to be continued over the summer. The following sections describe the project in more detail. The project proposal from the beginning of the semester can be found in the <a href="files/Spring%20'23%20Research%20Proposal%20CPSC%20290.pdf">link to Spring 2023 Project Proposal</a>.</p>
+
+
+</body>
+</html>

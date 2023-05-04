@@ -1,5 +1,7 @@
 # Computational Biology Project for *CPSC 290: Directed Research*
 
+DISCLAIMER: The project is still in progress, so the instructions below are from a previous version of the project and are not guaranteed to work.
+
 ## How to Use
 
 ### 1. Genome Search

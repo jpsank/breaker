@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Project Components</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<link rel="stylesheet" href="css/markdown.css" type="text/css" />
+<link rel="stylesheet" href="css/tomorrow-theme.css" type="text/css" />
+<link rel="stylesheet" href="css/md-pdf.css" type="text/css" />
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<p><em>CPSC 290: Directed Research in Computer Science, Spring 2023, Yale University</em></p>
+<h1 id="rna-discovery--analysis-at-the-breaker-lab">RNA Discovery &amp; Analysis at the Breaker Lab</h1>
+<p>By Julian Sanker, advised by Dr. Smita Krishnaswamy, under the mentorship of Dr. Ronald Breaker and Christopher King. <a href="https://github.com/jpsank/breaker">Link to GitHub repository</a>.</p>
+
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="index.html#rna-discovery--analysis-at-the-breaker-lab">RNA Discovery &amp; Analysis at the Breaker Lab</a>
+<ul>
+<li><a href="index.html#table-of-contents">Table of Contents</a></li>
+<li><a href="index.html#abstract">Abstract</a></li>
+<li><a href="index.html#introduction">Introduction</a></li>
+<li><a href="project-components.html#project-components">Project Components</a>
+<ul>
+<li><a href="project-components.html#1-backend-pipeline">1. Backend Pipeline</a></li>
+<li><a href="project-components.html#2-genetic-algorithm">2. Genetic Algorithm</a></li>
+<li><a href="project-components.html#3-frontend-website">3. Frontend Website</a></li>
+</ul>
+</li>
+<li><a href="methodology.html#methodology">Methodology</a>
+<ul>
+<li><a href="methodology.html#code-structure">Code Structure</a></li>
+<li><a href="methodology.html#database-architecture">Database Architecture</a></li>
+</ul>
+</li>
+<li><a href="process.html#experimental-process-for-sodium-binding-riboswitches">Experimental Process for Sodium-Binding Riboswitches</a>
+<ul>
+<li><a href="process.html#1-download-motifs">1. Download motifs</a></li>
+<li><a href="process.html#2-search-against-genome-database">2. Search against genome database</a></li>
+<li><a href="process.html#3-refold-using-cmfinder">3. Refold using CMfinder</a></li>
+<li><a href="process.html#4-search-new-models-against-genome-database">4. Search new models against genome database</a></li>
+<li><a href="process.html#5-evaluate-search-results">5. Evaluate search results</a></li>
+<li><a href="process.html#6-an-aside-reporting-tandem-hits">6. An aside: reporting tandem hits</a></li>
+</ul>
+</li>
+<li><a href="conclusion.html#conclusion">Conclusion</a>
+<ul>
+<li><a href="conclusion.html#discussion">Discussion</a></li>
+<li><a href="conclusion.html#future-research">Future Research</a></li>
+<li><a href="conclusion.html#acknowledgements">Acknowledgements</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<h2 id="project-components">Project Components</h2>
+<p>The project is divided into three components: a backend pipeline, a genetic algorithm, and a frontend website. The backend pipeline is currently being redesigned, and the genetic algorithm and frontend website are currently incomplete. The following sections describe each component in more detail.</p>
+<h3 id="1-backend-pipeline">1. Backend Pipeline</h3>
+<p>A backend pipeline that provides functions to run a genome search on a given RNA model, parse the search results into a SQL database, and then filter the data for use in generating new RNA models. The pipeline is written in Python and utilizes the Infernal, HMMER, CMfinder, and R2R software packages. The pipeline is designed to be modular, so that it can be easily extended to incorporate new software packages and operations. The pipeline is also designed to be run on a remote server, so that it can be accessed by the frontend website. The pipeline is currently incomplete, but the following functions have been implemented:</p>
+<ul>
+<li><code>cmbuild_submit</code>: Starts Slurm job to build and calibrate a covariance model for a given RNA sequence alignment using Infernal.</li>
+<li><code>cmsearch_submit</code>: Starts Slurm job to search a given RNA model against a given genome database using Infernal's CMsearch.</li>
+<li><code>cmsearch_parse</code>: Parses the results of a search into a SQLite database.</li>
+<li><code>cmsearch_analyze</code>: Analyzes the results of a search by plotting the E-value score distribution of the hits, filtering the hits by E-value score and uniqueness and reporting count numbers, and running R2R on the hits to visualize the resulting model.</li>
+<li><code>runr2r</code>: Runs R2R on a given RNA model to visualize the results of a CMsearch search.</li>
+<li><code>sto_reformat</code>: Reformats a given RNA sequence alignment from Stockholm to FASTA (unannotated) format.</li>
+<li><code>run_cmfinder</code>: Starts a Slurm job to run CMfinder on a given FASTA sequence file to predict RNA secondary structure/folding.</li>
+</ul>
+<p>The pipeline is currently being redesigned to utilize a SQL database instead of a filesystem + in-memory data structures to store and manipulate data. The pipeline is also being redesigned to be more modular, so that it can be easily extended to incorporate new software packages and operations. However, this means that some functionality was reversed in the process of redesigning the pipeline, and some functionality is currently missing. The following functions are currently missing:</p>
+<ul>
+<li><code>cmsearch_compare</code>: Compares the results of two searches to determine the number of hits that are unique to each search, and the number of hits that are shared between them.</li>
+</ul>
+<p>In lieu of a frontend website, the pipeline is currently accessed through a command-line interface (CLI) that provides commands for running each of the pipeline functions, or the pipeline can be run directly from the Python interpreter. The CLI is implemented using the Python Click library. It is possible to start a process that runs the entire pipeline in the background on the cluster, and then check the status of the process later.</p>
+<h3 id="2-genetic-algorithm">2. Genetic Algorithm</h3>
+<p>A genetic algorithm that predicts RNA secondary structure/folding for a given RNA sequence alignment. The genetic algorithm is written in Python, and is meant to replace the CMfinder step of the pipeline, since CMfinder is out-of-date and uses the Perl programming language. The genetic algorithm is currently incomplete, but a prototype has been implemented, nick-named TrEAT, or Tree Evolution of Augmenting Topologies, which refers to the usage of a tree data structure to represent the context-free grammar of the RNA secondary structure/folding, and is strongly based on the famous <a href="https://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf">Neuro-Evolution of Augmenting Topologies</a> (NEAT) algorithm for evolving neural networks. The following functionality has been implemented:</p>
+<ul>
+<li><code>Rule</code>: A class that represents a rule in the context-free grammar of the RNA secondary structure/folding. Each rule consists of a sequence that describes the primary structure of the RNA, with id's that refer to other rules in the grammar. Each rule should also have a probability of being chosen, but this functionality has not yet been implemented. The rule class also contains functions to mutate the rule, to generate a random rule, and to crossover two rules</li>
+<li><code>Genome</code>: A class that represents a genome, which is a collection of 'rule' genes that encode a context-free grammer. The genome class also contains functions to mutate the genome, generate a random genome, and crossover two genomes. The crossover function is designed as in NEAT, using a historical marking scheme to align the genes of the two genomes to solve the competing conventions problem.</li>
+<li><code>Organism</code>: A class that represents an organism, which is a genome that has a fitness score and belongs to a species.</li>
+<li><code>Species</code>: A class that represents a species, which is a collection of organisms with similar genomes, and is used to maintain diversity in the population. Originally devised by Kenneth Stanley in the NEAT algorithm to solve the problem of protecting structural innovation in the population.</li>
+<li><code>Population</code>: A class that represents a population, which is a collection of organisms and their species. The population class also contains functions to evolve the population, which is done by speciating the organisms, killing off the worst organisms in each species, and then breeding the remaining organisms in each species to generate new organisms.</li>
+<li><code>Simulation</code>: A class that represents a simulation, which has a population and defines the operations of reproduction/evolution for the population. The simulation class also contains functions to run the simulation, which is done by running the reproduction/evolutionary operations for a given number of generations.</li>
+</ul>
+<p>Once completed, the genetic algorithm must be adapted to fit into the pipeline.</p>
+<h3 id="3-frontend-website">3. Frontend Website</h3>
+<p>A frontend website that provides an interface for RNA researchers to utilize the pipeline and its various operations independently, as well as a new RALEE-esque RNA alignment editor, to conduct experiments on sequence data without needing technical knowledge of the particular software packages. The frontend is incomplete, and is currently implemented using the Python Flask framework and HTML/CSS/JavaScript. Ideally, the frontend will be redesigned to utilize the React.js library. The following functionality has been implemented:</p>
+<ul>
+<li>User authentication and authorization using the Flask-Login library.</li>
+<li>Admin password protection, since we plan to host the website on a public server.</li>
+<li>A prototype of the RALEE-esque RNA alignment editor, which is currently implemented using a custom Stockholm file parser plus JavaScript to render the alignment. The prototype is incomplete, and does not allow for editing or saving the alignment. We plan to reprogram the Stockholm alignment parser to utilize a numpy array to represent the alignment, making column/row operations faster, and to utilize the React.js library to render the alignment for editing.</li>
+</ul>
+<p>Once the pipeline is completed, the frontend will be developed to enable users to 1) run pipeline operations step-by-step (a la carte?), and 2) run the entire pipeline, and to visualize the results of the operations. As of now, the frontend is not connected to the backend pipeline, and is only a prototype.</p>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Conclusion</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<link rel="stylesheet" href="css/markdown.css" type="text/css" />
+<link rel="stylesheet" href="css/tomorrow-theme.css" type="text/css" />
+<link rel="stylesheet" href="css/md-pdf.css" type="text/css" />
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<p><em>CPSC 290: Directed Research in Computer Science, Spring 2023, Yale University</em></p>
+<h1 id="rna-discovery--analysis-at-the-breaker-lab">RNA Discovery &amp; Analysis at the Breaker Lab</h1>
+<p>By Julian Sanker, advised by Dr. Smita Krishnaswamy, under the mentorship of Dr. Ronald Breaker and Christopher King. <a href="https://github.com/jpsank/breaker">Link to GitHub repository</a>.</p>
+
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="index.html#rna-discovery--analysis-at-the-breaker-lab">RNA Discovery &amp; Analysis at the Breaker Lab</a>
+<ul>
+<li><a href="index.html#table-of-contents">Table of Contents</a></li>
+<li><a href="index.html#abstract">Abstract</a></li>
+<li><a href="index.html#introduction">Introduction</a></li>
+<li><a href="project-components.html#project-components">Project Components</a>
+<ul>
+<li><a href="project-components.html#1-backend-pipeline">1. Backend Pipeline</a></li>
+<li><a href="project-components.html#2-genetic-algorithm">2. Genetic Algorithm</a></li>
+<li><a href="project-components.html#3-frontend-website">3. Frontend Website</a></li>
+</ul>
+</li>
+<li><a href="methodology.html#methodology">Methodology</a>
+<ul>
+<li><a href="methodology.html#code-structure">Code Structure</a></li>
+<li><a href="methodology.html#database-architecture">Database Architecture</a></li>
+</ul>
+</li>
+<li><a href="process.html#experimental-process-for-sodium-binding-riboswitches">Experimental Process for Sodium-Binding Riboswitches</a>
+<ul>
+<li><a href="process.html#1-download-motifs">1. Download motifs</a></li>
+<li><a href="process.html#2-search-against-genome-database">2. Search against genome database</a></li>
+<li><a href="process.html#3-refold-using-cmfinder">3. Refold using CMfinder</a></li>
+<li><a href="process.html#4-search-new-models-against-genome-database">4. Search new models against genome database</a></li>
+<li><a href="process.html#5-evaluate-search-results">5. Evaluate search results</a></li>
+<li><a href="process.html#6-an-aside-reporting-tandem-hits">6. An aside: reporting tandem hits</a></li>
+</ul>
+</li>
+<li><a href="conclusion.html#conclusion">Conclusion</a>
+<ul>
+<li><a href="conclusion.html#discussion">Discussion</a></li>
+<li><a href="conclusion.html#future-research">Future Research</a></li>
+<li><a href="conclusion.html#acknowledgements">Acknowledgements</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2 id="conclusion">Conclusion</h2>
+<h3 id="discussion">Discussion</h3>
+<p>Much time spent working on the project was devoted to learning the basics of bioinformatics and computational biology, as well as the various software packages used in the project. I learned how to use the Infernal, HMMER, CMfinder, and R2R software packages, as well as the command-line interface of the Yale HPC cluster and the Slurm job scheduler to run jobs on the cluster.</p>
+<p>Many of our regular meetings were also spent discussing the design of the pipeline, backend database, and code organization. Since I am transitioning the pipeline to SQL, the backend database is currently incomplete, and the code organization is currently in flux. However, I have learned a lot about how to design a modular, extensible, and maintainable software project.</p>
+<p>Over the semester of CPSC 290, I've made a great deal of progress on the project, but there is still much to be done before the pipeline is ready for use by the Breaker Lab. I plan to continue working on the project over the summer, by the end of which I hope to have a working prototype. I will continue my experiments on sodium-binding riboswitches with the pipeline over the summer as well, and I hope to have some interesting results to share when I'm done.</p>
+<h3 id="future-research">Future Research</h3>
+<p>I hope to create a platform to facilitate and democratize biological sequence-based research by automating key processes that currently require installing and running command-line tools and working with filesystems manually.</p>
+<p>There are some steps to the pipeline that have not yet been implemented, but are planned for the future. These include:</p>
+<ul>
+<li><input type="checkbox" id="checkbox0"><label for="checkbox0">Completing the transition to SQL and implementing a new </label><code>cmsearch_compare</code> method to compare two searches using SQL queries to identify duplicate/overlapping hits and tandem repeats in the outputs of <code>infernal</code> searches.</li>
+<li><input type="checkbox" id="checkbox1"><label for="checkbox1">A function to map the hits of a </label><code>cmsearch</code> search onto the phylogenetic tree contained in the Genome Taxonomy Database (GTDB) using R or Python to read the GTDB taxonomy tree and the Infernal output files, and then render a new file with the hits mapped onto the tree. This will enable us to view the distribution of hits across the tree and determine if there are any patterns in the distribution of hits that may be useful for identifying new riboswitches. For example, if a particular riboswitch is found in a particular clade of bacteria, it may be possible to use this information to identify new instances of the riboswitch in other, closely related bacteria. Or, if two riboswitches, such as nhaA-I and DUF1646, are found in the same clade of bacteria, this may indicate that the two riboswitches have common ancestry and can be combined into a single model. This is one method of determining whether a &quot;false positive&quot; hit from the combined search is actually a true positive that was missed by the original models, and therefore should be added to the model.</li>
+<li><input type="checkbox" id="checkbox2"><label for="checkbox2">A function to access genetic context for a sequence of interest from the GTDB FASTA file and render a visualization of the genetic context of the sequence of interest. This will enable us to view gene associations of a given sequence, such as a cmsearch hit, and determine if the sequence is associated with a particular gene or gene cluster, which can tell us valuable information. For example, if a hit is upstream of a gene that is annotated as a transporter (e.g. a sodium ion transporter), it is likely that the sequence is a riboswitch that regulates the expression of that transporter gene. This is another method of determining whether a &quot;false positive&quot; hit from the combined search is actually a true positive that was missed by the original models, and therefore should be added to the model.</label></li>
+</ul>
+<p>In addition to these planned features, I plan to use the pipeline to update the Breaker Lab's collection of riboswitches. The Breaker Lab has a roster of ~50 riboswitches that have been identified in bacteria and eukaryotes, but have not been updated for a number of years. I am planning to utilize the pipeline to update the nhaA-I and DUF1646 motifs and other riboswitches using updated data, in order to identify more instances of these riboswitches and improve the models.</p>
+<h3 id="acknowledgements">Acknowledgements</h3>
+<p>I would like to thank my mentor, Chris, for his guidance, support, and instruction throughout the semester. I would also like to thank Dr. Ronald Breaker and the Breaker Lab for giving me the opportunity to work on this project.</p>
+
+</body>
+</html>

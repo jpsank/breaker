@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Methodology</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<link rel="stylesheet" href="css/markdown.css" type="text/css" />
+<link rel="stylesheet" href="css/tomorrow-theme.css" type="text/css" />
+<link rel="stylesheet" href="css/md-pdf.css" type="text/css" />
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<p><em>CPSC 290: Directed Research in Computer Science, Spring 2023, Yale University</em></p>
+<h1 id="rna-discovery--analysis-at-the-breaker-lab">RNA Discovery &amp; Analysis at the Breaker Lab</h1>
+<p>By Julian Sanker, advised by Dr. Smita Krishnaswamy, under the mentorship of Dr. Ronald Breaker and Christopher King. <a href="https://github.com/jpsank/breaker">Link to GitHub repository</a>.</p>
+
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="index.html#rna-discovery--analysis-at-the-breaker-lab">RNA Discovery &amp; Analysis at the Breaker Lab</a>
+<ul>
+<li><a href="index.html#table-of-contents">Table of Contents</a></li>
+<li><a href="index.html#abstract">Abstract</a></li>
+<li><a href="index.html#introduction">Introduction</a></li>
+<li><a href="project-components.html#project-components">Project Components</a>
+<ul>
+<li><a href="project-components.html#1-backend-pipeline">1. Backend Pipeline</a></li>
+<li><a href="project-components.html#2-genetic-algorithm">2. Genetic Algorithm</a></li>
+<li><a href="project-components.html#3-frontend-website">3. Frontend Website</a></li>
+</ul>
+</li>
+<li><a href="methodology.html#methodology">Methodology</a>
+<ul>
+<li><a href="methodology.html#code-structure">Code Structure</a></li>
+<li><a href="methodology.html#database-architecture">Database Architecture</a></li>
+</ul>
+</li>
+<li><a href="process.html#experimental-process-for-sodium-binding-riboswitches">Experimental Process for Sodium-Binding Riboswitches</a>
+<ul>
+<li><a href="process.html#1-download-motifs">1. Download motifs</a></li>
+<li><a href="process.html#2-search-against-genome-database">2. Search against genome database</a></li>
+<li><a href="process.html#3-refold-using-cmfinder">3. Refold using CMfinder</a></li>
+<li><a href="process.html#4-search-new-models-against-genome-database">4. Search new models against genome database</a></li>
+<li><a href="process.html#5-evaluate-search-results">5. Evaluate search results</a></li>
+<li><a href="process.html#6-an-aside-reporting-tandem-hits">6. An aside: reporting tandem hits</a></li>
+</ul>
+</li>
+<li><a href="conclusion.html#conclusion">Conclusion</a>
+<ul>
+<li><a href="conclusion.html#discussion">Discussion</a></li>
+<li><a href="conclusion.html#future-research">Future Research</a></li>
+<li><a href="conclusion.html#acknowledgements">Acknowledgements</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2 id="methodology">Methodology</h2>
+<p>Much deliberation was put into the design of the pipeline and the project as a whole. Some of the design decisions are described below – although these are subject to change as the project progresses.</p>
+<h3 id="code-structure">Code Structure</h3>
+<p>The code for the pipeline is organized into the following directories:</p>
+<ul>
+<li><code>data</code>: Contains the input and output data files for the pipeline, such as the RNA sequence alignments the CMs, R2R diagrams, and charts, separated into subdirectories for each step of the pipeline and for each RNA motif.</li>
+<li><code>web</code>: Contains the code for the frontend website, separated into subdirectories for Flask blueprints, Jinja HTML templates, and JavaScript/CSS files.</li>
+<li><code>treat</code>: Contains the code for the genetic algorithm.</li>
+<li><code>cgk</code>: Contains some code files from Chris's project, which are currently unused but have been kept for reference. Methodology from these files has been incorporated into the pipeline.</li>
+<li><code>jps</code>: Contains the pipeline code, separated into utility and file I/O functions, database models, pipeline operations, and bash scripts for running certain software packages.</li>
+<li><code>cpsc290</code>: Contains the end-of-term report for the project – an abstract, a set of web pages describing the project, and a final project report in PDF format, which is a copy of this README file.</li>
+</ul>
+<h3 id="database-architecture">Database Architecture</h3>
+<p>The pipeline uses a SQLite database to store the results of each step of the pipeline. The ORM (Object-Relational Mapping) library SQLAlchemy is used to interact with the database, which is organized into the following tables:</p>
+<ul>
+<li><code>SlurmJob</code>: Represents a Slurm job, including the job ID, arguments passed, and the job status. The SlurmJob table is used to keep track of the jobs that are running on the cluster, and to check their status.</li>
+<li><code>Search</code>: Represents a CMsearch search, including the search parameters (cmfile, target database, and other command-line flags), a timestamp, the Slurm job ID associated with the search, and associated hits found by the search. The Search table is used to keep track of the CMsearch searches that have been run, and to store the results of the searches.</li>
+<li><code>Hit</code>: Represents a hit found by a CMsearch search, including the search that found the hit, the target sequence/chromosome accession identifier, the start and end positions of the hit in the target sequence, the strand (3' to 5' or 5' to 3'), the E-value score of the hit, and the alignment of the hit, as well as a few other fields from the CMsearch output. The Hit table is used to keep track of and store the hits that have been found by CMsearch searches.</li>
+<li><code>Alnseq</code>: Represents an alignment of a hit, including a reference to the multiple sequence alignment containing the hit and the actual text of the aligned sequence. The Alnseq table is used to keep track of and store the alignments of hits.</li>
+<li><code>StoFeature</code>: Represents a feature of a Stockholm alignment, including a reference to the Alnseq, the feature format (GC, GF, GS, or GR), field (e.g. SS_cons, seq, or RF), and text. The StoFeature table is used to keep track of and store the features of Stockholm alignments so that important annotations can be persisted when hits are filtered and written to new Stockholm alignment files.</li>
+</ul>
+
+</body>
+</html>

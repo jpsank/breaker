@@ -1,11 +1,12 @@
 *CPSC 290: Directed Research in Computer Science, Spring 2023, Yale University*
 
 # RNA Discovery & Analysis at the Breaker Lab
-By Julian Sanker, advised by Dr. Smita Krishnaswamy, under the mentorship of Dr. Ronald Breaker and Christopher King.
+By Julian Sanker, advised by Dr. Smita Krishnaswamy, under the mentorship of Dr. Ronald Breaker and Christopher King. [Link to GitHub repository](https://github.com/jpsank/breaker).
 
 ## Table of Contents
 - [RNA Discovery \& Analysis at the Breaker Lab](#rna-discovery--analysis-at-the-breaker-lab)
   - [Table of Contents](#table-of-contents)
+  - [Abstract](#abstract)
   - [Introduction](#introduction)
   - [Project Components](#project-components)
     - [1. Backend Pipeline](#1-backend-pipeline)
@@ -20,11 +21,17 @@ By Julian Sanker, advised by Dr. Smita Krishnaswamy, under the mentorship of Dr.
     - [3. Refold using CMfinder](#3-refold-using-cmfinder)
     - [4. Search new models against genome database](#4-search-new-models-against-genome-database)
     - [5. Evaluate search results](#5-evaluate-search-results)
-    - [6. Aside: report tandem hits](#6-aside-report-tandem-hits)
+    - [6. An aside: reporting tandem hits](#6-an-aside-reporting-tandem-hits)
   - [Conclusion](#conclusion)
     - [Discussion](#discussion)
     - [Future Research](#future-research)
     - [Acknowledgements](#acknowledgements)
+
+## Abstract
+
+This project investigates the construction of a Python framework for RNA discovery and analysis, with the goal of improving the computational tools available to RNA researchers. The framework consists of three parts: 1) a pipeline for refinement and analysis of RNA models, 2) a genetic algorithm for RNA folding, and 3) a frontend website that interfaces with 1 and 2. The pipeline incorporates several bioinformatic software packages, including Infernal, HMMER, CMfinder, and R2R, to perform useful operations on RNA sequence data. Functions include: running a genome search, parsing the search results into a SQL database, filtering the data for use in generating new RNA models, and visualizing the results of a search. The genetic algorithm, incomplete, is based on the NeuroEvolution of Augmenting Topologies algorithm, adapted to evolve context-free grammars representing RNA models, and it is meant to replace the CMfinder step of the pipeline to predict RNA secondary structure/folding. The frontend website, also incomplete, presents a unified interface for RNA researchers to run the various operations of the pipeline and view results, as well as a new RALEE-esque RNA alignment editor, to conduct experiments on sequence data without needing technical knowledge of the command-line or the idiosyncrasies of particular software packages. The pipeline will utilize a SQL database to store and manipulate data, and the website will be hosted on a remote server to allow for easy access by researchers. The pipeline was applied to analyze two sodium-binding riboswitch RNAs, nhaA-I and DUF1646, and shows promise for incorporating these models into a single, larger sodium-binding riboswitch model. More research is needed, so the experiment will be continued over the summer. A new framework for various computational RNA tasks will be a valuable tool for RNA researchers and a useful resource for the Breaker Lab in particular.
+
+The final report can be found in the link to [Spring 2023 Final Report](files/Spring%20'23%20Final%20Report%20CPSC%20290.pdf).
 
 ## Introduction
 
@@ -182,8 +189,6 @@ Then, for each combined model, we compare the results of the combined model to t
 
 </td><td>
 
-</td><td>
-
 | Column | Description                              | Meaning |
 |--------|------------------------------------------| ------- |
 |      E | E-value threshold                        |         |
@@ -198,7 +203,7 @@ Then, for each combined model, we compare the results of the combined model to t
 </td></tr>
 </table>
 
-The results of these comparisons are shown below:
+The results of the comparisons of the combined models to the original models are shown below:
 
 <table>
 <tr><td>
@@ -231,7 +236,7 @@ From the table on the left we can see that my combined model overfits to nhaA-I 
 From the table on the right we see that the LiNa combined model search also overfits to nhaA-I, but not as badly as the CMfinder combined model. This is likely due to the fact that LiNa uses a different algorithm to combine the models, and it is not as sensitive to the number of hits contributed by each model. The LiNa combined model finds a few hits that are not found by either of the individual models, but not as many as the CMfinder combined model.
 
 
-### 6. Aside: report tandem hits
+### 6. An aside: reporting tandem hits
 
 During model comparison, we also report any instances of tandems, which we define as hits that are located within 100 bp of each other. This information is not useful to our current analysis, but could be an interesting case study and demonstrates the pipeline's breadth of potential functionality. The results are shown below:
 

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Experimental Process</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<link rel="stylesheet" href="css/markdown.css" type="text/css" />
+<link rel="stylesheet" href="css/tomorrow-theme.css" type="text/css" />
+<link rel="stylesheet" href="css/md-pdf.css" type="text/css" />
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<p><em>CPSC 290: Directed Research in Computer Science, Spring 2023, Yale University</em></p>
+<h1 id="rna-discovery--analysis-at-the-breaker-lab">RNA Discovery &amp; Analysis at the Breaker Lab</h1>
+<p>By Julian Sanker, advised by Dr. Smita Krishnaswamy, under the mentorship of Dr. Ronald Breaker and Christopher King. <a href="https://github.com/jpsank/breaker">Link to GitHub repository</a>.</p>
+
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="index.html#rna-discovery--analysis-at-the-breaker-lab">RNA Discovery &amp; Analysis at the Breaker Lab</a>
+<ul>
+<li><a href="index.html#table-of-contents">Table of Contents</a></li>
+<li><a href="index.html#abstract">Abstract</a></li>
+<li><a href="index.html#introduction">Introduction</a></li>
+<li><a href="project-components.html#project-components">Project Components</a>
+<ul>
+<li><a href="project-components.html#1-backend-pipeline">1. Backend Pipeline</a></li>
+<li><a href="project-components.html#2-genetic-algorithm">2. Genetic Algorithm</a></li>
+<li><a href="project-components.html#3-frontend-website">3. Frontend Website</a></li>
+</ul>
+</li>
+<li><a href="methodology.html#methodology">Methodology</a>
+<ul>
+<li><a href="methodology.html#code-structure">Code Structure</a></li>
+<li><a href="methodology.html#database-architecture">Database Architecture</a></li>
+</ul>
+</li>
+<li><a href="process.html#experimental-process-for-sodium-binding-riboswitches">Experimental Process for Sodium-Binding Riboswitches</a>
+<ul>
+<li><a href="process.html#1-download-motifs">1. Download motifs</a></li>
+<li><a href="process.html#2-search-against-genome-database">2. Search against genome database</a></li>
+<li><a href="process.html#3-refold-using-cmfinder">3. Refold using CMfinder</a></li>
+<li><a href="process.html#4-search-new-models-against-genome-database">4. Search new models against genome database</a></li>
+<li><a href="process.html#5-evaluate-search-results">5. Evaluate search results</a></li>
+<li><a href="process.html#6-an-aside-reporting-tandem-hits">6. An aside: reporting tandem hits</a></li>
+</ul>
+</li>
+<li><a href="conclusion.html#conclusion">Conclusion</a>
+<ul>
+<li><a href="conclusion.html#discussion">Discussion</a></li>
+<li><a href="conclusion.html#future-research">Future Research</a></li>
+<li><a href="conclusion.html#acknowledgements">Acknowledgements</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<h2 id="experimental-process-for-sodium-binding-riboswitches">Experimental Process for Sodium-Binding Riboswitches</h2>
+<p>I am conducting an experiment using my pipeline to analyze two sodium-binding RNA motifs, known as nhaA-I and DUF1646, to determine whether they can be combined into a single representative model. My experimental process is as follows:</p>
+<h3 id="1-download-motifs">1. Download motifs</h3>
+<p>I downloaded the nhaA-I (RF03057) and DUF1646 (RF03071) RNA sequence alignments from the Rfam website. Shown below are R2R diagrams of the two alignments:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>nhaA-I</th>
+<th>DUF1646</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>R2R diagram</strong></td>
+<td><img src="files/nha/RF03057.png" alt="nhaA-I R2R diagram"></td>
+<td><img src="files/duf/RF03071.png" alt="DUF1646 R2R diagram"></td>
+</tr>
+</tbody>
+</table>
+<p>As shown by the diagrams, the two RNAs are very similar, each with two stem-loops. The two RNAs also have similar lengths, with nhaA-I being 95 nucleotides long, and DUF1646 being 77 nucleotides long.</p>
+<h3 id="2-search-against-genome-database">2. Search against genome database</h3>
+<p>Using my pipeline, I ran CMsearch on the two alignments against a representative sample of bacterial genomes from Genome Taxonomy Database Release 207. The analyses of the results of the CMsearch searches, filtered by uniqueness and E-value threshold, are shown below:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>nhaA-I</th>
+<th>DUF1646</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Score distribution</strong></td>
+<td><img src="files/nha/gtdb-prok_nhaA-I_2_score_distribution.png" alt="nhaA-I search score distribution"></td>
+<td><img src="files/duf/gtdb-prok_DUF1646_1_score_distribution.png" alt="DUF1646 search score distribution"></td>
+</tr>
+<tr>
+<td><strong>R2R diagram</strong></td>
+<td><img src="files/nha/gtdb-prok_nhaA-I_2.uniq.keepE1.png" alt="nhaA-I search results R2R diagram"></td>
+<td><img src="files/duf/gtdb-prok_DUF1646_1.uniq.keepE1.png" alt="DUF1646 search results R2R diagram"></td>
+</tr>
+<tr>
+<td><strong># hits</strong></td>
+<td>4365</td>
+<td>1649</td>
+</tr>
+<tr>
+<td><strong># unique hits</strong></td>
+<td>4091</td>
+<td>1478</td>
+</tr>
+<tr>
+<td><strong># hits with E-value &lt; 1</strong></td>
+<td>1796</td>
+<td>497</td>
+</tr>
+<tr>
+<td><strong># unique hits with E-value &lt; 1</strong></td>
+<td>1663</td>
+<td>421</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-refold-using-cmfinder">3. Refold using CMfinder</h3>
+<p>I reformatted the search results alignments (Stockholm files) as FASTA sequence files, and ran CMfinder on each of 1) the nhaA-I search results alignment, 2) the DUF1646 search results alignment, and 3) the combined search results alignment generated by concatenating the two FASTA files. The CMfinder results are shown below. Chris created another combined alignment, dubbed LiNa, using <code>esl-alimerge</code> to combine the original nhaA-I and DUF1646 Rfam alignment files, also shown below.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>nhaA-I</th>
+<th>DUF1646</th>
+<th>Combined</th>
+<th>LiNa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>R2R diagram</strong></td>
+<td><img src="files/nha/nhaA-I.fna.motif.h2_1.png" alt="nhaA-I CMfinder results R2R diagram"></td>
+<td><img src="files/duf/DUF1646.fna.motif.h2_1.png" alt="DUF1646 CMfinder results R2R diagram"></td>
+<td><img src="files/combined/DUF1646_nhaA-I.fna.motif.h2_1.png" alt="combined CMfinder results R2R diagram"></td>
+<td><img src="files/lina/lina-combo-v1.png" alt="LiNa R2R diagram"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="4-search-new-models-against-genome-database">4. Search new models against genome database</h3>
+<p>Then, to evaluate our combined models, I ran Infernal's <code>cmsearch</code> once more on the combined alignment generated by CMfinder, and on the LiNa alignment. The results of the searches are shown below:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Combined</th>
+<th>LiNa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Score distribution</strong></td>
+<td><img src="files/combined/DUF1646_nhaA-I.fna.motif.h2_1_gtdb-bact-r207-repr_E1000.0_score_distribution.png" alt="combined search score distribution"></td>
+<td><img src="files/lina/lina-combo-v1_gtdb-bact-r207-repr_E1000.0_score_distribution.png" alt="LiNa search score distribution"></td>
+</tr>
+<tr>
+<td><strong>R2R diagram</strong></td>
+<td><img src="files/combined/DUF1646_nhaA-I.fna.motif.h2_1_gtdb-bact-r207-repr_E1000.0.uniq.keepE1.png" alt="combined search results R2R diagram"></td>
+<td><img src="files/lina/lina-combo-v1_gtdb-bact-r207-repr_E1000.0.uniq.keepE100.png" alt="LiNa search results R2R diagram"></td>
+</tr>
+<tr>
+<td><strong># hits</strong></td>
+<td>14536</td>
+<td>2354</td>
+</tr>
+<tr>
+<td><strong># unique hits</strong></td>
+<td>13398</td>
+<td>2183</td>
+</tr>
+<tr>
+<td><strong># hits with E-value &lt; 1</strong></td>
+<td>1818</td>
+<td>1953</td>
+</tr>
+<tr>
+<td><strong># unique hits with E-value &lt; 1</strong></td>
+<td>1665</td>
+<td>1801</td>
+</tr>
+</tbody>
+</table>
+<p>As shown by the table, the combined model found far more hits than the LiNa model, but the LiNa model found more hits that were well-matched to the model (hits with E-value &lt; 1).</p>
+<h3 id="5-evaluate-search-results">5. Evaluate search results</h3>
+<p>Finally, I performed a few comparisons between the four searches, since we want to see how the combined models compare to the individual models.</p>
+<p>First, we report hit counts for each search, including the total number of hits found, the number of unique hits found, and the number of unique hits found with an E-value less than 1000.0.</p>
+<table>
+<thead>
+<tr>
+<th>Search Name</th>
+<th># Total</th>
+<th># Unique</th>
+<th># Unique E&lt;1000</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gtdb-prok_DUF1646_1</td>
+<td>1649</td>
+<td>1478</td>
+<td>1474</td>
+</tr>
+<tr>
+<td>gtdb-prok_nhaA-I_2</td>
+<td>4365</td>
+<td>4091</td>
+<td>4080</td>
+</tr>
+<tr>
+<td>DUF1646_nhaA-I.fna.motif.h2_1_gtdb-bact-r207-repr_E1000.0</td>
+<td>14536</td>
+<td>13398</td>
+<td>13355</td>
+</tr>
+<tr>
+<td>lina-combo-v1_gtdb-bact-r207-repr_E1000.0</td>
+<td>2354</td>
+<td>2183</td>
+<td>2181</td>
+</tr>
+</tbody>
+</table>
+<p>Then, we check for intersecting hits between the original nhaA-I and DUF1646 searches, finding zero intersecting hits:</p>
+<pre class="hljs"><code><div>Found 0 intersecting hits between DUF1646 and nhaA-I
+</div></code></pre>
+<p>Then, for each combined model, we compare the results of the combined model to the nhaA-I and DUF1646 searches to identify true positives (TP), false positives (FP), and false negatives (FN) by the following template:</p>
+<table>
+<tr><td>
+<table>
+<thead>
+<tr>
+<th>E</th>
+<th>I</th>
+<th>II</th>
+<th>III</th>
+<th>IV</th>
+<th>V</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr>
+<td>10</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr>
+<td>100</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+</tr>
+</tbody>
+</table>
+</td><td>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E</td>
+<td>E-value threshold</td>
+<td></td>
+</tr>
+<tr>
+<td>I</td>
+<td># of DUF1646 hits not in combo</td>
+<td>FN</td>
+</tr>
+<tr>
+<td>II</td>
+<td># of DUF1646 hits in combo</td>
+<td>TP</td>
+</tr>
+<tr>
+<td>III</td>
+<td># of combo hits not in DUF1646 or nhaA-I</td>
+<td>FP*</td>
+</tr>
+<tr>
+<td>IV</td>
+<td># of nhaA-I hits in combo</td>
+<td>TP</td>
+</tr>
+<tr>
+<td>V</td>
+<td># of nhaA-I hits not in combo</td>
+<td>FN</td>
+</tr>
+</tbody>
+</table>
+<p>*Some of the false positives in III may actually be true positives. For example, if a hit is found in the combined model, but not in either of the individual models, it could be a true positive that was missed by the individual models, or it could be a false positive that was found by the combined model – we can't tell without further analysis.</p>
+</td></tr>
+</table>
+<p>The results of the comparisons of the combined models to the original models are shown below:</p>
+<table>
+<tr><td>
+<p><strong>DUF1646_nhaA-I vs. DUF1646 and nhaA-I</strong></p>
+<table>
+<thead>
+<tr>
+<th>E</th>
+<th>I</th>
+<th>II</th>
+<th>III</th>
+<th>IV</th>
+<th>V</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1000</td>
+<td>421</td>
+<td>0</td>
+<td>11698</td>
+<td>1657</td>
+<td>6</td>
+</tr>
+<tr>
+<td>100</td>
+<td>421</td>
+<td>0</td>
+<td>2768</td>
+<td>1653</td>
+<td>10</td>
+</tr>
+<tr>
+<td>10</td>
+<td>421</td>
+<td>0</td>
+<td>577</td>
+<td>1631</td>
+<td>32</td>
+</tr>
+<tr>
+<td>1</td>
+<td>421</td>
+<td>0</td>
+<td>110</td>
+<td>1555</td>
+<td>108</td>
+</tr>
+</tbody>
+</table>
+</td><td>
+<p><strong>LiNa vs. DUF1646 and nhaA-I</strong></p>
+<table>
+<thead>
+<tr>
+<th>E</th>
+<th>I</th>
+<th>II</th>
+<th>III</th>
+<th>IV</th>
+<th>V</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1000</td>
+<td>257</td>
+<td>164</td>
+<td>399</td>
+<td>1618</td>
+<td>45</td>
+</tr>
+<tr>
+<td>100</td>
+<td>278</td>
+<td>143</td>
+<td>82</td>
+<td>1576</td>
+<td>87</td>
+</tr>
+<tr>
+<td>10</td>
+<td>325</td>
+<td>96</td>
+<td>25</td>
+<td>1388</td>
+<td>275</td>
+</tr>
+<tr>
+<td>1</td>
+<td>395</td>
+<td>26</td>
+<td>14</td>
+<td>990</td>
+<td>673</td>
+</tr>
+</tbody>
+</table>
+</td></tr>
+</table>
+<p>From the table on the left we can see that my combined model overfits to nhaA-I and completely misses hits from DUF1646. This is likely due to an issue with CMfinder; since the nhaA-I search contributes more hits than DUF1646 (1663 &gt; 421) to the combined input to CMfinder, it is likely that CMfinder finds the pattern in nhaA-I and then stops looking for it in DUF1646. This is a problem that I will need to address in the future. However, we can see that the combined model does find some hits that are not found by either of the individual models, so it still may be useful. Future work will include further analysis of these hits, described in the next section.</p>
+<p>From the table on the right we see that the LiNa combined model search also overfits to nhaA-I, but not as badly as the CMfinder combined model. This is likely due to the fact that LiNa uses a different algorithm to combine the models, and it is not as sensitive to the number of hits contributed by each model. The LiNa combined model finds a few hits that are not found by either of the individual models, but not as many as the CMfinder combined model.</p>
+<h3 id="6-an-aside-reporting-tandem-hits">6. An aside: reporting tandem hits</h3>
+<p>During model comparison, we also report any instances of tandems, which we define as hits that are located within 100 bp of each other. This information is not useful to our current analysis, but could be an interesting case study and demonstrates the pipeline's breadth of potential functionality. The results are shown below:</p>
+<pre class="hljs"><code><div>Found tandem: MGTI01000074.1 11757-11703 11644-11589
+Found tandem: MGTI01000074.1 11644-11589 11757-11703
+Found tandem: DHQV01000099.1 4515-4574 4379-4429
+Found tandem: MVRP01000073.1 1364-1414 1503-1556
+Found tandem: MVRP01000073.1 1503-1556 1364-1414
+Found tandem: JADJGV010000011.1 59728-59776 59636-59587
+Found tandem: JADJGV010000011.1 59636-59587 59728-59776
+Found tandem: VGRU01000033.1 489-431 354-296
+Found tandem: VGRU01000033.1 354-296 489-431
+Found tandem: MVRS01000109.1 9551-9494 9694-9633
+Found tandem: DCVI01000207.1 44921-44868 44770-44713
+Found tandem: DCVI01000207.1 44770-44713 44921-44868
+Found tandem: VGSH01000014.1 30017-29962 30163-30108
+Found tandem: VGSH01000014.1 30017-29962 29871-29813
+Found tandem: VGSH01000014.1 30163-30108 30017-29962
+Found tandem: VGSH01000014.1 29871-29813 30017-29962
+Found tandem: MVRP01000001.1 47864-47916 47994-48052
+Found tandem: MVRP01000001.1 47994-48052 47864-47916
+Found tandem: MVRP01000044.1 25032-24978 25169-25119
+Found tandem: MVRP01000044.1 25169-25119 25032-24978
+Found tandem: MGTI01000074.1 11757-11703 11641-11590
+Found tandem: MGTI01000074.1 11644-11589 11754-11704
+Found tandem: MVRP01000073.1 1364-1414 1506-1555
+Found tandem: MVRP01000073.1 1503-1556 1367-1414
+Found tandem: JADJGV010000011.1 59728-59776 59633-59588
+Found tandem: JADJGV010000011.1 59636-59587 59731-59775
+Found tandem: VGRU01000033.1 489-431 351-297
+Found tandem: VGRU01000033.1 354-296 486-432
+Found tandem: QZJR01000105.1 17578-17640 17438-17496
+Found tandem: DCVI01000207.1 44770-44713 44918-44868
+Found tandem: VGSH01000014.1 30017-29962 30160-30109
+Found tandem: VGSH01000014.1 30017-29962 29868-29814
+Found tandem: VGSH01000014.1 30163-30108 30014-29963
+Found tandem: VGSH01000014.1 29871-29813 30014-29963
+Found tandem: MVRP01000001.1 47864-47916 47997-48051
+Found tandem: MVRP01000001.1 47994-48052 47867-47915
+Found tandem: MVRP01000044.1 25032-24978 25166-25119
+Found tandem: MVRP01000044.1 25169-25119 25029-24979
+</div></code></pre>
+
+</body>
+</html>
