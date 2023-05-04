@@ -16,6 +16,8 @@ class SlurmJob(Base):
     args: str = Column(String, nullable=False)
     status: str = Column(String, nullable=False, default="RUNNING")  # RUNNING, FINISHED, CANCELLED
 
+    # TODO: Add job start time, job end time, job duration, job output, job error?
+
     @staticmethod
     def submit(script: str, *args):
         """ Submit a Slurm job. """
